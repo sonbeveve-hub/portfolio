@@ -27,6 +27,7 @@ import { initForm } from './form.js';
 import { initTransitions } from './transition.js';
 import { initTools } from './tools.js';
 import { initAccordion } from './accordion.js';
+import { initPortrait } from './aportrait.js';
 import { initWorkPreview } from './wlist.js';
 
 initTransitions();
@@ -47,4 +48,5 @@ initMagnetic();
 initForm();
 initTools();
 initAccordion();
+initPortrait();
 initWorkPreview();

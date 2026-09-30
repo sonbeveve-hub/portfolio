@@ -89,10 +89,15 @@ a.srow { color: inherit; }
 .ahero__title > span { display: block; }
 .ahero__shape { display: inline-grid; width: 0.55em; height: 0.55em; margin-left: 0.15em; color: var(--text); vertical-align: baseline; }
 .ahero__lead { max-width: 44ch; margin-top: 40px; font-size: var(--fs-s); line-height: 1.6; color: var(--muted); }
-.ahero__img { position: absolute; z-index: 0; right: clamp(0px, 5vw, 90px); bottom: 0; height: min(88%, 800px); width: auto; aspect-ratio: 220 / 394; image-rendering: pixelated; opacity: 0.92;
-  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }
-:root[data-theme='light'] .ahero__img { filter: invert(1); opacity: 0.85; }
-@media (max-width: 760px) { .ahero__img { opacity: 0.4; right: -20%; } }
+.aportrait { --pitch: 3px; position: absolute; z-index: 0; right: clamp(0px, 5vw, 90px); bottom: 0; width: calc(146 * var(--pitch)); height: calc(262 * var(--pitch));
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent); mask-image: linear-gradient(180deg, #000 62%, transparent); }
+.aportrait__static, .aportrait__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-height: 760px) { .aportrait { --pitch: 2px; } }
+.aportrait__canvas { opacity: 0; }
+.aportrait.is-ready .aportrait__canvas { opacity: 1; }
+.aportrait.is-ready .aportrait__static { visibility: hidden; }
+:root[data-theme='light'] .aportrait { filter: invert(1); }
+@media (max-width: 760px) { .aportrait { opacity: 0.45; right: -22%; } }
 .afast { padding-block: var(--sp-8) var(--sp-9); }
 .afast__cols { display: grid; gap: var(--sp-7); align-items: center; }
 .afast__art { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
