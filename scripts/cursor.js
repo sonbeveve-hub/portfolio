@@ -11,6 +11,7 @@ export function initCursor() {
   document.body.appendChild(el);
 
   const ease = reducedMotion() ? 1 : 0.18;
+  const portrait = document.querySelector('[data-aportrait]');
   let x = -100, y = -100, tx = -100, ty = -100, on = false;
   const tick = () => {
     x += (tx - x) * ease;
@@ -27,7 +28,11 @@ export function initCursor() {
     const lab = e.target.closest?.('[data-cursor-label]');
     el.classList.toggle('is-label', !!lab);
     el.textContent = lab ? lab.dataset.cursorLabel : '';
-    el.classList.toggle('is-hover', !lab && !!e.target.closest?.(HOVER));
+    // Trên ảnh chân dung (About): dấu "+" ở theme tối, "×" ở theme sáng (xoay bằng CSS)
+    const r = portrait?.getBoundingClientRect();
+    const onPortrait = !!r && tx >= r.left && tx <= r.right && ty >= r.top && ty <= r.bottom;
+    el.classList.toggle('is-x', onPortrait);
+    el.classList.toggle('is-hover', !lab && (onPortrait || !!e.target.closest?.(HOVER)));
   }, { passive: true });
   document.addEventListener('pointerleave', () => { on = false; el.classList.remove('is-on'); });
 }

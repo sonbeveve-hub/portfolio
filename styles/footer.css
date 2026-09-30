@@ -71,3 +71,5 @@
 :root[data-theme='light'] .cursor::before, :root[data-theme='light'] .cursor::after { background: var(--accent-text); }
 .cursor.is-hover::before, .cursor.is-hover::after { opacity: 1; }
 .cursor.is-label::before, .cursor.is-label::after { display: none; }
+:root[data-theme='light'] .cursor.is-x::before { transform: rotate(45deg); }
+:root[data-theme='light'] .cursor.is-x::after { transform: rotate(45deg); }
