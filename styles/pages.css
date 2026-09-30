@@ -220,18 +220,6 @@ a.sidx:hover .sidx__arrow svg { transform: translateX(4px); }
 /* ===== Kinh nghiệm làm việc ===== */
 .exp { padding-block: var(--sp-8); }
 .exp__lead { max-width: 60ch; font-size: var(--fs-s); line-height: 1.6; color: var(--muted); margin: -24px 0 var(--sp-7); }
-/* dải tổng quan nhỏ */
-.xmini { display: none; margin-bottom: var(--sp-7); }
-@media (min-width: 760px) { .xmini { display: block; } }
-.xmini__lane { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; padding-block: 6px; font-size: 12px; color: var(--muted); }
-.xmini__lane > div { position: relative; height: 10px; }
-.xmini__bar { position: absolute; top: 0; height: 10px; border-radius: 99px; border: 1px solid var(--tag-stroke); }
-.xmini__lane:first-child .xmini__bar { background: var(--grad); border-color: transparent; }
-.xmini__bar.is-now { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent); }
-.xmini__axis { display: grid; grid-template-columns: 150px 1fr; gap: 16px; }
-.xmini__axis > div { position: relative; height: 22px; border-top: 1px solid var(--stroke); margin-top: 6px; }
-.xmini__axis span { position: absolute; top: 6px; font-size: 11px; color: var(--dim); }
-.xmini__axis::before { content: ''; }
 /* khối theo từng công việc hợp đồng */
 .xjob { padding-block: var(--sp-5) var(--sp-6); }
 .xlist { border-bottom: 1px solid var(--stroke); }

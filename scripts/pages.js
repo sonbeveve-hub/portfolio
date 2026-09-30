@@ -198,21 +198,9 @@ function renderExperience(x) {
     ${freeBlock(x.during, groups.get(j.i))}
   </article>`).join('') + (solo.length ? `<article class="xjob" data-reveal>${freeBlock(x.solo, solo)}</article>` : '');
 
-  // Dải tổng quan nhỏ (không chữ)
-  const y0 = Math.floor(Math.min(...items.map((t) => t.s)) / 12);
-  const start = y0 * 12, end = Math.max(...items.map((t) => t.e)) + 1, span = end - start;
-  const pct = (v) => ((v - start) / span) * 100;
-  const bar = (t) => `<i class="xmini__bar${t.to ? '' : ' is-now'}" title="${esc(t.org)}" style="left:${pct(t.s).toFixed(2)}%;width:${(pct(t.e + 1) - pct(t.s)).toFixed(2)}%"></i>`;
-  const years = [];
-  for (let y = y0; y * 12 < end; y++) years.push(`<span style="left:${pct(y * 12).toFixed(2)}%">${y}</span>`);
   return `<section class="exp wrap wrap--work" aria-labelledby="exp-t" data-exp>
   <h2 class="sec-title" id="exp-t" data-reveal>${accent(x.title)}</h2>
   <p class="exp__lead" data-reveal>${esc(x.lead)}</p>
-  <div class="xmini" data-reveal aria-hidden="true">
-    <div class="xmini__lane"><span>${esc(x.lanes.employment)}</span><div>${jobs.map(bar).join('')}</div></div>
-    <div class="xmini__lane"><span>${esc(x.lanes.freelance)}</span><div>${free.map(bar).join('')}</div></div>
-    <div class="xmini__axis"><div>${years.join('')}</div></div>
-  </div>
   <div class="xjobs">${blocks}</div>
 </section>`;
 }
