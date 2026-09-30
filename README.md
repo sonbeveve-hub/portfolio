@@ -121,3 +121,7 @@ Với **Netlify**: Build command `npm run build`, Publish directory `dist`. Vớ
 - [ ] Link Calendly/Zalo (`cta`), email, mạng xã hội, link pháp lý (`contact`, `footer`)
 - [ ] Ảnh chân dung, video `reel.webm` và poster, ảnh chia sẻ `og.png` (1200×630)
 - [ ] Gắn form thật (`scripts/contact-api.js`)
+
+## Design system & UI kit
+
+`npm run docs` tạo `docs/ui-kit.html`: một file HTML độc lập (mở offline) gồm màu (kèm tỉ lệ tương phản), chữ, khoảng cách, chuyển động, biểu tượng và toàn bộ thành phần giao diện, lấy trực tiếp từ token, CSS và hàm render của site nên luôn khớp với trang thật.

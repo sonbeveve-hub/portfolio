@@ -43,6 +43,7 @@ const icons = {
   mail: S('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>'),
 };
 export const icon = (name) => icons[name] || '';
+export const iconNames = Object.keys(icons);
 
 // Hình trang trí (điền màu, dùng trong chữ khổng lồ và câu About)
 const shapes = {
@@ -56,6 +57,7 @@ const shapes = {
   asterisk: S('<g stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M12 2.500v19M3.800 7.200l16.400 9.600M3.800 16.800L20.200 7.200"/></g>'),
   half: S('<path d="M2 3h9a10 9 0 010 18H2z" transform="translate(4 0)"/>'),
 };
+export const shapeNames = Object.keys(shapes);
 export const shape = (name, cls = '') => `<span class="shape ${cls}" aria-hidden="true">${shapes[name] || ''}</span>`;
 
 export const pill = ({ label, href, cls = '', attrs = '' }) =>
