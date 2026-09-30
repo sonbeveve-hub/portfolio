@@ -1036,7 +1036,10 @@
               "300+ students in the first cohort"
             ]
           }
-        ]
+        ],
+        "during": "Freelance during this time",
+        "solo": "Freelance outside employment",
+        "projects": "projects"
       }
     }
   }

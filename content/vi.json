@@ -1036,7 +1036,10 @@
               "Hơn 300 học viên trong đợt đầu"
             ]
           }
-        ]
+        ],
+        "during": "Freelance cùng thời gian",
+        "solo": "Freelance ngoài thời gian hợp đồng",
+        "projects": "dự án"
       }
     }
   }

@@ -161,61 +161,59 @@ const fmtMY = (ym) => `${ym.slice(5, 7)}/${ym.slice(0, 4)}`;
 function renderExperience(x) {
   const now = new Date();
   const nowYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-  const items = x.items
-    .map((it, i) => ({ ...it, i, s: mIdx(it.from), e: mIdx(it.to || nowYM) }))
-    .sort((p, q) => q.s - p.s || q.e - p.e);
-  const y0 = Math.min(...items.map((t) => t.s)) / 12 | 0;
-  const start = y0 * 12, end = Math.max(...items.map((t) => t.e)) + 1, span = end - start;
-  const pct = (v) => ((v - start) / span) * 100;
+  const items = x.items.map((it, i) => ({ ...it, i, s: mIdx(it.from), e: mIdx(it.to || nowYM) }));
+  const jobs = items.filter((t) => t.type === 'employment').sort((p, q) => q.s - p.s);
+  const free = items.filter((t) => t.type === 'freelance').sort((p, q) => q.s - p.s);
   const dur = (it) => {
     const n = it.e - it.s + 1, y = Math.floor(n / 12), m = n % 12;
     return [y ? `${y} ${x.units.y}` : '', m ? `${m} ${x.units.m}` : ''].filter(Boolean).join(' ');
   };
   const period = (it) => `${fmtMY(it.from)} — ${it.to ? fmtMY(it.to) : x.now}`;
 
-  // Xếp các thanh freelance chồng thời gian vào các hàng phụ
-  const packed = (type) => {
-    const rows = [];
-    items.filter((t) => t.type === type).sort((p, q) => p.s - q.s).forEach((t) => {
-      let r = rows.findIndex((last) => last < t.s);
-      if (r < 0) { r = rows.length; rows.push(-1); }
-      rows[r] = t.e; t.row = r;
-    });
-    return Math.max(1, rows.length);
-  };
-  const lane = (type) => {
-    const n = packed(type);
-    const bars = items.filter((t) => t.type === type)
-      .map((t) => `<button type="button" class="xbar${t.to ? '' : ' is-now'}" data-x="${t.i}" style="left:${pct(t.s).toFixed(2)}%;width:${(pct(t.e + 1) - pct(t.s)).toFixed(2)}%;--r:${t.row}" aria-label="${esc(t.org)}, ${esc(period(t))}"><span>${esc(t.org)}</span></button>`)
-      .join('');
-    return `<div class="xlane"><span class="xlane__name">${esc(x.lanes[type])}</span><div class="xlane__track" style="--rows:${n}">${bars}</div></div>`;
-  };
-  const years = [];
-  for (let y = y0; y * 12 < end; y++) years.push(`<span style="left:${pct(y * 12).toFixed(2)}%">${y}</span>`);
-  const chips = [`<button type="button" class="chip-btn is-on" data-xcat="*" aria-pressed="true">${esc(x.all)}</button>`]
-    .concat(['employment', 'freelance'].map((k) => `<button type="button" class="chip-btn" data-xcat="${k}" aria-pressed="false">${esc(x.lanes[k])}</button>`))
-    .join('');
-  const rows = items.map((t) => `<li class="xrow" data-x="${t.i}" data-type="${t.type}">
-      <button type="button" class="xrow__head" aria-expanded="false">
-        <span class="xrow__name">${esc(t.org)} <span class="tag">${esc(x.lanes[t.type])}</span></span>
-        <span class="xrow__role">${esc(t.role)}</span>
-        <span class="xrow__time">${esc(period(t))}<small>${esc(dur(t))}</small></span>
-        <span class="xrow__plus" aria-hidden="true"></span>
-      </button>
-      <div class="xrow__body"><div class="xrow__inner">
+  // Mỗi dự án freelance thuộc công việc hợp đồng mà nó trùng thời gian nhiều nhất
+  const groups = new Map(jobs.map((j) => [j.i, []]));
+  const solo = [];
+  free.forEach((f) => {
+    let best = null, bestN = 0;
+    jobs.forEach((j) => { const n = Math.min(j.e, f.e) - Math.max(j.s, f.s) + 1; if (n > bestN) { best = j; bestN = n; } });
+    (best ? groups.get(best.i) : solo).push(f);
+  });
+
+  const body = (t) => `<div class="xrow__body"><div class="xrow__inner">
         <p>${esc(t.summary)}</p>
         <div><h4>${esc(x.resultsLabel)}</h4><ul>${t.results.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
-      </div></div>
-    </li>`).join('');
+      </div></div>`;
+  const row = (t, job) => `<li class="xrow${job ? ' xrow--job' : ''}" data-x="${t.i}">
+      <button type="button" class="xrow__head" aria-expanded="false">
+        <span class="xrow__name">${esc(job ? t.role : t.org)}</span>
+        <span class="xrow__role">${esc(job ? t.org : t.role)}</span>
+        <span class="xrow__time">${esc(period(t))}<small>${esc(dur(t))}</small></span>
+        <span class="xrow__plus" aria-hidden="true"></span>
+      </button>${body(t)}
+    </li>`;
+  const freeBlock = (title, list) => list.length
+    ? `<div class="xfree"><h3 class="xfree__t">${esc(title)} <span>${list.length} ${esc(x.projects)}</span></h3><ul class="xlist">${list.map((f) => row(f, false)).join('')}</ul></div>` : '';
+  const blocks = jobs.map((j) => `<article class="xjob" data-reveal>
+    <ul class="xlist xlist--job">${row(j, true)}</ul>
+    ${freeBlock(x.during, groups.get(j.i))}
+  </article>`).join('') + (solo.length ? `<article class="xjob" data-reveal>${freeBlock(x.solo, solo)}</article>` : '');
+
+  // Dải tổng quan nhỏ (không chữ)
+  const y0 = Math.floor(Math.min(...items.map((t) => t.s)) / 12);
+  const start = y0 * 12, end = Math.max(...items.map((t) => t.e)) + 1, span = end - start;
+  const pct = (v) => ((v - start) / span) * 100;
+  const bar = (t) => `<i class="xmini__bar${t.to ? '' : ' is-now'}" title="${esc(t.org)}" style="left:${pct(t.s).toFixed(2)}%;width:${(pct(t.e + 1) - pct(t.s)).toFixed(2)}%"></i>`;
+  const years = [];
+  for (let y = y0; y * 12 < end; y++) years.push(`<span style="left:${pct(y * 12).toFixed(2)}%">${y}</span>`);
   return `<section class="exp wrap wrap--work" aria-labelledby="exp-t" data-exp>
   <h2 class="sec-title" id="exp-t" data-reveal>${accent(x.title)}</h2>
   <p class="exp__lead" data-reveal>${esc(x.lead)}</p>
-  <div class="xchart" data-reveal role="group" aria-label="${esc(x.chartLabel)}">
-    ${lane('employment')}${lane('freelance')}
-    <div class="xaxis" aria-hidden="true">${years.join('')}</div>
+  <div class="xmini" data-reveal aria-hidden="true">
+    <div class="xmini__lane"><span>${esc(x.lanes.employment)}</span><div>${jobs.map(bar).join('')}</div></div>
+    <div class="xmini__lane"><span>${esc(x.lanes.freelance)}</span><div>${free.map(bar).join('')}</div></div>
+    <div class="xmini__axis"><div>${years.join('')}</div></div>
   </div>
-  <div class="tools__chips" data-reveal role="group">${chips}</div>
-  <ul class="xlist">${rows}</ul>
+  <div class="xjobs">${blocks}</div>
 </section>`;
 }
 
