@@ -36,10 +36,18 @@
 .stats__grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .stat { display: flex; flex-direction: column; justify-content: space-between; gap: var(--sp-6); min-height: 272px; padding: 30px 12px 30px clamp(14px, 1.8vw, 19px); border-left: 1px solid var(--stroke); }
 .stat:last-child { border-right: 1px solid var(--stroke); }
+/* Rê chuột: cả cột tô gradient xanh, chữ chuyển sang đen (giống trang mẫu) */
+.stat { position: relative; isolation: isolate; transition: color 0.5s var(--ease); }
+.stat::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--grad); opacity: 0; transition: opacity 0.5s var(--ease); }
+@media (hover: hover) {
+  .stat:hover { color: #121212; }
+  .stat:hover::before { opacity: 1; }
+  .stat:hover .stat__desc { color: #121212; }
+}
 .stat__row { display: flex; align-items: flex-start; gap: 10px; }
 .stat__num { font-size: var(--fs-num); font-weight: 300; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
 .stat__unit { margin-top: 0.35em; font-size: var(--fs-xs); line-height: 1.2; }
-.stat__desc { max-width: 20ch; font-size: var(--fs-s); line-height: 1.45; color: var(--muted); }
+.stat__desc { max-width: 20ch; font-size: var(--fs-s); line-height: 1.45; color: var(--muted); transition: color 0.5s var(--ease); }
 @media (max-width: 760px) {
   .stats__grid { grid-template-columns: 1fr; }
   .stat { min-height: 0; border-left: 0; border-top: 1px solid var(--stroke); padding-inline: 0; flex-direction: row; align-items: center; justify-content: space-between; }
