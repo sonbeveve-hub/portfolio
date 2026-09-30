@@ -11,7 +11,7 @@
       (function () {
         try {
           var saved = localStorage.getItem('theme');
-          var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          var theme = saved === 'light' ? 'light' : 'dark'; // mặc định tối, chỉ đổi khi người dùng tự chọn
           document.documentElement.dataset.theme = theme;
         } catch (e) {}
       })();

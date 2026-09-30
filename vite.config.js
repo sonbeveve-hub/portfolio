@@ -43,8 +43,38 @@ function contentPlugin() {
   };
 }
 
+// Bản build: nhúng CSS thẳng vào HTML (bớt một lượt tải chặn hiển thị) và preload các font chính.
+function inlineCriticalPlugin() {
+  return {
+    name: 'portfolio-inline-critical',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        const bundle = ctx.bundle;
+        if (!bundle) return html;
+        let out = html;
+        const fonts = [];
+        for (const [name, item] of Object.entries(bundle)) {
+          if (item.type === 'asset' && name.endsWith('.css')) {
+            const file = name.split('/').pop();
+            const re = new RegExp(`<link[^>]*rel="stylesheet"[^>]*href="[^"]*${file.replace(/[.]/g, '\\.')}"[^>]*>`);
+            if (re.test(out)) {
+              out = out.replace(re, () => `<style>${item.source}</style>`);
+              delete bundle[name];
+            }
+          } else if (/(inter-(latin|vietnamese)-wght-normal|playfair-display-(latin|vietnamese)-wght-italic)-[\w-]+\.woff2$/.test(name)) {
+            fonts.push(`<link rel="preload" href="/${name}" as="font" type="font/woff2" crossorigin />`);
+          }
+        }
+        return out.replace('</head>', `    ${fonts.join('\n    ')}\n  </head>`);
+      },
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [contentPlugin()],
+  plugins: [contentPlugin(), inlineCriticalPlugin()],
   build: {
     target: 'es2022',
     // Nhắm trình duyệt hiện đại để bước nén CSS không bỏ mất backdrop-filter chuẩn.

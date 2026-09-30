@@ -4,8 +4,8 @@
     "lang": "vi",
     "title": "Tên Bạn — Designer & UI/UX",
     "description": "Portfolio của Tên Bạn: thiết kế giao diện, trải nghiệm người dùng và quản lý dự án cho doanh nghiệp cần sản phẩm ra thật nhanh.",
-    "ogImage": "/assets/images/og.jpg",
-    "themeColor": "#22C55E"
+    "ogImage": "/assets/images/og.png",
+    "themeColor": "#121212"
   },
   "brand": {
     "logo": "Tên Bạn",
@@ -30,106 +30,161 @@
     }
   ],
   "cta": {
-    "label": "Đặt lịch trao đổi",
+    "label": "Đặt lịch",
     "href": "https://calendly.com/your-link"
   },
   "hero": {
-    "eyebrow": "Designer · UI/UX · Quản lý dự án",
-    "headline": "Thiết kế giúp sản phẩm của bạn *ra thật nhanh*.",
-    "subline": "Tôi biến ý tưởng thành giao diện rõ ràng, dễ dùng và triển khai đúng hạn — từ wireframe đến bàn giao.",
-    "audience": "Dành cho doanh nghiệp cần sản phẩm ra thị trường nhanh, không đánh đổi chất lượng."
+    "lines": [
+      {
+        "text": "Thiết kế giúp",
+        "style": "sans"
+      },
+      {
+        "text": "sản phẩm của bạn",
+        "style": "serif",
+        "align": "right"
+      },
+      {
+        "text": "ra thật nhanh",
+        "style": "sans",
+        "cta": true
+      }
+    ],
+    "headlineSr": "Thiết kế giúp sản phẩm của bạn ra thật nhanh",
+    "tagLeft": "Designer, UI/UX và quản lý dự án — từ wireframe đến bàn giao.",
+    "tagRight": "Dành cho doanh nghiệp cần sản phẩm ra thị trường nhanh mà vẫn chất lượng."
+  },
+  "about": {
+    "statement": "Tôi làm việc ở giao điểm của thiết kế, dữ liệu và vận hành. [[gem]] Mỗi __sản phẩm__ bắt đầu bằng việc hiểu người dùng, đi qua những vòng thử ngắn và kết thúc bằng bản bàn giao gọn gàng. [[clover]] Kết quả là giao diện rõ ràng, đội ngũ làm nhanh hơn và khách hàng thấy __giá trị__ ngay từ bản đầu tiên. [[burst]]",
+    "portrait": "/assets/images/portrait.svg",
+    "portraitAlt": "Ảnh chân dung của Tên Bạn"
+  },
+  "reel": {
+    "label": "Xem showreel",
+    "marquee": "Xem showreel",
+    "video": "/assets/video/reel.webm",
+    "poster": "/assets/images/reel-poster.svg",
+    "playLabel": "Phát video",
+    "pauseLabel": "Tạm dừng video"
   },
   "stats": [
     {
       "value": 5,
       "suffix": "+",
-      "label": "Năm kinh nghiệm"
+      "unit": "Năm",
+      "label": "Kinh nghiệm thiết kế sản phẩm số"
     },
     {
       "value": 60,
       "suffix": "+",
-      "label": "Dự án hoàn thành"
+      "unit": "Dự án",
+      "label": "Đã hoàn thành cho nhiều ngành"
     },
     {
       "value": 40,
       "suffix": "+",
-      "label": "Khách hàng hài lòng"
+      "unit": "Khách hàng",
+      "label": "Quay lại làm việc lần thứ hai"
     }
   ],
   "services": {
-    "title": "*Dịch vụ* cho sản phẩm tốt hơn",
+    "title": "*Dịch vụ* để sản phẩm tốt hơn",
     "tagline": "Sáu mảng việc, một người chịu trách nhiệm đến cùng — từ ý tưởng thô đến sản phẩm người dùng thật sự dùng.",
+    "button": {
+      "label": "Trao đổi dự án",
+      "href": "#contact"
+    },
     "items": [
       {
         "icon": "layout",
         "title": "Thiết kế UI",
-        "text": "Giao diện web và app nhất quán, đẹp và sẵn sàng để lập trình."
+        "text": "Giao diện web và app nhất quán, sẵn sàng để lập trình."
       },
       {
         "icon": "compass",
         "title": "Nghiên cứu & UX",
-        "text": "Phỏng vấn, luồng người dùng và wireframe để quyết định dựa trên dữ liệu."
+        "text": "Phỏng vấn, luồng người dùng và wireframe có dữ liệu."
       },
       {
         "icon": "layers",
         "title": "Design system",
-        "text": "Bộ thành phần và quy chuẩn giúp đội ngũ làm nhanh và đồng bộ."
+        "text": "Bộ thành phần giúp đội ngũ làm nhanh và đồng bộ."
       },
       {
         "icon": "calendar",
         "title": "Quản lý dự án",
-        "text": "Lập kế hoạch, theo dõi tiến độ và giữ dự án đúng deadline."
+        "text": "Lập kế hoạch, theo dõi tiến độ, giữ đúng deadline."
       },
       {
         "icon": "message",
         "title": "Tư vấn & bán hàng",
-        "text": "Đồng hành từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao."
+        "text": "Từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao."
       },
       {
         "icon": "spark",
         "title": "Branding cơ bản",
-        "text": "Logo, màu sắc và bộ nhận diện gọn gàng cho thương hiệu mới."
+        "text": "Logo, màu sắc và bộ nhận diện gọn cho thương hiệu mới."
       }
-    ]
+    ],
+    "audience": {
+      "label": "Tôi làm cho ai",
+      "textA": "Từ doanh nghiệp đã có tên tuổi đến người sáng lập mới bắt đầu, tôi đều làm việc theo cùng một tiêu chuẩn.",
+      "textB": "Những sản phẩm ra mắt nhanh, đúng nhu cầu và dễ mở rộng."
+    }
   },
   "work": {
     "title": "Dự án nổi bật",
-    "allLabel": "Xem tất cả dự án",
-    "allHref": "https://www.behance.net/your-profile",
     "linkLabel": "Xem dự án",
+    "soonLabel": "Sắp ra mắt",
     "items": [
       {
         "title": "Dự án 01",
         "industry": "Thương mại điện tử",
-        "text": "Thiết kế lại luồng thanh toán, tăng tỷ lệ hoàn tất đơn hàng.",
-        "image": "/assets/images/project-1.jpg",
+        "image": "/assets/images/project-1.svg",
+        "image2": "/assets/images/project-1b.svg",
+        "alt": "Ảnh minh họa Dự án 01",
         "href": "#"
       },
       {
         "title": "Dự án 02",
         "industry": "Giáo dục",
-        "text": "Nền tảng học trực tuyến với trải nghiệm rõ ràng cho học viên.",
-        "image": "/assets/images/project-2.jpg",
+        "image": "/assets/images/project-2.svg",
+        "image2": "/assets/images/project-2b.svg",
+        "alt": "Ảnh minh họa Dự án 02",
         "href": "#"
       },
       {
         "title": "Dự án 03",
         "industry": "Tài chính",
-        "text": "Ứng dụng quản lý chi tiêu cá nhân đơn giản, dễ dùng.",
-        "image": "/assets/images/project-3.jpg",
+        "image": "/assets/images/project-3.svg",
+        "image2": "/assets/images/project-3b.svg",
+        "alt": "Ảnh minh họa Dự án 03",
         "href": "#"
       },
       {
         "title": "Dự án 04",
         "industry": "Bất động sản",
-        "text": "Website giới thiệu dự án và thu thập khách hàng tiềm năng.",
-        "image": "/assets/images/project-4.jpg",
-        "href": "#"
+        "image": "/assets/images/project-4.svg",
+        "image2": "/assets/images/project-4b.svg",
+        "alt": "Ảnh minh họa Dự án 04",
+        "href": ""
       }
     ]
   },
+  "worksCta": {
+    "line1": "Muốn xem",
+    "line2a": "tôi",
+    "line2b": "giúp",
+    "line3": "doanh nghiệp thế nào?",
+    "text": "Vài dự án tôi tự hào, làm cùng cả doanh nghiệp lớn lẫn đối tác độc lập.",
+    "label": "Xem tất cả dự án",
+    "href": "https://www.behance.net/your-profile"
+  },
   "testimonials": {
-    "title": "Khách hàng nói gì",
+    "title": "Khách hàng *nói gì*",
+    "text": "Muốn biết làm việc cùng tôi thế nào? Đừng chỉ nghe tôi nói — đây là điều khách hàng chia sẻ.",
+    "prev": "Lời chứng thực trước",
+    "next": "Lời chứng thực tiếp theo",
     "items": [
       {
         "quote": "Lời chứng thực mẫu — thay bằng nhận xét thật của khách hàng.",
@@ -148,79 +203,104 @@
       }
     ]
   },
+  "quote": {
+    "line1": "Thiết kế để mở rộng",
+    "line2": "& tạo trải nghiệm",
+    "line3": "dựa trên dữ liệu"
+  },
   "partners": {
-    "title": "Đơn vị đã đồng hành",
+    "title": "Đối tác *đáng tin*",
+    "text": "Được tin dùng bởi các nhóm từ startup mới thành lập đến doanh nghiệp lớn.",
     "items": [
       {
-        "name": "Đối tác 1",
+        "name": "Đối tác 01",
         "logo": ""
       },
       {
-        "name": "Đối tác 2",
+        "name": "Đối tác 02",
         "logo": ""
       },
       {
-        "name": "Đối tác 3",
+        "name": "Đối tác 03",
         "logo": ""
       },
       {
-        "name": "Đối tác 4",
+        "name": "Đối tác 04",
         "logo": ""
       },
       {
-        "name": "Đối tác 5",
+        "name": "Đối tác 05",
         "logo": ""
       },
       {
-        "name": "Đối tác 6",
+        "name": "Đối tác 06",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 07",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 08",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 09",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 10",
         "logo": ""
       }
     ]
   },
-  "about": {
-    "title": "Về tôi",
-    "portrait": "/assets/images/portrait.svg",
-    "portraitAlt": "Ảnh chân dung của Tên Bạn",
-    "text": [
-      "Đoạn giới thiệu mẫu: tôi là designer làm việc ở giao điểm giữa thiết kế, trải nghiệm người dùng và quản lý dự án.",
-      "Thay bằng vài dòng về hành trình, cách làm việc và điều bạn muốn khách hàng biết."
-    ],
-    "statement": "Tôi thiết kế giao diện *rõ ràng*, dễ dùng và đúng hạn, biến những vấn đề phức tạp thành trải nghiệm mà người dùng muốn quay lại mỗi ngày."
-  },
-  "contactCta": {
-    "title": "Cùng làm dự án tiếp theo nhé?",
-    "label": "Liên hệ ngay",
-    "href": "mailto:hello@example.com"
-  },
   "contact": {
+    "title": "Liên hệ",
+    "text": "Tôi xây những sản phẩm chạm đến con người và đem lại kết quả cho doanh nghiệp.",
     "email": "hello@example.com",
+    "writeLabel": "Thích viết hơn? Gửi lời nhắn.",
+    "button": {
+      "label": "Liên hệ",
+      "href": "mailto:hello@example.com"
+    },
     "socials": [
       {
         "label": "Zalo",
+        "icon": "zalo",
         "href": "https://zalo.me/your-number"
       },
       {
         "label": "LinkedIn",
+        "icon": "linkedin",
         "href": "https://www.linkedin.com/in/your-profile"
       },
       {
         "label": "Behance",
+        "icon": "behance",
         "href": "https://www.behance.net/your-profile"
       },
       {
         "label": "Dribbble",
+        "icon": "dribbble",
         "href": "https://dribbble.com/your-profile"
+      },
+      {
+        "label": "Email",
+        "icon": "mail",
+        "href": "mailto:hello@example.com"
       }
     ],
     "form": {
       "title": "Gửi lời nhắn",
+      "close": "Đóng",
       "name": "Họ tên",
       "email": "Email",
       "message": "Bạn đang cần gì?",
       "submit": "Gửi lời nhắn",
       "sending": "Đang gửi…",
       "success": "Đã gửi! Mình sẽ phản hồi sớm.",
-      "error": "Chưa gửi được, vui lòng thử lại."
+      "error": "Chưa gửi được, vui lòng thử lại.",
+      "invalid": "Vui lòng điền đủ thông tin hợp lệ."
     }
   },
   "footer": {
@@ -241,6 +321,7 @@
     "openMenu": "Mở menu",
     "closeMenu": "Đóng menu",
     "skip": "Bỏ qua tới nội dung chính",
+    "home": "Trang đầu",
     "statsLabel": "Số liệu nổi bật"
   }
 }

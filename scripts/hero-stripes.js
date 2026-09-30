@@ -1,30 +1,37 @@
-// Nền hero: sọc dọc màu accent chuyển động, vẽ bằng WebGL thuần (một fragment shader, rất nhẹ).
-// Tự giảm tải trên mobile, dừng khi ra khỏi màn hình/tab ẩn, và chỉ vẽ 1 khung khi bật reduced-motion.
+// Nền hero: sọc dọc xanh neon chuyển động, vẽ bằng WebGL thuần (một fragment shader, rất nhẹ).
+// Vùng giữa được làm dịu để chữ luôn đủ tương phản. Mobile giảm tải; tạm dừng khi ẩn;
+// bật reduced-motion thì chỉ vẽ một khung tĩnh.
 
 const VERT = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
 const FRAG = `
 precision mediump float;
 uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uStripe;
-uniform vec3 uBg; uniform vec3 uAccent; uniform float uStrength;
+uniform vec3 uBase; uniform vec3 uMid; uniform vec3 uHi; uniform float uMask;
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
   return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p*=2.02;a*=.5;}return v;}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<3;i++){v+=a*n(p);p*=2.02;a*=.5;}return v;}
 void main(){
   vec2 uv=gl_FragCoord.xy/uRes;
   float aspect=uRes.x/uRes.y;
   float col=floor(gl_FragCoord.x/uStripe);
   float f=fract(gl_FragCoord.x/uStripe);
   float cx=(col+.5)*uStripe/uRes.x;
-  float t=uTime*.1;
-  float v=fbm(vec2(cx*aspect*1.6,uv.y*1.3)+vec2(t,-t*.8));
+  float t=uTime*.09;
+  float v=fbm(vec2(cx*aspect*1.5,uv.y*1.1)+vec2(t,-t*.7));
   float dm=cx-uMouse.x;
-  float glow=exp(-dm*dm*16.)*exp(-pow(uv.y-uMouse.y,2.)*3.);
-  float I=smoothstep(.28,.85,v)+glow*.45;
-  float prof=smoothstep(0.,.2,f)*(1.-smoothstep(.8,1.,f));
-  float shade=mix(.5,1.,prof);
-  vec3 c=mix(uBg,uAccent,clamp(I,0.,1.)*uStrength*shade);
-  c=mix(uBg,c,smoothstep(0.,.3,uv.y));
+  float glow=exp(-dm*dm*14.)*exp(-pow(uv.y-uMouse.y,2.)*2.6);
+  float I=smoothstep(.2,.78,v)+glow*.5;
+  // làm dịu vùng giữa (nơi có chữ)
+  float m=1.-uMask*smoothstep(.62,0.,length((uv-vec2(.5,.52))*vec2(1.,1.5)));
+  I=clamp(I*m,0.,1.);
+  float prof=smoothstep(0.,.22,f)*(1.-smoothstep(.78,1.,f));
+  float shade=mix(.28,1.,prof);
+  vec3 c=mix(mix(uBase,uMid,clamp(I*2.,0.,1.)),uHi,clamp(I*2.-1.,0.,1.));
+  c=mix(uBase,c,shade);
+  float line=smoothstep(.42,.5,f)*(1.-smoothstep(.5,.58,f));
+  c+=uHi*.10*line*I;
+  c+=(h(gl_FragCoord.xy+fract(uTime))-.5)*.05;
   gl_FragColor=vec4(c,1.);
 }`;
 
@@ -34,11 +41,30 @@ const hexToRgb = (hex) => {
   const n = parseInt(full, 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((x) => x / 255);
 };
+const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
 
 export function initHeroStripes() {
   const host = document.querySelector('[data-hero-visual]');
   if (!host) return;
 
+  // Mobile: bỏ WebGL, dùng nền CSS dự phòng (nhẹ, không chặn luồng chính).
+  if (matchMedia('(max-width: 767px)').matches) return;
+  // Desktop: hiệu ứng chỉ là trang trí nên không chen vào lúc tải trang. Bật khi người dùng bắt đầu
+  // tương tác (rê chuột, cuộn, gõ phím) hoặc sau 6 giây; trước đó hero dùng nền CSS dự phòng.
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
+  const events = ['pointermove', 'pointerdown', 'wheel', 'keydown', 'scroll', 'touchstart'];
+  let started = false;
+  const go = () => {
+    if (started) return;
+    started = true;
+    events.forEach((ev) => removeEventListener(ev, go));
+    idle(() => setup(host), { timeout: 1500 });
+  };
+  events.forEach((ev) => addEventListener(ev, go, { passive: true }));
+  setTimeout(go, 6000);
+}
+
+function setup(host) {
   const canvas = document.createElement('canvas');
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power' });
   if (!gl) return; // giữ nền CSS dự phòng
@@ -65,8 +91,7 @@ export function initHeroStripes() {
   gl.enableVertexAttribArray(loc);
   gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-  const u = (name) => gl.getUniformLocation(prog, name);
-  const U = { res: u('uRes'), time: u('uTime'), mouse: u('uMouse'), stripe: u('uStripe'), bg: u('uBg'), accent: u('uAccent'), strength: u('uStrength') };
+  const U = Object.fromEntries(['uRes', 'uTime', 'uMouse', 'uStripe', 'uBase', 'uMid', 'uHi', 'uMask'].map((k) => [k, gl.getUniformLocation(prog, k)]));
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const small = matchMedia('(max-width: 767px)');
@@ -78,26 +103,37 @@ export function initHeroStripes() {
 
   const applyTheme = () => {
     const css = getComputedStyle(root);
+    const bg = hexToRgb(css.getPropertyValue('--bg'));
+    const accent = hexToRgb(css.getPropertyValue('--accent'));
     const dark = root.dataset.theme !== 'light';
-    gl.uniform3fv(U.bg, hexToRgb(css.getPropertyValue('--bg')));
-    gl.uniform3fv(U.accent, hexToRgb(css.getPropertyValue('--accent')));
-    gl.uniform1f(U.strength, dark ? 0.7 : 0.5);
+    if (dark) {
+      gl.uniform3fv(U.uBase, mix(bg, accent, 0.05));
+      gl.uniform3fv(U.uMid, accent.map((v) => v * 0.3));
+      gl.uniform3fv(U.uHi, mix(accent, [1, 1, 1], 0.1));
+      gl.uniform1f(U.uMask, 0.62);
+    } else {
+      gl.uniform3fv(U.uBase, bg);
+      gl.uniform3fv(U.uMid, mix(bg, accent, 0.28));
+      gl.uniform3fv(U.uHi, mix(bg, accent, 0.68));
+      gl.uniform1f(U.uMask, 0.3);
+    }
   };
 
   const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, small.matches ? 1 : 1.5);
+    // Render ở ~0.7 độ phân giải: nền là dải sáng mềm nên không mất chi tiết, mà nhẹ hơn nhiều.
+    const dpr = Math.min(devicePixelRatio || 1, 1) * 0.7;
     const w = Math.max(1, Math.round(host.clientWidth * dpr));
     const hgt = Math.max(1, Math.round(host.clientHeight * dpr));
     canvas.width = w;
     canvas.height = hgt;
     gl.viewport(0, 0, w, hgt);
-    gl.uniform2f(U.res, w, hgt);
-    gl.uniform1f(U.stripe, (small.matches ? 18 : 26) * dpr);
+    gl.uniform2f(U.uRes, w, hgt);
+    gl.uniform1f(U.uStripe, (small.matches ? 16 : 26) * dpr);
   };
 
   const draw = (time) => {
-    gl.uniform1f(U.time, time);
-    gl.uniform2f(U.mouse, mouse.x, mouse.y);
+    gl.uniform1f(U.uTime, time);
+    gl.uniform2f(U.uMouse, mouse.x, mouse.y);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 
@@ -112,7 +148,7 @@ export function initHeroStripes() {
     draw(ms / 1000);
   };
   const start = () => { if (!raf && visible && !document.hidden && !reduced.matches) raf = requestAnimationFrame(frame); };
-  const still = () => { draw(4); };
+  const still = () => draw(4);
 
   host.appendChild(canvas);
   applyTheme();
