@@ -1,0 +1,49 @@
+import { defineConfig } from 'vite';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { renderMeta, renderPage } from './scripts/render.js';
+
+const contentPath = resolve(import.meta.dirname, 'content.json');
+const readContent = () => JSON.parse(readFileSync(contentPath, 'utf8'));
+
+// Dựng HTML từ content.json lúc build/dev để trang có nội dung ngay (tốt cho SEO, không cần JS để hiển thị).
+function contentPlugin() {
+  return {
+    name: 'portfolio-content',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        const content = readContent();
+        return html
+          .replace('<!--@lang-->', content.site.lang)
+          .replace('<!--@meta-->', renderMeta(content))
+          .replace('<!--@app-->', renderPage(content));
+      },
+    },
+    configureServer(server) {
+      server.watcher.add(contentPath);
+      server.watcher.on('change', (file) => {
+        if (file === contentPath) server.ws.send({ type: 'full-reload' });
+      });
+    },
+    generateBundle() {
+      const { url } = readContent().site;
+      const base = url.replace(/\/$/, '');
+      this.emitFile({
+        type: 'asset',
+        fileName: 'sitemap.xml',
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${base}/</loc></url>\n</urlset>\n`,
+      });
+      this.emitFile({
+        type: 'asset',
+        fileName: 'robots.txt',
+        source: `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`,
+      });
+    },
+  };
+}
+
+export default defineConfig({
+  plugins: [contentPlugin()],
+  build: { target: 'es2022' },
+});

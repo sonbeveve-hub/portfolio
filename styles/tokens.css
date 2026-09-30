@@ -1,0 +1,65 @@
+/* Design tokens: màu, spacing, radius, font, shadow — sửa ở đây để đổi toàn site. */
+:root {
+  /* Accent duy nhất. --accent dùng cho nền/viền/con trỏ; --accent-text đủ tương phản khi làm chữ. */
+  --accent: #22c55e;
+  --accent-ink: #052e16; /* chữ đặt trên nền accent */
+
+  --font-sans: 'Manrope Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Thang cỡ chữ */
+  --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --fs-lead: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
+  --fs-h2: clamp(2rem, 1.2rem + 3.6vw, 4.5rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --fs-display: clamp(2.75rem, 1rem + 8.4vw, 8.5rem);
+
+  /* Spacing (bội của 4px) */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+  --sp-9: clamp(5rem, 10vw, 9rem);
+
+  --radius-sm: 10px;
+  --radius: 20px;
+  --radius-pill: 999px;
+
+  --container: 1240px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 72px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.35s;
+}
+
+/* Theme tối (mặc định) */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0b0b0c;
+  --bg-elev: #141416;
+  --text: #f4f4f1;
+  --muted: #a1a1a8;
+  --line: rgba(255, 255, 255, 0.12);
+  --accent-text: #4ade80;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --header-bg: rgba(11, 11, 12, 0.72);
+}
+
+/* Theme sáng */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #fafaf8;
+  --bg-elev: #ffffff;
+  --text: #0b0b0c;
+  --muted: #55575c;
+  --line: rgba(11, 11, 12, 0.12);
+  --accent-text: #15803d;
+  --shadow: 0 10px 30px rgba(11, 11, 12, 0.08);
+  --header-bg: rgba(250, 250, 248, 0.78);
+}

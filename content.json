@@ -1,0 +1,120 @@
+{
+  "site": {
+    "url": "https://example.com",
+    "lang": "vi",
+    "title": "Tên Bạn — Designer & UI/UX",
+    "description": "Portfolio của Tên Bạn: thiết kế giao diện, trải nghiệm người dùng và quản lý dự án cho doanh nghiệp cần sản phẩm ra thật nhanh.",
+    "ogImage": "/assets/images/og.jpg",
+    "themeColor": "#22C55E"
+  },
+  "brand": { "logo": "Tên Bạn", "logoMark": "." },
+  "nav": [
+    { "label": "Work", "href": "#work" },
+    { "label": "Services", "href": "#services" },
+    { "label": "About", "href": "#about" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+  "cta": { "label": "Đặt lịch trao đổi", "href": "https://calendly.com/your-link" },
+  "hero": {
+    "eyebrow": "Designer · UI/UX · Quản lý dự án",
+    "headline": "Thiết kế giúp sản phẩm của bạn *ra thật nhanh*.",
+    "subline": "Tôi biến ý tưởng thành giao diện rõ ràng, dễ dùng và triển khai đúng hạn — từ wireframe đến bàn giao.",
+    "audience": "Dành cho doanh nghiệp cần sản phẩm ra thị trường nhanh, không đánh đổi chất lượng.",
+    "video": "/assets/video/reel.webm",
+    "poster": "/assets/images/hero-poster.jpg"
+  },
+  "stats": [
+    { "value": 5, "suffix": "+", "label": "Năm kinh nghiệm" },
+    { "value": 60, "suffix": "+", "label": "Dự án hoàn thành" },
+    { "value": 40, "suffix": "+", "label": "Khách hàng hài lòng" }
+  ],
+  "services": {
+    "title": "Dịch vụ",
+    "tagline": "Mọi thứ bạn cần để đi từ ý tưởng đến sản phẩm hoàn chỉnh.",
+    "items": [
+      { "icon": "layout", "title": "Thiết kế UI", "text": "Giao diện web và app nhất quán, đẹp và sẵn sàng để lập trình." },
+      { "icon": "compass", "title": "Nghiên cứu & UX", "text": "Phỏng vấn, luồng người dùng và wireframe để quyết định dựa trên dữ liệu." },
+      { "icon": "layers", "title": "Design system", "text": "Bộ thành phần và quy chuẩn giúp đội ngũ làm nhanh và đồng bộ." },
+      { "icon": "calendar", "title": "Quản lý dự án", "text": "Lập kế hoạch, theo dõi tiến độ và giữ dự án đúng deadline." },
+      { "icon": "message", "title": "Tư vấn & bán hàng", "text": "Đồng hành từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao." },
+      { "icon": "spark", "title": "Branding cơ bản", "text": "Logo, màu sắc và bộ nhận diện gọn gàng cho thương hiệu mới." }
+    ]
+  },
+  "work": {
+    "title": "Dự án nổi bật",
+    "allLabel": "Xem tất cả dự án",
+    "allHref": "https://www.behance.net/your-profile",
+    "linkLabel": "Xem dự án",
+    "items": [
+      { "title": "Dự án 01", "industry": "Thương mại điện tử", "text": "Thiết kế lại luồng thanh toán, tăng tỷ lệ hoàn tất đơn hàng.", "image": "/assets/images/project-1.jpg", "href": "#" },
+      { "title": "Dự án 02", "industry": "Giáo dục", "text": "Nền tảng học trực tuyến với trải nghiệm rõ ràng cho học viên.", "image": "/assets/images/project-2.jpg", "href": "#" },
+      { "title": "Dự án 03", "industry": "Tài chính", "text": "Ứng dụng quản lý chi tiêu cá nhân đơn giản, dễ dùng.", "image": "/assets/images/project-3.jpg", "href": "#" },
+      { "title": "Dự án 04", "industry": "Bất động sản", "text": "Website giới thiệu dự án và thu thập khách hàng tiềm năng.", "image": "/assets/images/project-4.jpg", "href": "#" }
+    ]
+  },
+  "testimonials": {
+    "title": "Khách hàng nói gì",
+    "items": [
+      { "quote": "Lời chứng thực mẫu — thay bằng nhận xét thật của khách hàng.", "name": "Nguyễn Văn A", "role": "Giám đốc, Công ty A" },
+      { "quote": "Lời chứng thực mẫu — làm việc chuyên nghiệp, bàn giao đúng hạn.", "name": "Trần Thị B", "role": "Founder, Startup B" },
+      { "quote": "Lời chứng thực mẫu — giao diện đẹp và dễ dùng hơn mong đợi.", "name": "Lê Văn C", "role": "Trưởng phòng, Đơn vị C" }
+    ]
+  },
+  "partners": {
+    "title": "Đơn vị đã đồng hành",
+    "items": [
+      { "name": "Đối tác 1", "logo": "" },
+      { "name": "Đối tác 2", "logo": "" },
+      { "name": "Đối tác 3", "logo": "" },
+      { "name": "Đối tác 4", "logo": "" },
+      { "name": "Đối tác 5", "logo": "" },
+      { "name": "Đối tác 6", "logo": "" }
+    ]
+  },
+  "about": {
+    "title": "Về tôi",
+    "portrait": "/assets/images/portrait.jpg",
+    "portraitAlt": "Ảnh chân dung của Tên Bạn",
+    "text": [
+      "Đoạn giới thiệu mẫu: tôi là designer làm việc ở giao điểm giữa thiết kế, trải nghiệm người dùng và quản lý dự án.",
+      "Thay bằng vài dòng về hành trình, cách làm việc và điều bạn muốn khách hàng biết."
+    ]
+  },
+  "contactCta": {
+    "title": "Cùng làm dự án tiếp theo nhé?",
+    "label": "Liên hệ ngay",
+    "href": "mailto:hello@example.com"
+  },
+  "contact": {
+    "email": "hello@example.com",
+    "socials": [
+      { "label": "Zalo", "href": "https://zalo.me/your-number" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/your-profile" },
+      { "label": "Behance", "href": "https://www.behance.net/your-profile" },
+      { "label": "Dribbble", "href": "https://dribbble.com/your-profile" }
+    ],
+    "form": {
+      "title": "Gửi lời nhắn",
+      "name": "Họ tên",
+      "email": "Email",
+      "message": "Bạn đang cần gì?",
+      "submit": "Gửi lời nhắn",
+      "sending": "Đang gửi…",
+      "success": "Đã gửi! Mình sẽ phản hồi sớm.",
+      "error": "Chưa gửi được, vui lòng thử lại."
+    }
+  },
+  "footer": {
+    "copyright": "Tên Bạn. Đã đăng ký bản quyền.",
+    "legal": [
+      { "label": "Chính sách bảo mật", "href": "#" },
+      { "label": "Điều khoản", "href": "#" }
+    ]
+  },
+  "ui": {
+    "toggleTheme": "Chuyển giao diện sáng/tối",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "skip": "Bỏ qua tới nội dung chính"
+  }
+}

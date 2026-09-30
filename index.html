@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="<!--@lang-->" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--@meta-->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Áp theme trước khi vẽ để không bị nháy sáng/tối.
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!--@app-->
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>
