@@ -2,8 +2,7 @@
 // (vùng tròn mờ viền đi theo chuột, có độ trễ). Không có JS/canvas thì vẫn thấy ảnh chấm điểm tĩnh.
 import { $, finePointer, reducedMotion } from './util.js';
 
-const COLS = 146; // số ô theo chiều ngang của ảnh chấm điểm (khớp lúc tạo ảnh)
-const CELL_SRC = 6; // mỗi ô là 6px trong ảnh nguồn
+const CELL_SRC = 6; // mỗi ô là 6px trong ảnh nguồn (khớp lúc tạo ảnh chấm điểm)
 
 const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
 
@@ -12,20 +11,23 @@ export async function initPortrait() {
   if (!box) return;
   const canvas = $('canvas', box);
   const ctx = canvas.getContext('2d');
+  const root = document.documentElement;
   let dither, clean;
   try { [dither, clean] = await Promise.all([load(box.dataset.dither), load(box.dataset.clean)]); } catch { return; }
 
-  // Đọc mức xám của từng ô từ ảnh chấm điểm nguồn
-  const rows = Math.round(dither.height / CELL_SRC);
+  // Số ô đọc theo kích thước thật của ảnh nguồn (không đoán), nên ảnh cũ trong bộ nhớ đệm cũng không vẽ sai.
+  const cols = Math.max(1, Math.round(dither.width / CELL_SRC));
+  const rows = Math.max(1, Math.round(dither.height / CELL_SRC));
   const probe = document.createElement('canvas');
   probe.width = dither.width; probe.height = dither.height;
   const pctx = probe.getContext('2d', { willReadFrequently: true });
   pctx.drawImage(dither, 0, 0);
   const src = pctx.getImageData(0, 0, probe.width, probe.height).data;
-  const cells = new Uint8Array(COLS * rows); // 0 = trống, còn lại = độ sáng
-  for (let y = 0; y < rows; y++) for (let x = 0; x < COLS; x++) {
-    const i = ((y * CELL_SRC + 2) * probe.width + (x * CELL_SRC + 2)) * 4;
-    cells[y * COLS + x] = src[i + 3] > 128 ? src[i] : 0;
+  const cells = new Uint8Array(cols * rows); // 0 = trống, còn lại = độ sáng
+  for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+    const px = Math.min(probe.width - 1, x * CELL_SRC + 2), py = Math.min(probe.height - 1, y * CELL_SRC + 2);
+    const i = (py * probe.width + px) * 4;
+    cells[y * cols + x] = src[i + 3] > 128 ? src[i] : 0;
   }
 
   const animated = finePointer() && !reducedMotion();
@@ -37,16 +39,19 @@ export async function initPortrait() {
   const p = { x: 0, y: 0, tx: 0, ty: 0, a: 0, ta: 0 };
   let raf = 0, visible = true;
 
+  // Theme tối: chấm sáng trên nền tối. Theme sáng: chấm tối trên nền sáng (không đảo màu ảnh).
   const paintDots = () => {
+    const light = root.dataset.theme === 'light';
     lctx.clearRect(0, 0, W, H);
-    const pitch = W / COLS;
+    const pitch = W / cols;
     const gap = Math.max(1, Math.round(dpr));
-    for (let y = 0; y < rows; y++) for (let x = 0; x < COLS; x++) {
-      const v = cells[y * COLS + x];
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const v = cells[y * cols + x];
       if (!v) continue;
       const x0 = Math.round(x * pitch), y0 = Math.round(y * pitch);
       const x1 = Math.round((x + 1) * pitch) - gap, y1 = Math.round((y + 1) * pitch) - gap;
-      lctx.fillStyle = `rgb(${v},${v},${v})`;
+      const g = light ? 255 - Math.round(v * 0.86) : v;
+      lctx.fillStyle = `rgb(${g},${g},${g})`;
       lctx.fillRect(x0, y0, Math.max(1, x1 - x0), Math.max(1, y1 - y0));
     }
   };
@@ -71,6 +76,7 @@ export async function initPortrait() {
 
   const resize = () => {
     const r = box.getBoundingClientRect();
+    if (!r.width || !r.height) return;
     dpr = Math.min(devicePixelRatio || 1, 2);
     W = Math.round(r.width * dpr); H = Math.round(r.height * dpr);
     canvas.width = layer.width = spot.width = W;
@@ -104,6 +110,7 @@ export async function initPortrait() {
     document.addEventListener('pointerleave', () => { p.ta = 0; start(); });
   }
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); }).observe(box);
+  new MutationObserver(() => { paintDots(); draw(); }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   addEventListener('resize', resize);
 
   resize();

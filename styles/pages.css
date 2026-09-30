@@ -96,7 +96,7 @@ a.srow { color: inherit; }
 .aportrait__canvas { opacity: 0; }
 .aportrait.is-ready .aportrait__canvas { opacity: 1; }
 .aportrait.is-ready .aportrait__static { visibility: hidden; }
-:root[data-theme='light'] .aportrait { filter: invert(1); }
+:root[data-theme='light'] .aportrait__static { filter: invert(1); }
 @media (max-width: 760px) { .aportrait { opacity: 0.45; right: -22%; } }
 .afast { padding-block: var(--sp-8) var(--sp-9); }
 .afast__cols { display: grid; gap: var(--sp-7); align-items: center; }

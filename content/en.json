@@ -906,8 +906,8 @@
         "c": "Let’s get to",
         "btn": "Work"
       },
-      "dither": "/assets/images/portrait-dither.png",
-      "clean": "/assets/images/portrait-clean.webp"
+      "dither": "/assets/images/portrait-dither-2.png",
+      "clean": "/assets/images/portrait-clean-2.webp"
     }
   }
 }
