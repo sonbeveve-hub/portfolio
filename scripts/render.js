@@ -335,7 +335,7 @@ function renderFooter(c) {
         <p>${esc(ct.text)}</p>
         <button type="button" class="link-u" data-open-form>${esc(ct.writeLabel)}</button>
       </div>
-      ${pill({ label: ct.button.label, href: ct.button.href, cls: 'btn--outline' })}
+      <button type="button" class="btn btn--outline" data-open-form data-magnetic><span>${esc(ct.button.label)}</span>${icon('arrowUR')}</button>
     </div>
   </div>
   <div class="wrap wrap--wide"><ul class="socials" data-reveal>${socials}</ul></div>
@@ -350,17 +350,26 @@ ${renderForm(c)}`;
 
 function renderForm(c) {
   const f = c.contact.form;
+  const chips = f.options
+    .map((o, i) => `<label class="chip"><input type="checkbox" name="topic" value="${esc(o)}" /><span>${esc(o)}</span></label>`)
+    .join('');
   return `
 <dialog class="dlg" data-form-dialog aria-labelledby="form-title">
   <form class="dlg__form" data-form novalidate data-msg-sending="${esc(f.sending)}" data-msg-success="${esc(f.success)}" data-msg-error="${esc(f.error)}" data-msg-invalid="${esc(f.invalid)}">
-    <div class="dlg__top">
-      <h2 class="dlg__title" id="form-title">${esc(f.title)}</h2>
-      <button type="button" class="round-btn" data-close-form aria-label="${esc(f.close)}">${icon('close')}</button>
+    <button type="button" class="dlg__close" data-close-form aria-label="${esc(f.close)}">${icon('close')}</button>
+    <h2 class="dlg__title" id="form-title">${accent(f.title)}</h2>
+    <p class="dlg__intro">${esc(f.intro)}</p>
+    <div class="dlg__grid">
+      <label class="field"><span>${esc(f.name)} *</span><input name="name" type="text" autocomplete="name" required /></label>
+      <label class="field"><span>${esc(f.email)} *</span><input name="email" type="email" autocomplete="email" required /></label>
+      <label class="field"><span>${esc(f.contact)}</span><input name="contact" type="text" /></label>
+      <label class="field"><span>${esc(f.company)}</span><input name="company" type="text" autocomplete="organization" /></label>
     </div>
-    <label class="field"><span>${esc(f.name)}</span><input name="name" type="text" autocomplete="name" required /></label>
-    <label class="field"><span>${esc(f.email)}</span><input name="email" type="email" autocomplete="email" required /></label>
-    <label class="field"><span>${esc(f.message)}</span><textarea name="message" rows="4" required></textarea></label>
-    <button class="btn btn--primary" type="submit" data-submit><span>${esc(f.submit)}</span>${icon('arrowUR')}</button>
+    <fieldset class="dlg__chips"><legend>${esc(f.lookingFor)} *</legend><div>${chips}</div></fieldset>
+    <label class="field"><span>${esc(f.message)} *</span><textarea name="message" rows="3" required></textarea></label>
+    <div class="dlg__actions">
+      <button class="dlg__send" type="submit" data-submit><span class="dlg__send-label">${esc(f.submit)}</span><span class="dlg__send-circle">${icon('arrow')}</span></button>
+    </div>
     <p class="dlg__status" data-status role="status" aria-live="polite"></p>
   </form>
 </dialog>`;

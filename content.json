@@ -56,7 +56,7 @@
   },
   "about": {
     "statement": "Tôi làm việc ở giao điểm của thiết kế, dữ liệu và vận hành. [[gem]] Mỗi __sản phẩm__ bắt đầu bằng việc hiểu người dùng, đi qua những vòng thử ngắn và kết thúc bằng bản bàn giao gọn gàng. [[clover]] Kết quả là giao diện rõ ràng, đội ngũ làm nhanh hơn và khách hàng thấy __giá trị__ ngay từ bản đầu tiên. [[burst]]",
-    "portrait": "/assets/images/portrait.svg",
+    "portrait": "/assets/images/portrait.jpg",
     "portraitAlt": "Ảnh chân dung của Tên Bạn"
   },
   "reel": {
@@ -260,8 +260,7 @@
     "email": "hello@example.com",
     "writeLabel": "Thích viết hơn? Gửi lời nhắn.",
     "button": {
-      "label": "Liên hệ",
-      "href": "mailto:hello@example.com"
+      "label": "Liên hệ"
     },
     "socials": [
       {
@@ -291,16 +290,29 @@
       }
     ],
     "form": {
-      "title": "Gửi lời nhắn",
+      "title": "Bạn cần một *người đồng hành*?",
+      "intro": "Kể cho tôi nghe bạn đang xây gì và đang vướng ở đâu. Tôi tự đọc từng tin nhắn và phản hồi trong một hai ngày, không có bot ở giữa.",
       "close": "Đóng",
       "name": "Họ tên",
       "email": "Email",
-      "message": "Bạn đang cần gì?",
-      "submit": "Gửi lời nhắn",
+      "contact": "Zalo hoặc LinkedIn",
+      "company": "Tên công ty",
+      "lookingFor": "Bạn đang cần gì?",
+      "options": [
+        "Thiết kế UI",
+        "Nghiên cứu & UX",
+        "Design system",
+        "Quản lý dự án",
+        "Tư vấn & bán hàng",
+        "Branding",
+        "Khác"
+      ],
+      "message": "Kể thêm về dự án",
+      "submit": "Gửi",
       "sending": "Đang gửi…",
       "success": "Đã gửi! Mình sẽ phản hồi sớm.",
       "error": "Chưa gửi được, vui lòng thử lại.",
-      "invalid": "Vui lòng điền đủ thông tin hợp lệ."
+      "invalid": "Vui lòng điền đủ thông tin bắt buộc (*) và chọn ít nhất một mục."
     }
   },
   "footer": {

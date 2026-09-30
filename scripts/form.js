@@ -18,23 +18,28 @@ export function initForm() {
   dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
   dlg.addEventListener('close', () => { lockScroll(false); opener?.focus(); });
 
+  form.addEventListener('input', (e) => e.target.removeAttribute?.('aria-invalid'));
+
   const setState = (state, msg = '') => { form.dataset.state = state; status.textContent = msg; };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const fields = $$('input, textarea', form);
     let firstBad = null;
-    fields.forEach((f) => {
+    $$('[required]', form).forEach((f) => {
       const bad = !f.value.trim() || (f.type === 'email' && !/^\S+@\S+\.\S+$/.test(f.value.trim()));
       f.setAttribute('aria-invalid', String(bad));
       if (bad && !firstBad) firstBad = f;
     });
-    if (firstBad) { firstBad.focus(); setState('error', form.dataset.msgInvalid); return; }
+    const topics = $$('input[name="topic"]:checked', form).map((i) => i.value);
+    if (!topics.length && !firstBad) firstBad = $('input[name="topic"]', form);
+    if (firstBad || !topics.length) { firstBad?.focus(); setState('error', form.dataset.msgInvalid); return; }
 
+    const data = Object.fromEntries(new FormData(form));
+    data.topic = topics;
     setState('sending', form.dataset.msgSending);
     submit.disabled = true;
     try {
-      await sendMessage(Object.fromEntries(new FormData(form)));
+      await sendMessage(data);
       setState('success', form.dataset.msgSuccess);
       form.reset();
     } catch {
