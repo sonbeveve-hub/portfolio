@@ -176,7 +176,7 @@ ${bgShapes()}
     <h1 class="ahero__title" id="page-title"><span>${esc(a.h1a)}</span><span>${accent(a.h1b)}${shape('burst', 'ahero__shape')}</span></h1>
     <p class="ahero__lead">${esc(a.lead)}</p>
   </div>
-  <img class="ahero__img" src="${esc(a.portrait)}" alt="${esc(a.portraitAlt)}" width="800" height="1000" fetchpriority="high" />
+  <img class="ahero__img" src="${esc(a.dither)}" alt="${esc(a.portraitAlt)}" width="220" height="394" fetchpriority="high" />
 </section>
 <section class="afast wrap wrap--work" aria-labelledby="fast-t">
   <h2 class="sec-title" id="fast-t" data-reveal>${accent(a.fast.title)}</h2>

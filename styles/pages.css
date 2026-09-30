@@ -89,12 +89,9 @@ a.srow { color: inherit; }
 .ahero__title > span { display: block; }
 .ahero__shape { display: inline-grid; width: 0.55em; height: 0.55em; margin-left: 0.15em; color: var(--text); vertical-align: baseline; }
 .ahero__lead { max-width: 44ch; margin-top: 40px; font-size: var(--fs-s); line-height: 1.6; color: var(--muted); }
-.ahero__img { position: absolute; z-index: 0; right: clamp(0px, 5vw, 90px); bottom: 0; height: min(88%, 780px); width: auto; aspect-ratio: 4 / 5; object-fit: cover;
-  filter: grayscale(1) contrast(1.4) brightness(1.05); mix-blend-mode: screen;
-  -webkit-mask-image: radial-gradient(circle at center, #000 46%, transparent 52%), linear-gradient(180deg, #000 60%, transparent);
-  -webkit-mask-size: 7px 7px, 100% 100%; -webkit-mask-composite: source-in;
-  mask-image: radial-gradient(circle at center, #000 46%, transparent 52%), linear-gradient(180deg, #000 60%, transparent);
-  mask-size: 7px 7px, 100% 100%; mask-composite: intersect; }
+.ahero__img { position: absolute; z-index: 0; right: clamp(0px, 5vw, 90px); bottom: 0; height: min(88%, 800px); width: auto; aspect-ratio: 220 / 394; image-rendering: pixelated; opacity: 0.92;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }
+:root[data-theme='light'] .ahero__img { filter: invert(1); opacity: 0.85; }
 @media (max-width: 760px) { .ahero__img { opacity: 0.4; right: -20%; } }
 .afast { padding-block: var(--sp-8) var(--sp-9); }
 .afast__cols { display: grid; gap: var(--sp-7); align-items: center; }
@@ -222,3 +219,15 @@ a.sidx:hover .sidx__arrow svg { transform: translateX(4px); }
 .mcard__l { font-size: 11px; line-height: 1.4; color: var(--muted); max-width: 26ch; transition: color 0.5s var(--ease); }
 @media (hover: hover) { .mcard:hover { color: #121212; border-color: transparent; } .mcard:hover::before { opacity: 1; } .mcard:hover .mcard__l { color: #121212; } }
 @media (max-width: 560px) { .metrics2__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metrics2__title { grid-column: 1 / -1; } }
+
+/* ===== Danh sách giải thưởng: hàng sáng trắng toàn chiều ngang khi rê chuột ===== */
+.alist__row { position: relative; isolation: isolate; transition: color 0.35s var(--ease); }
+.alist__row::before { content: ''; position: absolute; z-index: -1; top: -1px; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: #fff; opacity: 0; transition: opacity 0.3s var(--ease); }
+.alist__name, .alist__topic { transition: transform 0.45s var(--ease), color 0.3s var(--ease); }
+@media (hover: hover) {
+  .alist__row:hover { color: #121212; }
+  .alist__row:hover::before { opacity: 1; }
+  .alist__row:hover .alist__name, .alist__row:hover .alist__topic { transform: translateX(10px); color: #121212; }
+  .alist__row:hover .tag { border-color: #121212; }
+}
+.wcta__knob img { object-position: 50% 18%; }

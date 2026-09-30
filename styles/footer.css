@@ -64,3 +64,10 @@
 /* Con trỏ có nhãn (vd. "Mở rộng" ở khối nguyên tắc) */
 .cursor { display: grid; place-items: center; font-size: 12px; font-weight: 400; color: #121212; overflow: hidden; }
 .cursor.is-label { width: 92px; height: 92px; margin: -46px 0 0 -46px; background: #fff; border-color: #fff; }
+
+.cursor::before, .cursor::after { content: ''; position: absolute; left: 50%; top: 50%; background: var(--accent); opacity: 0; transition: opacity 0.3s var(--ease); }
+.cursor::before { width: 14px; height: 1.5px; margin: -0.75px 0 0 -7px; }
+.cursor::after { width: 1.5px; height: 14px; margin: -7px 0 0 -0.75px; }
+:root[data-theme='light'] .cursor::before, :root[data-theme='light'] .cursor::after { background: var(--accent-text); }
+.cursor.is-hover::before, .cursor.is-hover::after { opacity: 1; }
+.cursor.is-label::before, .cursor.is-label::after { display: none; }

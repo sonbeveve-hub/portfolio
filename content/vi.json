@@ -905,7 +905,8 @@
         "b": "đang trễ tiến độ.",
         "c": "Bắt đầu thôi",
         "btn": "Dự án"
-      }
+      },
+      "dither": "/assets/images/portrait-dither.png"
     }
   }
 }
