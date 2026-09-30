@@ -43,11 +43,11 @@ async function runPreloader(pre) {
 }
 
 async function runArrival(pt) {
-  await wait(350);
+  await wait(250);
   pt.classList.add('is-active', 'is-out');
   root.classList.remove('is-arriving');
   root.classList.add('is-ready');
-  await wait(1000);
+  await wait(1300);
   pt.classList.remove('is-active', 'is-out');
 }
 
@@ -75,7 +75,7 @@ export function initTransitions() {
     setTimeout(() => {
       try { sessionStorage.setItem('pt', '1'); } catch { /* bỏ qua */ }
       location.href = url.href;
-    }, 900);
+    }, 1200);
   });
 
   // Quay lại bằng nút Back (trang lấy từ bộ nhớ đệm): gỡ lớp phủ.

@@ -19,11 +19,18 @@ html.is-loading, html.is-arriving { overflow: hidden; }
 .pre__char, .pt__char { display: inline-block; transform: translateY(110%); transition: transform 0.7s var(--ease) calc(var(--ci) * 35ms); }
 .pre.is-name .pre__char, .pt.is-in .pt__char { transform: none; }
 
-.pt { display: grid; place-items: center; visibility: hidden; transform: translateY(100%); z-index: 650; }
-.pt.is-active { visibility: visible; }
-.pt.is-in { transform: none; transition: transform 0.7s cubic-bezier(0.6, 0, 0.3, 1); }
-.pt.is-out { transform: translateY(-100%); transition: transform 0.9s cubic-bezier(0.6, 0, 0.3, 1); }
-html.is-arriving .pt { visibility: visible; transform: none; transition: none; }
+.pt { background: none; display: flex; visibility: hidden; pointer-events: none; z-index: 650; }
+.pt.is-active { visibility: visible; pointer-events: auto; }
+/* 6 cột đen trồi lên từ đáy theo thứ tự trái → phải, rồi tiếp tục trượt ra đỉnh ở trang mới */
+.pt__col { flex: 1; height: 100%; background: #101010; transform: translateY(101%); }
+.pt.is-in .pt__col { transform: none; transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1) calc(var(--k) * 70ms); }
+.pt.is-out .pt__col { transform: translateY(-101%); transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1) calc(var(--k) * 70ms); }
+.pt__name { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.pt.is-in .pt__char { transition-delay: calc(0.45s + var(--ci) * 35ms); }
+.pt.is-out .pt__char { transform: none; transition: none; }
+.pt.is-out .pt__name { opacity: 0; transition: opacity 0.3s; }
+html.is-arriving .pt { visibility: visible; }
+html.is-arriving .pt__col { transform: none; transition: none; }
 html.is-arriving .pt__char { transform: none; transition: none; }
 
 /* Chữ hero chỉ bắt đầu chạy khi lớp phủ đã mở */

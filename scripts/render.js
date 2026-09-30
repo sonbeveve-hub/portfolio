@@ -421,7 +421,7 @@ export function renderOverlays(c) {
   </div>
   <p class="pre__name">${nameChars(c, 'pre')}</p>
 </div>
-<div class="pt" data-pt aria-hidden="true"><p class="pt__name">${nameChars(c, 'pt')}</p></div>`;
+<div class="pt" data-pt aria-hidden="true">${Array.from({ length: 6 }, (_, k) => `<i class="pt__col" style="--k:${k}"></i>`).join('')}<p class="pt__name">${nameChars(c, 'pt')}</p></div>`;
 }
 
 /* Khung chung cho mọi trang: skip-link, preloader, nav, nội dung chính, footer + form. */
