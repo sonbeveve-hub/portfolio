@@ -12,7 +12,7 @@
 
 .nav__list { display: flex; align-items: center; gap: 4px; }
 .nav__link { position: relative; display: block; padding: 6px 12px; border-radius: 8px; font-size: var(--fs-xs); font-weight: 400; color: var(--text); opacity: 0.8; transition: opacity var(--dur) var(--ease), background-color var(--dur) var(--ease); }
-.nav__link:hover, .nav__link[aria-current='true'] { opacity: 1; background: color-mix(in srgb, var(--text) 10%, transparent); }
+.nav__link:hover, .nav__link[aria-current='page'] { opacity: 1; background: color-mix(in srgb, var(--text) 10%, transparent); }
 .nav__cta { padding: 7px 12px; font-size: var(--fs-xs); font-weight: 400; border-radius: 8px; }
 .nav__cta:hover { background: color-mix(in srgb, var(--text) 10%, transparent); }
 .nav__li-cta, .nav__current, .nav__burger { display: none; }

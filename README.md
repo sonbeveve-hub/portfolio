@@ -1,105 +1,123 @@
-# Portfolio cá nhân (một trang)
+# Portfolio cá nhân (nhiều trang, song ngữ)
 
-Website portfolio một trang, dựng bằng **Vite + HTML/CSS/JS thuần** (không framework).
+Website portfolio dựng bằng **Vite + HTML/CSS/JS thuần** (không framework), gồm:
+
+- Trang chủ, **Work** (danh sách dự án), **Services**, **About** và trang **chi tiết từng dự án**
+- **Hai ngôn ngữ**: Tiếng Việt (mặc định, ở `/`) và Tiếng Anh (ở `/en/`), có nút chuyển **VI / EN** trên thanh nav
+- Preloader đếm phần trăm, hiệu ứng chuyển trang, cuộn mượt, con trỏ tuỳ chỉnh, theme sáng/tối
+
 Bố cục, nhịp điệu và hiệu ứng lấy cảm hứng từ một trang portfolio tham khảo; toàn bộ chữ, ảnh, logo là **placeholder của bạn** — thay bằng nội dung thật.
 
-**Vì sao chọn stack này:** xuất ra file tĩnh (deploy Vercel/Netlify/GitHub Pages đều được), JS chỉ ~10KB nén, dễ đạt Lighthouse ≥ 90.
+**Vì sao chọn stack này:** xuất ra file tĩnh (Vercel/Netlify/GitHub Pages đều được), mỗi trang được dựng sẵn HTML nên tốt cho SEO, JS nhẹ, dễ đạt Lighthouse ≥ 90.
 
 ## Chạy dự án
 
 ```bash
 npm install
-npm run dev       # chạy thử, tự tải lại khi sửa content.json
+npm run dev       # chạy thử, tự tải lại khi sửa content/*.json
 npm run build     # xuất bản tĩnh vào thư mục dist/
 npm run preview   # xem bản build
 ```
 
-Cần Node 18+.
+Cần Node 18+. Các file HTML điểm vào (`index.html`, `work/`, `en/`…) được **tự sinh** khi chạy dev/build từ `templates/page.html` và `content/*.json`, nên không cần sửa và không commit.
 
 ## Cấu trúc thư mục
 
 ```
-content.json          ← TOÀN BỘ nội dung chữ, link, đường dẫn ảnh (sửa file này là chính)
-index.html            ← khung trang (ít khi phải sửa)
+content/
+  vi.json             ← NỘI DUNG TIẾNG VIỆT (toàn bộ chữ, link, đường dẫn ảnh)
+  en.json             ← NỘI DUNG TIẾNG ANH (cùng cấu trúc với vi.json)
+templates/page.html   ← khung HTML chung cho mọi trang
 scripts/
-  render.js           ← dựng HTML từ content.json lúc build
+  site.js             ← danh sách trang, ngôn ngữ, dựng HTML từng trang
+  render.js           ← các khối của trang chủ + nav, footer, form, preloader
+  pages.js            ← Work, Services, About, chi tiết dự án
   main.js             ← điểm vào, khởi tạo các hiệu ứng
+  transition.js       ← preloader + chuyển trang
   hero-stripes.js     ← nền sọc động ở hero (WebGL)
   contact-api.js      ← NƠI GẮN FORM THẬT (đang là hàm giả lập)
-  …                   ← mỗi hiệu ứng một file nhỏ (nav, reveal, cursor, form…)
+  …                   ← mỗi hiệu ứng một file nhỏ
 styles/
   tokens.css          ← design tokens: màu, cỡ chữ, spacing, radius, font
-  base.css nav.css hero.css sections.css footer.css
+  base.css nav.css hero.css sections.css pages.css footer.css overlay.css
 public/
   assets/images/      ← ảnh (dự án, chân dung, poster, og.png)
   assets/logos/       ← logo đối tác
   assets/video/reel.webm ← video showreel
   favicon.svg
+vercel.json           ← cấu hình deploy Vercel
 ```
+
+## Địa chỉ các trang
+
+| Trang | Tiếng Việt | Tiếng Anh |
+| --- | --- | --- |
+| Trang chủ | `/` | `/en/` |
+| Dự án | `/work/` | `/en/work/` |
+| Dịch vụ | `/services/` (mỗi dịch vụ có `#slug`) | `/en/services/` |
+| Giới thiệu | `/about/` | `/en/about/` |
+| Chi tiết dự án | `/work/<slug>/` | `/en/work/<slug>/` |
+
+Trang chi tiết dự án được tạo tự động cho mỗi phần tử trong `work.items` (theo `slug`). Dự án có `"status": "soon"` hiện "Sắp ra mắt" và không có trang riêng.
 
 ## Cách thay nội dung
 
-Mọi thứ nằm trong `content.json`, theo từng khối:
+Sửa `content/vi.json` và `content/en.json` (cùng cấu trúc; nhớ sửa cả hai). Các khối chính:
 
 | Khối | Là gì |
 | --- | --- |
-| `site` | Title, description, ảnh chia sẻ (Open Graph), **`url` thật của bạn** (dùng cho sitemap/canonical) |
-| `brand`, `nav`, `cta` | Logo chữ, menu, nút CTA chính (link Calendly/Zalo/form) |
-| `hero` | 3 dòng headline (`style`: `sans` hoặc `serif`), 2 dòng mô tả nhỏ |
-| `about.statement` | Câu lớn sáng dần khi cuộn. Ký hiệu: `*chữ serif nghiêng*`, `__gạch chân__`, `[[gem]]` `[[clover]]` `[[burst]]` hình nhỏ chèn giữa câu |
-| `about.portrait` | Ảnh chân dung (hiện trong công tắc ở phần CTA) |
-| `reel` | Video showreel + poster |
-| `stats` | 3 số nổi bật (đếm chạy khi cuộn tới) |
-| `services` | 3–6 dịch vụ, mỗi mục có `icon`: `layout`, `compass`, `layers`, `calendar`, `message`, `spark` |
-| `work.items` | Dự án: `title`, `industry`, `image` (ảnh lớn), `image2` (ảnh phụ, có thể bỏ), `href` (để trống = "Sắp ra mắt") |
-| `worksCta`, `testimonials`, `quote`, `partners` | Các khối còn lại |
-| `contact`, `footer` | Email, mạng xã hội, form, link pháp lý |
+| `site` | Title, description, ảnh chia sẻ (Open Graph), **`url` thật của bạn** (dùng cho sitemap/canonical/hreflang) |
+| `brand`, `nav`, `cta` | Logo chữ, tên hiện khi tải trang (`nameLines`), menu, nút CTA chính (link Calendly/Zalo) |
+| `hero`, `about.statement`, `reel`, `stats` | Các khối trang chủ |
+| `services.items` | Mỗi dịch vụ: `slug`, `icon`, `title`, `text` (ngắn), `long` (trang Services), `deliverables` (danh sách), `image` |
+| `work.items` | Mỗi dự án: `slug`, `title`, `industry`, `tags`, `status`, `image`, `image2`, và `detail` (thông tin, các phần case study) |
+| `pages.work / services / about` | Nội dung riêng của các trang con (tiêu đề, nguyên tắc, công cụ, giải thưởng…) |
+| `worksCta`, `testimonials`, `quote`, `partners` | Các khối còn lại của trang chủ |
+| `contact`, `footer`, `ui` | Email, mạng xã hội, form, link pháp lý, chữ giao diện |
 
-Trong chuỗi, `*từ*` sẽ thành chữ serif nghiêng ở các tiêu đề.
+Trong chuỗi, `*từ*` thành chữ serif nghiêng; ở `about.statement` còn dùng `__gạch chân__` và `[[gem]]` `[[clover]]` `[[burst]]` (hình nhỏ chèn giữa câu).
+
+### Thêm một ngôn ngữ khác
+Copy `content/en.json` thành `content/<mã>.json`, dịch, rồi thêm mã vào mảng `LANGS` trong `scripts/site.js` (và sửa chuỗi `langCode`/`langName` trong `ui`).
 
 ### Đổi màu, chữ, khoảng cách
-Sửa `styles/tokens.css`. Màu nhấn duy nhất là `--accent` (đang là xanh neon `#6fff54`); nếu bạn muốn `#22C55E` thì đổi đúng một dòng đó (và `--accent-text` cho theme sáng nếu cần).
+Sửa `styles/tokens.css`. Màu nhấn duy nhất là `--accent` (xanh neon `#6fff54`); nếu muốn `#22C55E` thì đổi đúng một dòng đó.
 
 ### Ảnh
-- Ảnh hiện tại là placeholder SVG. Thay bằng ảnh **WebP/AVIF** (tỉ lệ ảnh lớn ≈ 12:7, ảnh phụ dọc ≈ 0.7:1) rồi sửa đường dẫn trong `content.json`.
-- Ảnh đã bật `loading="lazy"`. Nhớ điền `alt` (`work.items[].alt`).
+- Ảnh hiện tại là placeholder. Thay bằng ảnh **WebP/AVIF** rồi sửa đường dẫn trong `content/*.json`. Ảnh đã bật `loading="lazy"`; nhớ điền `alt`.
+- Ảnh chân dung (`about.portrait`) hiện ở trang About dưới dạng chấm điểm (halftone) và trong công tắc ở phần CTA.
 - Logo đối tác: bỏ file vào `public/assets/logos/` rồi điền `logo` trong `partners.items`. Để trống thì hiện tên.
 
 ### Video showreel
-Thay `public/assets/video/reel.webm` (nên ≤ 5MB, muted, lặp). Ảnh `poster` hiện khi video chưa phát. Video chỉ tải khi người xem bấm phát.
+Thay `public/assets/video/reel.webm` (nên ≤ 5MB, muted, lặp). Video chỉ tải khi người xem bấm phát.
 
 ### Form liên hệ
 Giao diện và trạng thái (đang gửi / thành công / lỗi) đã có. Để gắn thật, mở `scripts/contact-api.js` và thay hàm `sendMessage` bằng lời gọi tới Formspree, Netlify Forms, Resend hoặc API riêng.
 
 ## Hiệu ứng và truy cập
 
-- Hero WebGL (desktop): bật khi người dùng bắt đầu rê chuột/cuộn/gõ phím (hoặc sau 6 giây) để không chen vào lúc tải trang; dừng khi ra khỏi màn hình hoặc tab ẩn. Mobile và trình duyệt không có WebGL dùng nền CSS có ánh sáng trôi nhẹ (không cần JS nặng).
-- Cuộn mượt (Lenis), con trỏ tuỳ chỉnh (chỉ khi có chuột), nút hút nhẹ, hiện dần khi cuộn.
-- `prefers-reduced-motion`: tắt cuộn mượt, marquee, hiện dần, đếm số; hero chỉ vẽ một khung tĩnh.
+- **Preloader** (lần đầu trong một phiên): logo, ảnh dự án đổi liên tục, bộ đếm phần trăm, tên chạy lên từng chữ, rồi màn mở ra. Các lần chuyển trang sau dùng lớp phủ có hiện tên.
+- Hero WebGL (desktop): bật khi người dùng bắt đầu rê chuột/cuộn (hoặc sau 6 giây) để không chen vào lúc tải trang. Mobile dùng nền CSS nhẹ.
+- `prefers-reduced-motion`: tắt preloader, chuyển trang, cuộn mượt, marquee, hiện dần; hero chỉ vẽ một khung tĩnh.
 - Bàn phím: có link "Bỏ qua tới nội dung chính", focus rõ, hộp thoại form đóng bằng `Esc`.
 - Theme sáng/tối: mặc định tối, nhớ lựa chọn của người dùng.
 
-## Deploy
+## Deploy (Vercel)
 
-Thư mục xuất bản là `dist/` (lệnh `npm run build`).
+1. Đẩy repo lên GitHub.
+2. Vào vercel.com → **Add New → Project** → chọn repo → **Deploy** (`vercel.json` đã khai báo build và thư mục `dist`).
+3. Sửa `site.url` trong `content/vi.json` và `content/en.json` thành địa chỉ thật để sitemap, canonical và hreflang đúng.
 
-**Vercel / Netlify** — kết nối repo, chọn:
-- Build command: `npm run build`
-- Output directory: `dist`
-
-**GitHub Pages** — nếu site nằm ở `https://<user>.github.io/<repo>/` (không phải tên miền riêng), thêm `base: '/<repo>/'` vào `vite.config.js` và đổi các đường dẫn `/assets/...` trong `content.json` cho khớp. Với tên miền riêng hoặc `<user>.github.io` thì giữ nguyên. Dùng GitHub Actions (`actions/deploy-pages`) để đẩy thư mục `dist/`.
-
-Sau khi deploy, nhớ sửa `site.url` trong `content.json` để sitemap và canonical đúng.
+Với **Netlify**: Build command `npm run build`, Publish directory `dist`. Với **GitHub Pages** dùng tên miền riêng hoặc `<user>.github.io` thì giữ nguyên; nếu site nằm ở `/<repo>/` thì phải thêm `base` vào `vite.config.js` và sửa các đường dẫn `/assets/...` cho khớp.
 
 ## Danh sách cần thay trước khi công khai
 
-- [ ] Tên, logo chữ, `site.title`, `site.description`, `site.url`
-- [ ] Headline, mô tả, câu dành cho khách hàng mục tiêu (`hero`)
-- [ ] Câu About (`about.statement`), ảnh chân dung (`about.portrait`)
-- [ ] 3 số liệu (`stats`) và 3–6 dịch vụ (`services`)
-- [ ] 4–6 dự án: tên, ngành, ảnh, link (`work.items`)
+- [ ] Tên, logo chữ, `nameLines`, `site.title`, `site.description`, `site.url` (cả hai ngôn ngữ)
+- [ ] Headline, mô tả, câu About (`hero`, `about.statement`)
+- [ ] Số liệu (`stats`), dịch vụ (`services.items`)
+- [ ] Dự án: tên, ngành, ảnh, và nội dung `detail` của từng dự án (`work.items`)
+- [ ] Nội dung các trang con (`pages.*`): nguyên tắc, công cụ, giải thưởng…
 - [ ] Lời chứng thực thật (`testimonials`), logo đối tác (`partners`)
 - [ ] Link Calendly/Zalo (`cta`), email, mạng xã hội, link pháp lý (`contact`, `footer`)
-- [ ] Video `assets/video/reel.webm` và poster
-- [ ] Ảnh chia sẻ `assets/images/og.png` (1200×630)
+- [ ] Ảnh chân dung, video `reel.webm` và poster, ảnh chia sẻ `og.png` (1200×630)
 - [ ] Gắn form thật (`scripts/contact-api.js`)

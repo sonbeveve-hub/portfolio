@@ -9,6 +9,11 @@ export function initSmoothScroll() {
   lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
   const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
+  // Mở trang kèm #mục (vd. /services/#web): cuộn tới mục đó.
+  if (location.hash.length > 1) {
+    const t = document.querySelector(location.hash);
+    if (t) setTimeout(() => lenis.scrollTo(t, { immediate: true }), 50);
+  }
 
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');

@@ -1,0 +1,34 @@
+/* Preloader (lần đầu trong phiên) và lớp chuyển trang (giữa các trang) */
+.pre, .pt { position: fixed; inset: 0; z-index: 700; background: #0f0f0f; color: #fff; }
+.pre { display: none; place-items: center; transition: transform 0.9s cubic-bezier(0.6, 0, 0.3, 1); }
+html.is-loading .pre { display: grid; }
+html.is-loading, html.is-arriving { overflow: hidden; }
+.pre.is-out { transform: translateY(-100%); }
+
+.pre__stage { display: flex; align-items: center; gap: clamp(24px, 5vw, 64px); transition: opacity 0.4s var(--ease); }
+.pre.is-name .pre__stage { opacity: 0; }
+.pre__cell--logo .mark { width: clamp(56px, 6vw, 84px); color: #fff; }
+.pre__cell--img { width: clamp(70px, 7vw, 100px); aspect-ratio: 5 / 6; overflow: hidden; border-radius: 4px; background: #1b1b1b; }
+.pre__cell--img img { width: 100%; height: 100%; object-fit: cover; }
+.pre__cell--num { min-width: 5.5ch; font-size: clamp(0.9rem, 1vw, 1.1rem); font-variant-numeric: tabular-nums; }
+
+.pre__name, .pt__name { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 300; text-transform: uppercase; line-height: 1.15; text-align: center; letter-spacing: -0.01em; }
+.pre__name { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.pre__line, .pt__line { display: block; }
+.pre__mask, .pt__mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; }
+.pre__char, .pt__char { display: inline-block; transform: translateY(110%); transition: transform 0.7s var(--ease) calc(var(--ci) * 35ms); }
+.pre.is-name .pre__char, .pt.is-in .pt__char { transform: none; }
+
+.pt { display: grid; place-items: center; visibility: hidden; transform: translateY(100%); z-index: 650; }
+.pt.is-active { visibility: visible; }
+.pt.is-in { transform: none; transition: transform 0.7s cubic-bezier(0.6, 0, 0.3, 1); }
+.pt.is-out { transform: translateY(-100%); transition: transform 0.9s cubic-bezier(0.6, 0, 0.3, 1); }
+html.is-arriving .pt { visibility: visible; transform: none; transition: none; }
+html.is-arriving .pt__char { transform: none; transition: none; }
+
+/* Chữ hero chỉ bắt đầu chạy khi lớp phủ đã mở */
+html.is-loading .hline__in, html.is-arriving .hline__in,
+html.is-loading .hero__tag, html.is-arriving .hero__tag,
+html.is-loading .hero__cta, html.is-arriving .hero__cta { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) { .pre, .pt { display: none !important; } }

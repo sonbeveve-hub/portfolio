@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="<!--@lang-->" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--@marker-->
+    <!--@meta-->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Chạy trước khi vẽ: áp theme, và quyết định hiện preloader (lần đầu trong phiên) hay lớp chuyển trang (khi đang đi giữa các trang).
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          d.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+          if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var s = sessionStorage;
+            if (s.getItem('pt')) { d.classList.add('is-arriving'); s.removeItem('pt'); }
+            else if (!s.getItem('seen')) { d.classList.add('is-loading'); s.setItem('seen', '1'); }
+          }
+        } catch (e) {}
+        // Phòng hờ: nếu JS lỗi thì vẫn gỡ lớp phủ sau vài giây.
+        setTimeout(function () { d.classList.remove('is-loading', 'is-arriving'); }, 9000);
+      })();
+    </script>
+    <noscript><style>.pre,.pt{display:none!important}</style></noscript>
+  </head>
+  <body>
+    <!--@app-->
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>

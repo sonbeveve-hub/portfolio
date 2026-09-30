@@ -1,17 +1,23 @@
 // Dựng HTML từ content.json. Chạy trong Node (lúc build/dev), không dùng DOM.
 
-const esc = (s = '') =>
+export const esc = (s = '') =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 // "*từ*" -> chữ serif nghiêng.
-const accent = (s = '') => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+export const accent = (s = '') => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
 
-const isExternal = (href = '') => /^https?:\/\//.test(href);
-const linkAttrs = (href) => (isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : '');
-const pad2 = (n) => String(n).padStart(2, '0');
-const navLabel = (c, href, fb) => c.nav.find((n) => n.href === href)?.label || fb;
+export const isExternal = (href = '') => /^https?:\/\//.test(href);
+export const linkAttrs = (href) => (isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : '');
+export const pad2 = (n) => String(n).padStart(2, '0');
+export const navLabel = (c, key, fb = '') => c.nav.find((n) => n.key === key)?.label || fb;
 
-const S = (inner, extra = '') => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"${extra}>${inner}</svg>`;
+// Ngữ cảnh trang đang dựng (render chạy đồng bộ trong Node nên dùng biến toàn cục cho gọn).
+const CTX = { lang: 'vi', prefix: '', page: 'home', alt: null };
+export const setContext = (ctx) => Object.assign(CTX, ctx);
+export const getContext = () => CTX;
+export const href = (path = '/') => CTX.prefix + path;
+
+export const S = (inner, extra = '') => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"${extra}>${inner}</svg>`;
 
 const icons = {
   sun: S('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
@@ -50,24 +56,30 @@ const shapes = {
   asterisk: S('<g stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M12 2.500v19M3.800 7.200l16.400 9.600M3.800 16.800L20.200 7.200"/></g>'),
   half: S('<path d="M2 3h9a10 9 0 010 18H2z" transform="translate(4 0)"/>'),
 };
-const shape = (name, cls = '') => `<span class="shape ${cls}" aria-hidden="true">${shapes[name] || ''}</span>`;
+export const shape = (name, cls = '') => `<span class="shape ${cls}" aria-hidden="true">${shapes[name] || ''}</span>`;
 
-const pill = ({ label, href, cls = '', attrs = '' }) =>
+export const pill = ({ label, href, cls = '', attrs = '' }) =>
   `<a class="btn ${cls}" href="${esc(href)}"${linkAttrs(href)} data-magnetic ${attrs}><span>${esc(label)}</span>${icon('arrowUR')}</a>`;
 
-export function renderMeta(c) {
+export function renderMeta(c, doc) {
   const { site } = c;
-  const url = site.url.replace(/\/$/, '');
-  const og = site.ogImage ? `${url}${site.ogImage}` : '';
+  const origin = site.url.replace(/\/$/, '');
+  const title = doc.title ? `${doc.title} — ${c.brand.logo}` : site.title;
+  const og = site.ogImage ? `${origin}${site.ogImage}` : '';
+  const alts = (doc.alternates || [])
+    .map((a) => `<link rel="alternate" hreflang="${a.lang}" href="${esc(origin + a.path)}" />`)
+    .concat(doc.alternates?.length ? [`<link rel="alternate" hreflang="x-default" href="${esc(origin + doc.alternates[0].path)}" />`] : []);
   return [
-    `<title>${esc(site.title)}</title>`,
-    `<meta name="description" content="${esc(site.description)}" />`,
+    `<title>${esc(title)}</title>`,
+    `<meta name="description" content="${esc(doc.description || site.description)}" />`,
     `<meta name="theme-color" content="${esc(site.themeColor)}" />`,
-    `<link rel="canonical" href="${esc(url)}/" />`,
+    `<link rel="canonical" href="${esc(origin + doc.path)}" />`,
+    ...alts,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:title" content="${esc(site.title)}" />`,
-    `<meta property="og:description" content="${esc(site.description)}" />`,
-    `<meta property="og:url" content="${esc(url)}/" />`,
+    `<meta property="og:locale" content="${c.site.lang === 'vi' ? 'vi_VN' : 'en_US'}" />`,
+    `<meta property="og:title" content="${esc(title)}" />`,
+    `<meta property="og:description" content="${esc(doc.description || site.description)}" />`,
+    `<meta property="og:url" content="${esc(origin + doc.path)}" />`,
     og && `<meta property="og:image" content="${esc(og)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
   ]
@@ -76,18 +88,28 @@ export function renderMeta(c) {
 }
 
 /* ---------- Nav (viên thuốc cố định ở đáy) ---------- */
-function renderNav(c) {
-  const links =
-    c.nav.map((n) => `<li><a class="nav__link" href="${esc(n.href)}" data-nav-link>${esc(n.label)}</a></li>`).join('') +
-    `<li class="nav__li-cta">${pill({ label: c.cta.label, href: c.cta.href })}</li>`;
+export function pageLabel(c) {
+  return CTX.page === 'home' || !c.nav.some((n) => n.key === CTX.page) ? c.ui.home : navLabel(c, CTX.page);
+}
+
+export function renderNav(c) {
+  const items = c.nav
+    .map((n) => `<li><a class="nav__link" href="${href(`/${n.key}/`)}" data-nav-link${CTX.page === n.key ? ' aria-current="page"' : ''}>${esc(n.label)}</a></li>`)
+    .join('');
+  const cta = `<li class="nav__li-cta">${pill({ label: c.cta.label, href: c.cta.href })}</li>`;
+  const alt = CTX.alt;
+  const lang = alt
+    ? `<a class="nav__lang" href="${esc(alt.path)}" hreflang="${alt.lang}" lang="${alt.lang}" data-lang-switch aria-label="${esc(c.ui.langName)}">${esc(c.ui.langCode)}</a>`
+    : '';
   return `
-<nav class="nav" data-nav aria-label="Chính">
+<nav class="nav" data-nav aria-label="${esc(c.ui.nav || 'Main')}">
   <div class="nav__bar">
     <button class="nav__theme" type="button" data-theme-toggle aria-label="${esc(c.ui.toggleTheme)}">
       <span class="ico-sun">${icon('sun')}</span><span class="ico-moon">${icon('moon')}</span>
     </button>
-    <ul class="nav__list" id="nav-list">${links}</ul>
-    <span class="nav__current" data-nav-current data-default="${esc(c.ui.home)}" aria-hidden="true">${esc(c.ui.home)}</span>
+    <ul class="nav__list" id="nav-list">${items}${cta}</ul>
+    <span class="nav__current" data-nav-current aria-hidden="true">${esc(pageLabel(c))}</span>
+    ${lang}
     ${pill({ label: c.cta.label, href: c.cta.href, cls: 'nav__cta' })}
     <button class="nav__burger" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-list" aria-label="${esc(c.ui.openMenu)}" data-label-open="${esc(c.ui.openMenu)}" data-label-close="${esc(c.ui.closeMenu)}">
       <span class="ico-open">${icon('menu')}</span><span class="ico-close">${icon('close')}</span>
@@ -106,7 +128,7 @@ function renderHero(c) {
   return `
 <section class="hero" id="top" data-section="${esc(c.ui.home)}">
   <div class="hero__visual" data-hero-visual aria-hidden="true"></div>
-  <a class="hero__logo" href="#top" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>
+  <a class="hero__logo" href="${href('/')}" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>
   <div class="hero__inner">
     <div class="hero__head">
       <h1 class="hero__title" aria-label="${esc(h.headlineSr)}">${lines}</h1>
@@ -122,7 +144,7 @@ function renderHero(c) {
 
 /* ---------- About: câu lớn, chữ sáng dần theo cuộn ---------- */
 // Quy ước trong content.json: *nghiêng serif*, __gạch chân__, [[tên-hình]] hình nhỏ chèn giữa câu.
-function statementTokens(text = '') {
+export function statementTokens(text = '') {
   const parts = text.split(/(\[\[[a-z0-9]+\]\]|__[^_]+__|\*[^*]+\*)/).filter((p) => p && p.trim() !== '');
   const out = [];
   for (const part of parts) {
@@ -137,7 +159,7 @@ function statementTokens(text = '') {
 
 function renderAbout(c) {
   return `
-<section class="about" id="about" aria-labelledby="about-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
+<section class="about" id="about" aria-labelledby="about-title">
   <div class="wrap wrap--statement">
     <h2 class="sr-only" id="about-title">${esc(navLabel(c, '#about', 'About'))}</h2>
     <p class="statement" data-statement>${statementTokens(c.about.statement)}</p>
@@ -164,7 +186,7 @@ function renderReel(c) {
 }
 
 /* ---------- Số liệu ---------- */
-function renderStats(c) {
+export function renderStats(c) {
   const items = c.stats
     .map(
       (s, i) => `
@@ -189,21 +211,21 @@ function renderServices(c) {
   const rows = s.items
     .map(
       (it, i) => `
-      <li class="srow" data-srow>
+      <li><a class="srow" data-srow href="${href(`/services/#${it.slug}`)}">
         <span class="srow__side srow__side--l">${pad2(i + 1)}</span>
         <h3 class="srow__title"><span class="srow__icon">${icon(it.icon)}</span><span>${esc(it.title)}</span></h3>
         <p class="srow__side srow__side--r">${esc(it.text)}</p>
-      </li>`,
+      </a></li>`,
     )
     .join('');
   const a = s.audience;
   return `
-<section class="services" id="services" aria-labelledby="services-title" data-section="${esc(navLabel(c, '#services', 'Services'))}">
+<section class="services" id="services" aria-labelledby="services-title">
   <div class="services__head">
     <h2 class="services__title" id="services-title" data-reveal>${accent(s.title)}</h2>
     <div class="services__sub" data-reveal style="--i:1">
       <p>${esc(s.tagline)}</p>
-      ${pill({ label: s.button.label, href: s.button.href, cls: 'btn--outline' })}
+      ${pill({ label: s.button.label, href: href('/services/'), cls: 'btn--outline' })}
     </div>
   </div>
   <ol class="services__list">${rows}</ol>
@@ -220,8 +242,9 @@ function renderWork(c) {
   const w = c.work;
   const items = w.items
     .map((p) => {
-      const link = p.href
-        ? `<a class="proj__link" href="${esc(p.href)}"${linkAttrs(p.href)} data-cursor="link">${esc(w.linkLabel)}<span class="sr-only"> — ${esc(p.title)}</span></a>`
+      const url = p.status === 'soon' ? '' : href(`/work/${p.slug}/`);
+      const link = url
+        ? `<a class="proj__link" href="${esc(url)}" data-cursor="link">${esc(w.linkLabel)}<span class="sr-only"> — ${esc(p.title)}</span></a>`
         : `<span class="proj__soon">${esc(w.soonLabel)}</span>`;
       const img = (src, alt, cls) =>
         src ? `<figure class="ph ${cls}"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" /></figure>` : '';
@@ -239,7 +262,7 @@ function renderWork(c) {
     })
     .join('');
   return `
-<section class="work" id="work" aria-labelledby="work-title" data-section="${esc(navLabel(c, '#work', 'Work'))}">
+<section class="work" id="work" aria-labelledby="work-title">
   <div class="wrap wrap--work">
     <h2 class="sr-only" id="work-title">${esc(w.title)}</h2>
     ${items}
@@ -248,7 +271,7 @@ function renderWork(c) {
 }
 
 /* ---------- CTA sau dự án ---------- */
-function renderWorksCta(c) {
+export function renderWorksCta(c) {
   const w = c.worksCta;
   return `
 <section class="wcta" aria-labelledby="wcta-title">
@@ -258,7 +281,7 @@ function renderWorksCta(c) {
     <span class="wcta__row"><span>${esc(w.line3)}</span></span>
   </h2>
   <p class="wcta__text" data-reveal style="--i:1">${esc(w.text)}</p>
-  <a class="wcta__btn" href="${esc(w.href)}"${linkAttrs(w.href)} data-magnetic data-reveal style="--i:2"><span class="wcta__btn-label">${esc(w.label)}</span><span class="wcta__btn-circle">${icon('arrow')}</span></a>
+  <a class="wcta__btn" href="${href('/work/')}" data-magnetic data-reveal style="--i:2"><span class="wcta__btn-label">${esc(w.label)}</span><span class="wcta__btn-circle">${icon('arrow')}</span></a>
 </section>`;
 }
 
@@ -275,7 +298,7 @@ function renderTestimonials(c) {
     )
     .join('');
   return `
-<section class="testi" aria-labelledby="testi-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
+<section class="testi" aria-labelledby="testi-title">
   <div class="wrap wrap--work testi__grid">
     <div class="testi__intro" data-reveal>
       <h2 class="testi__title" id="testi-title">${accent(t.title)}</h2>
@@ -291,10 +314,10 @@ function renderTestimonials(c) {
 }
 
 /* ---------- Chữ khổng lồ chạy ngang theo cuộn ---------- */
-function renderBigText(c) {
+export function renderBigText(c) {
   const q = c.quote;
   return `
-<section class="bigtext" aria-labelledby="bigtext-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
+<section class="bigtext" aria-labelledby="bigtext-title">
   <h2 class="bigtext__h" id="bigtext-title">
     <span class="bt bt--1" data-parallax="-1"><span>${esc(q.line1)}</span>${shape('burst')}${shape('star4')}${shape('asterisk')}</span>
     <span class="bt bt--2" data-parallax="1">${shape('half')}<span class="bt__serif">${esc(q.line2)}</span></span>
@@ -310,7 +333,7 @@ function renderPartners(c) {
     .map((it) => `<li class="pcell">${it.logo ? `<img src="${esc(it.logo)}" alt="${esc(it.name)}" loading="lazy" decoding="async" />` : `<span class="pname">${esc(it.name)}</span>`}</li>`)
     .join('');
   return `
-<section class="partners" aria-labelledby="partners-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
+<section class="partners" aria-labelledby="partners-title">
   <div class="partners__head" data-reveal>
     <h2 class="partners__title" id="partners-title">${accent(p.title)}</h2>
     <p>${esc(p.text)}</p>
@@ -320,14 +343,14 @@ function renderPartners(c) {
 }
 
 /* ---------- Footer ---------- */
-function renderFooter(c) {
+export function renderFooter(c) {
   const ct = c.contact;
   const socials = ct.socials
     .map((s) => `<li><a class="social" href="${esc(s.href)}"${linkAttrs(s.href)}><span class="social__icon">${icon(s.icon)}</span><span class="social__label">${esc(s.label)}</span></a></li>`)
     .join('');
   const legal = c.footer.legal.map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join('');
   return `
-<footer class="footer" id="contact" aria-labelledby="footer-title" data-section="${esc(navLabel(c, '#contact', 'Contact'))}">
+<footer class="footer" id="contact" aria-labelledby="footer-title">
   <div class="wrap wrap--work">
     <h2 class="footer__title" id="footer-title" data-reveal>${esc(ct.title)}</h2>
     <div class="footer__row" data-reveal style="--i:1">
@@ -341,14 +364,14 @@ function renderFooter(c) {
   <div class="wrap wrap--wide"><ul class="socials" data-reveal>${socials}</ul></div>
   <div class="wrap wrap--work footer__bottom">
     <p>© ${new Date().getFullYear()} ${esc(c.footer.copyright)}</p>
-    <a class="footer__logo" href="#top" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>
+    <a class="footer__logo" href="${href('/')}" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>
     <ul class="footer__legal">${legal}</ul>
   </div>
 </footer>
 ${renderForm(c)}`;
 }
 
-function renderForm(c) {
+export function renderForm(c) {
   const f = c.contact.form;
   const chips = f.options
     .map((o, i) => `<label class="chip"><input type="checkbox" name="topic" value="${esc(o)}" /><span>${esc(o)}</span></label>`)
@@ -375,21 +398,43 @@ function renderForm(c) {
 </dialog>`;
 }
 
-export function renderPage(c) {
+/* ---------- Preloader + lớp chuyển trang ---------- */
+function nameChars(c, cls) {
+  let n = 0;
+  return c.brand.nameLines
+    .map((line) => `<span class="${cls}__line">${[...line].map((ch) => `<span class="${cls}__mask"><span class="${cls}__char" style="--ci:${n++}">${esc(ch)}</span></span>`).join('')}</span>`)
+    .join('');
+}
+
+export const markSvg = `<svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="30" cy="30" r="22" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="48" cy="48" r="9" fill="var(--accent)"/></svg>`;
+
+export function renderOverlays(c) {
+  const imgs = c.work.items.map((p) => p.image).filter(Boolean);
+  return `
+<div class="pre" data-pre data-images='${esc(JSON.stringify(imgs))}' aria-hidden="true">
+  <div class="pre__stage">
+    <div class="pre__cell pre__cell--logo">${markSvg}</div>
+    <div class="pre__cell pre__cell--img"><img alt="" width="200" height="240" data-pre-img /></div>
+    <div class="pre__cell pre__cell--num">[<span data-pre-num>0</span>%]</div>
+  </div>
+  <p class="pre__name">${nameChars(c, 'pre')}</p>
+</div>
+<div class="pt" data-pt aria-hidden="true"><p class="pt__name">${nameChars(c, 'pt')}</p></div>`;
+}
+
+/* Khung chung cho mọi trang: skip-link, preloader, nav, nội dung chính, footer + form. */
+export function renderShell(c, mainHtml) {
   return `
 <a class="skip-link" href="#main">${esc(c.ui.skip)}</a>
+${renderOverlays(c)}
 ${renderNav(c)}
 <main id="main">
-${renderHero(c)}
-${renderAbout(c)}
-${renderReel(c)}
-${renderStats(c)}
-${renderServices(c)}
-${renderWork(c)}
-${renderWorksCta(c)}
-${renderTestimonials(c)}
-${renderBigText(c)}
-${renderPartners(c)}
+${mainHtml}
 </main>
 ${renderFooter(c)}`;
+}
+
+/* Nội dung trang chủ */
+export function renderHome(c) {
+  return [renderHero(c), renderAbout(c), renderReel(c), renderStats(c), renderServices(c), renderWork(c), renderWorksCta(c), renderTestimonials(c), renderBigText(c), renderPartners(c)].join('\n');
 }

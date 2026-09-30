@@ -1,0 +1,877 @@
+{
+  "site": {
+    "url": "https://example.com",
+    "lang": "vi",
+    "title": "Tên Bạn — Designer & UI/UX",
+    "description": "Portfolio của Tên Bạn: thiết kế giao diện, trải nghiệm người dùng và quản lý dự án cho doanh nghiệp cần sản phẩm ra thật nhanh.",
+    "ogImage": "/assets/images/og.png",
+    "themeColor": "#121212"
+  },
+  "brand": {
+    "logo": "Tên Bạn",
+    "logoMark": ".",
+    "nameLines": [
+      "Tên",
+      "Bạn"
+    ]
+  },
+  "nav": [
+    {
+      "key": "work",
+      "label": "Dự án"
+    },
+    {
+      "key": "services",
+      "label": "Dịch vụ"
+    },
+    {
+      "key": "about",
+      "label": "Giới thiệu"
+    }
+  ],
+  "cta": {
+    "label": "Đặt lịch",
+    "href": "https://calendly.com/your-link"
+  },
+  "hero": {
+    "lines": [
+      {
+        "text": "Thiết kế giúp",
+        "style": "sans"
+      },
+      {
+        "text": "sản phẩm của bạn",
+        "style": "serif",
+        "align": "right"
+      },
+      {
+        "text": "ra thật nhanh",
+        "style": "sans",
+        "cta": true
+      }
+    ],
+    "headlineSr": "Thiết kế giúp sản phẩm của bạn ra thật nhanh",
+    "tagLeft": "Designer, UI/UX và quản lý dự án — từ wireframe đến bàn giao.",
+    "tagRight": "Dành cho doanh nghiệp cần sản phẩm ra thị trường nhanh mà vẫn chất lượng."
+  },
+  "about": {
+    "statement": "Tôi làm việc ở giao điểm của thiết kế, dữ liệu và vận hành. [[gem]] Mỗi __sản phẩm__ bắt đầu bằng việc hiểu người dùng, đi qua những vòng thử ngắn và kết thúc bằng bản bàn giao gọn gàng. [[clover]] Kết quả là giao diện rõ ràng, đội ngũ làm nhanh hơn và khách hàng thấy __giá trị__ ngay từ bản đầu tiên. [[burst]]",
+    "portrait": "/assets/images/portrait.jpg",
+    "portraitAlt": "Ảnh chân dung của Tên Bạn"
+  },
+  "reel": {
+    "label": "Xem showreel",
+    "marquee": "Xem showreel",
+    "video": "/assets/video/reel.webm",
+    "poster": "/assets/images/reel-poster.svg",
+    "playLabel": "Phát video",
+    "pauseLabel": "Tạm dừng video"
+  },
+  "stats": [
+    {
+      "value": 5,
+      "suffix": "+",
+      "unit": "Năm",
+      "label": "Kinh nghiệm thiết kế sản phẩm số"
+    },
+    {
+      "value": 60,
+      "suffix": "+",
+      "unit": "Dự án",
+      "label": "Đã hoàn thành cho nhiều ngành"
+    },
+    {
+      "value": 40,
+      "suffix": "+",
+      "unit": "Khách hàng",
+      "label": "Quay lại làm việc lần thứ hai"
+    }
+  ],
+  "services": {
+    "title": "*Dịch vụ* để sản phẩm tốt hơn",
+    "tagline": "Sáu mảng việc, một người chịu trách nhiệm đến cùng — từ ý tưởng thô đến sản phẩm người dùng thật sự dùng.",
+    "button": {
+      "label": "Xem dịch vụ"
+    },
+    "audience": {
+      "label": "Tôi làm cho ai",
+      "textA": "Từ doanh nghiệp đã có tên tuổi đến người sáng lập mới bắt đầu, tôi đều làm việc theo cùng một tiêu chuẩn.",
+      "textB": "Những sản phẩm ra mắt nhanh, đúng nhu cầu và dễ mở rộng."
+    },
+    "items": [
+      {
+        "slug": "ui-design",
+        "icon": "layout",
+        "title": "Thiết kế UI",
+        "text": "Giao diện web và app nhất quán, sẵn sàng để lập trình.",
+        "long": "Giao diện là nơi sản phẩm của bạn gặp người dùng. Tôi thiết kế màn hình rõ ràng, nhất quán và sẵn sàng để lập trình, để đội kỹ thuật không phải đoán.",
+        "deliverables": [
+          "Thiết kế giao diện web và app",
+          "Hệ thống lưới và typography",
+          "Trạng thái và vi tương tác",
+          "Bản thiết kế bàn giao cho lập trình",
+          "Kiểm tra trước khi ra mắt",
+          "Hỗ trợ trong lúc triển khai"
+        ],
+        "image": "/assets/images/project-1.svg",
+        "imageAlt": "Ảnh minh họa"
+      },
+      {
+        "slug": "research-ux",
+        "icon": "compass",
+        "title": "Nghiên cứu & UX",
+        "text": "Phỏng vấn, luồng người dùng và wireframe có dữ liệu.",
+        "long": "Trước khi vẽ, tôi hỏi. Phỏng vấn, xem hành vi thật và dựng luồng người dùng để mọi quyết định đều có lý do.",
+        "deliverables": [
+          "Phỏng vấn người dùng",
+          "Bản đồ hành trình",
+          "Luồng người dùng",
+          "Wireframe",
+          "Kiểm thử khả dụng",
+          "Báo cáo phát hiện"
+        ],
+        "image": "/assets/images/project-2.svg",
+        "imageAlt": "Ảnh minh họa"
+      },
+      {
+        "slug": "design-system",
+        "icon": "layers",
+        "title": "Design system",
+        "text": "Bộ thành phần giúp đội ngũ làm nhanh và đồng bộ.",
+        "long": "Một bộ thành phần dùng chung giúp đội ngũ làm nhanh hơn và sản phẩm nhất quán khi lớn lên.",
+        "deliverables": [
+          "Kiểm kê giao diện hiện có",
+          "Màu, chữ, khoảng cách",
+          "Thư viện thành phần",
+          "Quy tắc sử dụng",
+          "Tài liệu cho lập trình",
+          "Quy trình cập nhật"
+        ],
+        "image": "/assets/images/project-3.svg",
+        "imageAlt": "Ảnh minh họa"
+      },
+      {
+        "slug": "project-management",
+        "icon": "calendar",
+        "title": "Quản lý dự án",
+        "text": "Lập kế hoạch, theo dõi tiến độ, giữ đúng deadline.",
+        "long": "Tôi giữ dự án đi đúng hướng: rõ việc, rõ người, rõ hạn, và báo sớm khi có rủi ro.",
+        "deliverables": [
+          "Lộ trình và mốc bàn giao",
+          "Phân việc và ưu tiên",
+          "Họp đồng bộ ngắn",
+          "Theo dõi rủi ro",
+          "Báo cáo tiến độ hằng tuần",
+          "Tổng kết sau dự án"
+        ],
+        "image": "/assets/images/project-4.svg",
+        "imageAlt": "Ảnh minh họa"
+      },
+      {
+        "slug": "consulting-sales",
+        "icon": "message",
+        "title": "Tư vấn & bán hàng",
+        "text": "Từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao.",
+        "long": "Thiết kế tốt còn cần bán được. Tôi đồng hành từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao.",
+        "deliverables": [
+          "Tư vấn định hướng sản phẩm",
+          "Báo giá và phạm vi",
+          "Kịch bản trao đổi với khách",
+          "Tài liệu giới thiệu",
+          "Chăm sóc sau bàn giao",
+          "Đề xuất cải tiến"
+        ],
+        "image": "/assets/images/project-1.svg",
+        "imageAlt": "Ảnh minh họa"
+      },
+      {
+        "slug": "branding",
+        "icon": "spark",
+        "title": "Branding cơ bản",
+        "text": "Logo, màu sắc và bộ nhận diện gọn cho thương hiệu mới.",
+        "long": "Một bộ nhận diện gọn gàng đủ để thương hiệu mới trông đáng tin từ ngày đầu.",
+        "deliverables": [
+          "Logo và biến thể",
+          "Bảng màu",
+          "Chữ và quy tắc dùng",
+          "Mẫu mạng xã hội",
+          "Mẫu tài liệu",
+          "Sổ tay thương hiệu ngắn"
+        ],
+        "image": "/assets/images/project-2.svg",
+        "imageAlt": "Ảnh minh họa"
+      }
+    ]
+  },
+  "work": {
+    "title": "Dự án nổi bật",
+    "linkLabel": "Xem dự án",
+    "soonLabel": "Sắp ra mắt",
+    "items": [
+      {
+        "slug": "project-01",
+        "title": "Dự án 01",
+        "industry": "Thương mại điện tử",
+        "tags": [
+          "Thiết kế sản phẩm",
+          "Nghiên cứu UX",
+          "Chiến lược thương hiệu"
+        ],
+        "status": "live",
+        "image": "/assets/images/project-1.svg",
+        "image2": "/assets/images/project-1b.svg",
+        "alt": "Ảnh minh họa Dự án 01",
+        "detail": {
+          "meta": [
+            {
+              "label": "Khách hàng",
+              "value": "Khách hàng mẫu"
+            },
+            {
+              "label": "Năm",
+              "value": "2025"
+            },
+            {
+              "label": "Vai trò",
+              "value": "Thiết kế sản phẩm, Nghiên cứu UX, Chiến lược thương hiệu"
+            },
+            {
+              "label": "Ngành",
+              "value": "Thương mại điện tử"
+            }
+          ],
+          "intro": {
+            "title": "Một sản phẩm *quá phức tạp* để dùng",
+            "text": "Mô tả mẫu cho Dự án 01: bối cảnh, vấn đề khách hàng gặp phải và vì sao dự án này quan trọng. Thay bằng câu chuyện thật của bạn."
+          },
+          "sections": [
+            {
+              "title": "Làm cho sự phức tạp *biến mất*",
+              "text": "Mô tả hướng tiếp cận: bạn đã nghiên cứu gì, đặt ra nguyên tắc nào và thử nghiệm ra sao.",
+              "bullets": [
+                "Một mục tiêu rõ ràng cho cả sản phẩm",
+                "Nhìn thấy trạng thái quan trọng ngay lập tức",
+                "Mở rộng mà không phải học lại"
+              ],
+              "images": [
+                "/assets/images/project-1.svg"
+              ]
+            },
+            {
+              "title": "Một ngôn ngữ cho *toàn bộ sản phẩm*",
+              "text": "Mô tả hệ thống thiết kế, thành phần và quy tắc đã giúp đội ngũ làm nhanh và nhất quán.",
+              "bullets": [
+                "Bộ thành phần dùng chung",
+                "Quy tắc khoảng cách và chữ",
+                "Tài liệu cho lập trình"
+              ],
+              "images": [
+                "/assets/images/project-1.svg",
+                "/assets/images/project-1b.svg"
+              ]
+            },
+            {
+              "title": "Những quyết định *quan trọng*",
+              "text": "Kể về 2–3 quyết định khó và lý do bạn chọn như vậy.",
+              "bullets": [],
+              "images": [
+                "/assets/images/project-1b.svg"
+              ]
+            }
+          ],
+          "result": {
+            "title": "Sâu nhưng *dễ chịu*",
+            "text": "Kết quả đo được: số liệu, phản hồi của khách hàng và điều bạn học được."
+          }
+        }
+      },
+      {
+        "slug": "project-02",
+        "title": "Dự án 02",
+        "industry": "Giáo dục",
+        "tags": [
+          "Thiết kế sản phẩm",
+          "Nghiên cứu UX"
+        ],
+        "status": "live",
+        "image": "/assets/images/project-2.svg",
+        "image2": "/assets/images/project-2b.svg",
+        "alt": "Ảnh minh họa Dự án 02",
+        "detail": {
+          "meta": [
+            {
+              "label": "Khách hàng",
+              "value": "Khách hàng mẫu"
+            },
+            {
+              "label": "Năm",
+              "value": "2025"
+            },
+            {
+              "label": "Vai trò",
+              "value": "Thiết kế sản phẩm, Nghiên cứu UX"
+            },
+            {
+              "label": "Ngành",
+              "value": "Giáo dục"
+            }
+          ],
+          "intro": {
+            "title": "Một sản phẩm *quá phức tạp* để dùng",
+            "text": "Mô tả mẫu cho Dự án 02: bối cảnh, vấn đề khách hàng gặp phải và vì sao dự án này quan trọng. Thay bằng câu chuyện thật của bạn."
+          },
+          "sections": [
+            {
+              "title": "Làm cho sự phức tạp *biến mất*",
+              "text": "Mô tả hướng tiếp cận: bạn đã nghiên cứu gì, đặt ra nguyên tắc nào và thử nghiệm ra sao.",
+              "bullets": [
+                "Một mục tiêu rõ ràng cho cả sản phẩm",
+                "Nhìn thấy trạng thái quan trọng ngay lập tức",
+                "Mở rộng mà không phải học lại"
+              ],
+              "images": [
+                "/assets/images/project-2.svg"
+              ]
+            },
+            {
+              "title": "Một ngôn ngữ cho *toàn bộ sản phẩm*",
+              "text": "Mô tả hệ thống thiết kế, thành phần và quy tắc đã giúp đội ngũ làm nhanh và nhất quán.",
+              "bullets": [
+                "Bộ thành phần dùng chung",
+                "Quy tắc khoảng cách và chữ",
+                "Tài liệu cho lập trình"
+              ],
+              "images": [
+                "/assets/images/project-2.svg",
+                "/assets/images/project-2b.svg"
+              ]
+            },
+            {
+              "title": "Những quyết định *quan trọng*",
+              "text": "Kể về 2–3 quyết định khó và lý do bạn chọn như vậy.",
+              "bullets": [],
+              "images": [
+                "/assets/images/project-2b.svg"
+              ]
+            }
+          ],
+          "result": {
+            "title": "Sâu nhưng *dễ chịu*",
+            "text": "Kết quả đo được: số liệu, phản hồi của khách hàng và điều bạn học được."
+          }
+        }
+      },
+      {
+        "slug": "project-03",
+        "title": "Dự án 03",
+        "industry": "Tài chính",
+        "tags": [
+          "Thiết kế sản phẩm",
+          "Design system"
+        ],
+        "status": "live",
+        "image": "/assets/images/project-3.svg",
+        "image2": "/assets/images/project-3b.svg",
+        "alt": "Ảnh minh họa Dự án 03",
+        "detail": {
+          "meta": [
+            {
+              "label": "Khách hàng",
+              "value": "Khách hàng mẫu"
+            },
+            {
+              "label": "Năm",
+              "value": "2025"
+            },
+            {
+              "label": "Vai trò",
+              "value": "Thiết kế sản phẩm, Design system"
+            },
+            {
+              "label": "Ngành",
+              "value": "Tài chính"
+            }
+          ],
+          "intro": {
+            "title": "Một sản phẩm *quá phức tạp* để dùng",
+            "text": "Mô tả mẫu cho Dự án 03: bối cảnh, vấn đề khách hàng gặp phải và vì sao dự án này quan trọng. Thay bằng câu chuyện thật của bạn."
+          },
+          "sections": [
+            {
+              "title": "Làm cho sự phức tạp *biến mất*",
+              "text": "Mô tả hướng tiếp cận: bạn đã nghiên cứu gì, đặt ra nguyên tắc nào và thử nghiệm ra sao.",
+              "bullets": [
+                "Một mục tiêu rõ ràng cho cả sản phẩm",
+                "Nhìn thấy trạng thái quan trọng ngay lập tức",
+                "Mở rộng mà không phải học lại"
+              ],
+              "images": [
+                "/assets/images/project-3.svg"
+              ]
+            },
+            {
+              "title": "Một ngôn ngữ cho *toàn bộ sản phẩm*",
+              "text": "Mô tả hệ thống thiết kế, thành phần và quy tắc đã giúp đội ngũ làm nhanh và nhất quán.",
+              "bullets": [
+                "Bộ thành phần dùng chung",
+                "Quy tắc khoảng cách và chữ",
+                "Tài liệu cho lập trình"
+              ],
+              "images": [
+                "/assets/images/project-3.svg",
+                "/assets/images/project-3b.svg"
+              ]
+            },
+            {
+              "title": "Những quyết định *quan trọng*",
+              "text": "Kể về 2–3 quyết định khó và lý do bạn chọn như vậy.",
+              "bullets": [],
+              "images": [
+                "/assets/images/project-3b.svg"
+              ]
+            }
+          ],
+          "result": {
+            "title": "Sâu nhưng *dễ chịu*",
+            "text": "Kết quả đo được: số liệu, phản hồi của khách hàng và điều bạn học được."
+          }
+        }
+      },
+      {
+        "slug": "project-04",
+        "title": "Dự án 04",
+        "industry": "Bất động sản",
+        "tags": [
+          "Thiết kế sản phẩm"
+        ],
+        "status": "soon",
+        "image": "/assets/images/project-4.svg",
+        "image2": "/assets/images/project-4b.svg",
+        "alt": "Ảnh minh họa Dự án 04",
+        "detail": {
+          "meta": [
+            {
+              "label": "Khách hàng",
+              "value": "Khách hàng mẫu"
+            },
+            {
+              "label": "Năm",
+              "value": "2025"
+            },
+            {
+              "label": "Vai trò",
+              "value": "Thiết kế sản phẩm"
+            },
+            {
+              "label": "Ngành",
+              "value": "Bất động sản"
+            }
+          ],
+          "intro": {
+            "title": "Một sản phẩm *quá phức tạp* để dùng",
+            "text": "Mô tả mẫu cho Dự án 04: bối cảnh, vấn đề khách hàng gặp phải và vì sao dự án này quan trọng. Thay bằng câu chuyện thật của bạn."
+          },
+          "sections": [
+            {
+              "title": "Làm cho sự phức tạp *biến mất*",
+              "text": "Mô tả hướng tiếp cận: bạn đã nghiên cứu gì, đặt ra nguyên tắc nào và thử nghiệm ra sao.",
+              "bullets": [
+                "Một mục tiêu rõ ràng cho cả sản phẩm",
+                "Nhìn thấy trạng thái quan trọng ngay lập tức",
+                "Mở rộng mà không phải học lại"
+              ],
+              "images": [
+                "/assets/images/project-4.svg"
+              ]
+            },
+            {
+              "title": "Một ngôn ngữ cho *toàn bộ sản phẩm*",
+              "text": "Mô tả hệ thống thiết kế, thành phần và quy tắc đã giúp đội ngũ làm nhanh và nhất quán.",
+              "bullets": [
+                "Bộ thành phần dùng chung",
+                "Quy tắc khoảng cách và chữ",
+                "Tài liệu cho lập trình"
+              ],
+              "images": [
+                "/assets/images/project-4.svg",
+                "/assets/images/project-4b.svg"
+              ]
+            },
+            {
+              "title": "Những quyết định *quan trọng*",
+              "text": "Kể về 2–3 quyết định khó và lý do bạn chọn như vậy.",
+              "bullets": [],
+              "images": [
+                "/assets/images/project-4b.svg"
+              ]
+            }
+          ],
+          "result": {
+            "title": "Sâu nhưng *dễ chịu*",
+            "text": "Kết quả đo được: số liệu, phản hồi của khách hàng và điều bạn học được."
+          }
+        }
+      }
+    ],
+    "next": "Dự án tiếp theo"
+  },
+  "worksCta": {
+    "line1": "Muốn xem",
+    "line2a": "tôi",
+    "line2b": "giúp",
+    "line3": "doanh nghiệp thế nào?",
+    "text": "Vài dự án tôi tự hào, làm cùng cả doanh nghiệp lớn lẫn đối tác độc lập.",
+    "label": "Xem tất cả dự án"
+  },
+  "testimonials": {
+    "title": "Khách hàng *nói gì*",
+    "text": "Muốn biết làm việc cùng tôi thế nào? Đừng chỉ nghe tôi nói — đây là điều khách hàng chia sẻ.",
+    "prev": "Lời chứng thực trước",
+    "next": "Lời chứng thực tiếp theo",
+    "items": [
+      {
+        "quote": "Lời chứng thực mẫu — thay bằng nhận xét thật của khách hàng.",
+        "name": "Nguyễn Văn A",
+        "role": "Giám đốc, Công ty A"
+      },
+      {
+        "quote": "Lời chứng thực mẫu — làm việc chuyên nghiệp, bàn giao đúng hạn.",
+        "name": "Trần Thị B",
+        "role": "Founder, Startup B"
+      },
+      {
+        "quote": "Lời chứng thực mẫu — giao diện đẹp và dễ dùng hơn mong đợi.",
+        "name": "Lê Văn C",
+        "role": "Trưởng phòng, Đơn vị C"
+      }
+    ]
+  },
+  "quote": {
+    "line1": "Thiết kế để mở rộng",
+    "line2": "& tạo trải nghiệm",
+    "line3": "dựa trên dữ liệu"
+  },
+  "partners": {
+    "title": "Đối tác *đáng tin*",
+    "text": "Được tin dùng bởi các nhóm từ startup mới thành lập đến doanh nghiệp lớn.",
+    "items": [
+      {
+        "name": "Đối tác 01",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 02",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 03",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 04",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 05",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 06",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 07",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 08",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 09",
+        "logo": ""
+      },
+      {
+        "name": "Đối tác 10",
+        "logo": ""
+      }
+    ]
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "text": "Tôi xây những sản phẩm chạm đến con người và đem lại kết quả cho doanh nghiệp.",
+    "email": "hello@example.com",
+    "writeLabel": "Thích viết hơn? Gửi lời nhắn.",
+    "button": {
+      "label": "Liên hệ"
+    },
+    "socials": [
+      {
+        "label": "Zalo",
+        "icon": "zalo",
+        "href": "https://zalo.me/your-number"
+      },
+      {
+        "label": "LinkedIn",
+        "icon": "linkedin",
+        "href": "https://www.linkedin.com/in/your-profile"
+      },
+      {
+        "label": "Behance",
+        "icon": "behance",
+        "href": "https://www.behance.net/your-profile"
+      },
+      {
+        "label": "Dribbble",
+        "icon": "dribbble",
+        "href": "https://dribbble.com/your-profile"
+      },
+      {
+        "label": "Email",
+        "icon": "mail",
+        "href": "mailto:hello@example.com"
+      }
+    ],
+    "form": {
+      "title": "Bạn cần một *người đồng hành*?",
+      "intro": "Kể cho tôi nghe bạn đang xây gì và đang vướng ở đâu. Tôi tự đọc từng tin nhắn và phản hồi trong một hai ngày, không có bot ở giữa.",
+      "close": "Đóng",
+      "name": "Họ tên",
+      "email": "Email",
+      "contact": "Zalo hoặc LinkedIn",
+      "company": "Tên công ty",
+      "lookingFor": "Bạn đang cần gì?",
+      "options": [
+        "Thiết kế UI",
+        "Nghiên cứu & UX",
+        "Design system",
+        "Quản lý dự án",
+        "Tư vấn & bán hàng",
+        "Branding",
+        "Khác"
+      ],
+      "message": "Kể thêm về dự án",
+      "submit": "Gửi",
+      "sending": "Đang gửi…",
+      "success": "Đã gửi! Mình sẽ phản hồi sớm.",
+      "error": "Chưa gửi được, vui lòng thử lại.",
+      "invalid": "Vui lòng điền đủ thông tin bắt buộc (*) và chọn ít nhất một mục."
+    }
+  },
+  "footer": {
+    "copyright": "Tên Bạn. Đã đăng ký bản quyền.",
+    "legal": [
+      {
+        "label": "Chính sách bảo mật",
+        "href": "#"
+      },
+      {
+        "label": "Điều khoản",
+        "href": "#"
+      }
+    ]
+  },
+  "ui": {
+    "toggleTheme": "Chuyển giao diện sáng/tối",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "skip": "Bỏ qua tới nội dung chính",
+    "home": "Trang đầu",
+    "statsLabel": "Số liệu nổi bật",
+    "langCode": "EN",
+    "langName": "Switch to English",
+    "reach": "Liên hệ",
+    "loading": "Đang tải"
+  },
+  "pages": {
+    "work": {
+      "title": "Những dự án *được chọn lọc*",
+      "text": "Sản phẩm thật, đội ngũ thật. Case study, không phải mood board.",
+      "seoTitle": "Dự án"
+    },
+    "services": {
+      "seoTitle": "Dịch vụ",
+      "h1": "Chiến lược, thiết kế và triển khai. *Không cần bộ máy agency.*",
+      "lead": "Sáu mảng việc, một đối tác chịu trách nhiệm. Tôi làm việc với founder và đội ngũ đang lớn cần chất lượng ở tốc độ startup — dùng AI để rút ngắn thời gian mà không cắt xén tay nghề.",
+      "expect": "Bạn sẽ nhận được",
+      "bag": "Trong gói gồm",
+      "principlesTitle": "Sau hơn 5 năm làm sản phẩm, *vài điều vẫn không đổi*",
+      "principles": [
+        {
+          "title": "Rõ ràng trước, đẹp sau",
+          "text": "Giao diện đẹp mà người dùng không hiểu là thất bại."
+        },
+        {
+          "title": "Thử sớm, sửa sớm",
+          "text": "Một buổi thử với 5 người rẻ hơn nhiều so với sửa sau khi ra mắt."
+        },
+        {
+          "title": "Bàn giao gọn",
+          "text": "Bản thiết kế chỉ có giá trị khi đội kỹ thuật dùng được ngay."
+        },
+        {
+          "title": "Nói thẳng",
+          "text": "Tôi sẽ nói khi thấy hướng đi chưa ổn — trước khi bạn ra mắt, không phải sau."
+        }
+      ],
+      "quoteBand": "Thiết kế tốt *nhìn như hiển nhiên*",
+      "metricsTitle": "Những con số *có ý nghĩa*. Đây là điều công việc thật sự mang lại."
+    },
+    "about": {
+      "seoTitle": "Giới thiệu",
+      "h1a": "Đa số designer chỉ nộp file thuyết trình.",
+      "h1b": "Tôi giao *sản phẩm*",
+      "lead": "Tôi làm sản phẩm số từ vài năm nay, từ lúc \"AI\" chỉ là tính năng sửa lỗi gõ. Giờ tôi dùng nó để giao cho founder và doanh nghiệp trong vài ngày những gì agency báo giá vài tháng.",
+      "portrait": "/assets/images/portrait.jpg",
+      "portraitAlt": "Ảnh chân dung",
+      "fast": {
+        "title": "Nhanh, tập trung, *dùng AI*",
+        "text": [
+          "Thiết kế sản phẩm là giải đúng vấn đề, rồi thực hiện không rườm rà.",
+          "Tôi làm việc với công ty giai đoạn đầu và đội ngũ đang lớn, cần quyết định chứ không cần workshop. Quy trình xây quanh việc giao nhanh: từ chiến lược đến bàn giao, không cần buổi khởi động dài hai tuần.",
+          "Tôi đã làm sản phẩm cho SaaS, tài chính và ứng dụng người dùng. Công cụ thay đổi, kỷ luật thì không."
+        ]
+      },
+      "tools": {
+        "title": "Bộ công cụ *đứng sau công việc*",
+        "text": "Công việc của tôi chạy trên nhiều công cụ: từ design system, cộng tác đến tự động hóa và AI. Chúng giúp tôi làm thông minh hơn, nhanh hơn và vượt kỳ vọng. Bộ công cụ này luôn thay đổi.",
+        "all": "Tất cả",
+        "items": [
+          {
+            "name": "Figma",
+            "cat": "Thiết kế"
+          },
+          {
+            "name": "Notion",
+            "cat": "Năng suất"
+          },
+          {
+            "name": "Slack",
+            "cat": "Giao tiếp"
+          },
+          {
+            "name": "Calendly",
+            "cat": "Đặt lịch"
+          },
+          {
+            "name": "Webflow",
+            "cat": "Làm web"
+          },
+          {
+            "name": "Keynote",
+            "cat": "Thuyết trình"
+          },
+          {
+            "name": "Mailchimp",
+            "cat": "Marketing"
+          },
+          {
+            "name": "Drive",
+            "cat": "Năng suất"
+          },
+          {
+            "name": "Jitter",
+            "cat": "Thiết kế"
+          },
+          {
+            "name": "Stripe",
+            "cat": "Marketing"
+          },
+          {
+            "name": "Claude",
+            "cat": "AI"
+          },
+          {
+            "name": "Cloudflare",
+            "cat": "Bảo mật"
+          }
+        ]
+      },
+      "principles": {
+        "title": "Khác biệt không phải lời hứa. *Đây là ý nghĩa thật*",
+        "items": [
+          {
+            "title": "Không phô diễn.",
+            "text": "Không có bản thuyết trình nào không được giao. Mỗi sản phẩm bàn giao đều có việc để làm."
+          },
+          {
+            "title": "Không hố đen.",
+            "text": "Bạn luôn biết dự án đang ở đâu, vướng gì, và tôi nghĩ gì — kể cả khi tôi nghĩ ta đang giải sai bài."
+          },
+          {
+            "title": "Có AI trong phòng.",
+            "text": "Tôi dùng AI trong cả quy trình: nghiên cứu, kiểm chứng, dựng nguyên mẫu nhanh hơn. Tay nghề vẫn là của con người."
+          },
+          {
+            "title": "Tôi sẽ nói khi có gì sai.",
+            "text": "Nếu có gì lệch — cấu trúc, chiến lược, hình ảnh — tôi nói trước khi bạn ra mắt."
+          },
+          {
+            "title": "Cùng chịu rủi ro.",
+            "text": "Thời gian của bạn là thật. Tôi làm với sự gấp gáp của người quan tâm kết quả."
+          },
+          {
+            "title": "Bạn nói chuyện với tôi.",
+            "text": "Không account manager, không chuyển tiếp. Bạn làm việc trực tiếp với người làm."
+          }
+        ]
+      },
+      "photos": [
+        {
+          "src": "/assets/images/project-1.svg",
+          "alt": "Ảnh làm việc"
+        },
+        {
+          "src": "/assets/images/project-3b.svg",
+          "alt": "Ảnh làm việc"
+        }
+      ],
+      "awards": {
+        "title": "Giải thưởng, báo chí *và chứng chỉ*",
+        "types": {
+          "cert": "Chứng chỉ",
+          "award": "Giải thưởng",
+          "pub": "Báo chí"
+        },
+        "items": [
+          {
+            "name": "Nielsen Norman Group UXC",
+            "type": "cert",
+            "topic": "Quản lý UX"
+          },
+          {
+            "name": "Uxcel",
+            "type": "cert",
+            "topic": "Thiết kế dịch vụ"
+          },
+          {
+            "name": "Behance UI/UX",
+            "type": "award",
+            "topic": "Thiết kế sản phẩm"
+          },
+          {
+            "name": "Behance Digital Arts",
+            "type": "award",
+            "topic": "Nghệ thuật số"
+          },
+          {
+            "name": "Abduzeedo",
+            "type": "pub",
+            "topic": "Nghệ thuật số"
+          },
+          {
+            "name": "GoGuide",
+            "type": "pub",
+            "topic": "Nghệ thuật số"
+          }
+        ]
+      },
+      "closing": {
+        "a": "Sản phẩm *tiếp theo* của bạn",
+        "b": "đang trễ tiến độ.",
+        "c": "Bắt đầu thôi",
+        "btn": "Dự án"
+      }
+    }
+  }
+}

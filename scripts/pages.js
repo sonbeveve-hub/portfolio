@@ -1,0 +1,217 @@
+// Các trang con: Work, Services, About và trang chi tiết từng dự án. Chạy trong Node (lúc build/dev).
+import { esc, accent, icon, shape, pill, href, pad2, renderStats, renderBigText, getContext } from './render.js';
+
+const logo = (c) =>
+  `<a class="hero__logo" href="${href('/')}" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>`;
+
+/* Nét cong trang trí ở nền (giống lớp hình nền của trang mẫu) */
+const bgShapes = () => `
+<div class="bgshape" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="380" cy="70" r="330"/>
+    <circle cx="1060" cy="470" r="470"/>
+    <path d="M0 250C380 240 760 420 1100 70S1440 40 1440 40"/>
+    <path d="M1110 0C1110 380 1040 700 820 900"/>
+  </svg>
+</div>`;
+
+const arrowBtn = (label, attrs, tag = 'a') =>
+  `<${tag} class="rbtn" ${attrs} data-magnetic><span class="rbtn__label">${esc(label)}</span><span class="rbtn__circle">${icon('arrow')}</span></${tag}>`;
+
+/* Đoạn chốt trang: "Your next product is already behind schedule. Let's get to [Work] →" */
+function renderClosing(c, toWork) {
+  const cl = c.pages.about.closing;
+  const btn = toWork
+    ? arrowBtn(cl.btn, `href="${href('/work/')}"`)
+    : arrowBtn(c.contact.button.label, 'type="button" data-open-form', 'button');
+  return `
+<section class="closing" aria-label="${esc(cl.b)}">
+  <p class="closing__t" data-reveal>
+    <span>${accent(cl.a)}</span>
+    <span>${esc(cl.b)}</span>
+    <span class="closing__last">${esc(cl.c)} ${btn}</span>
+  </p>
+</section>`;
+}
+
+/* ---------- /work ---------- */
+export function renderWorkPage(c) {
+  const p = c.pages.work;
+  const rows = c.work.items
+    .map((it, i) => {
+      const inner = `<span class="wrow__title">${esc(it.title)}</span><span class="wrow__tags">${it.status === 'soon' ? esc(c.work.soonLabel) : '/ ' + esc(it.tags.join(', '))}</span><span class="wrow__n">${i + 1}</span>`;
+      return it.status === 'soon'
+        ? `<li><span class="wrow is-soon">${inner}</span></li>`
+        : `<li><a class="wrow" href="${href(`/work/${it.slug}/`)}" data-preview="${esc(it.image)}">${inner}</a></li>`;
+    })
+    .join('');
+  return `
+${bgShapes()}
+<section class="phero" aria-labelledby="page-title">
+  ${logo(c)}
+  <div class="phero__inner">
+    <h1 class="phero__title" id="page-title">${accent(p.title)}</h1>
+    <p class="phero__lead">${esc(p.text)}</p>
+  </div>
+</section>
+<section class="wlist wrap wrap--work" aria-label="${esc(c.work.title)}"><ol class="wlist__ol" data-reveal>${rows}</ol></section>
+<img class="wprev" data-wprev alt="" aria-hidden="true" />
+${renderClosing(c, false)}`;
+}
+
+/* ---------- /services ---------- */
+export function renderServicesPage(c) {
+  const p = c.pages.services;
+  const strip = c.services.items.concat(c.services.items).map((it) => `<img src="${esc(it.image)}" alt="" loading="lazy" decoding="async" />`).join('');
+  const sections = c.services.items
+    .map(
+      (it, i) => `
+<section class="svc" id="${esc(it.slug)}" aria-labelledby="${esc(it.slug)}-t">
+  <div class="wrap wrap--work">
+    <h2 class="svc__title" id="${esc(it.slug)}-t" data-reveal><span class="svc__icon">${icon(it.icon)}</span>${esc(it.title)}</h2>
+    <div class="svc__cols">
+      <div data-reveal>
+        <p class="svc__label">${esc(p.expect)}</p>
+        <p class="svc__text">${esc(it.long)}</p>
+        ${arrowBtn(c.ui.reach, 'type="button" data-open-form', 'button')}
+      </div>
+      <div data-reveal style="--i:1">
+        <p class="svc__label">${esc(p.bag)}</p>
+        <ol class="svc__list">${it.deliverables.map((d, k) => `<li><span>${pad2(k + 1)}</span>${esc(d)}</li>`).join('')}</ol>
+      </div>
+    </div>
+  </div>
+  <figure class="svc__band" data-reveal><img src="${esc(it.image)}" alt="${esc(it.imageAlt || '')}" loading="lazy" decoding="async" /></figure>
+  <span class="sr-only">${pad2(i + 1)}</span>
+</section>`,
+    )
+    .join('');
+  const principles = p.principles
+    .map((x) => `<li class="plist__row" data-reveal><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`)
+    .join('');
+  return `
+${bgShapes()}
+<section class="phero phero--services" aria-labelledby="page-title">
+  ${logo(c)}
+  <div class="phero__inner">
+    <h1 class="phero__title" id="page-title">${accent(p.h1)}</h1>
+    <p class="phero__lead phero__lead--right">${esc(p.lead)}</p>
+  </div>
+  <div class="strip" aria-hidden="true"><div class="strip__track">${strip}</div></div>
+</section>
+${sections}
+<section class="principles wrap wrap--work" aria-labelledby="principles-t">
+  <h2 class="sec-title" id="principles-t" data-reveal>${accent(p.principlesTitle)}</h2>
+  <ul class="plist">${principles}</ul>
+</section>
+<section class="qband" aria-hidden="true"><p data-reveal>${accent(p.quoteBand)}</p></section>
+<section class="metrics" aria-labelledby="metrics-t">
+  <div class="wrap wrap--work"><h2 class="sec-title" id="metrics-t" data-reveal>${accent(p.metricsTitle)}</h2></div>
+  ${renderStats(c)}
+</section>
+${renderClosing(c, false)}`;
+}
+
+/* ---------- /about ---------- */
+export function renderAboutPage(c) {
+  const a = c.pages.about;
+  const chips = [`<button type="button" class="chip-btn is-on" data-cat="*" aria-pressed="true">${esc(a.tools.all)}</button>`]
+    .concat([...new Set(a.tools.items.map((t) => t.cat))].map((cat) => `<button type="button" class="chip-btn" data-cat="${esc(cat)}" aria-pressed="false">${esc(cat)}</button>`))
+    .join('');
+  const tools = a.tools.items
+    .map((t) => `<li class="tool" data-cat="${esc(t.cat)}"><span class="tool__tile" aria-hidden="true">${esc(t.name.slice(0, 1))}</span><span class="tool__name">${esc(t.name)}</span></li>`)
+    .join('');
+  const plist = a.principles.items.map((x) => `<li class="plist__row" data-reveal><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`).join('');
+  const awards = a.awards.items
+    .map((x) => `<li class="alist__row" data-reveal><span class="alist__name">${esc(x.name)} <span class="tag">${esc(a.awards.types[x.type])}</span></span><span class="alist__topic">${esc(x.topic)}</span></li>`)
+    .join('');
+  const fast = a.fast.text.map((t) => `<p>${esc(t)}</p>`).join('');
+  return `
+${bgShapes()}
+<section class="ahero" aria-labelledby="page-title">
+  ${logo(c)}
+  <div class="ahero__inner">
+    <h1 class="ahero__title" id="page-title"><span>${esc(a.h1a)}</span><span>${accent(a.h1b)}${shape('burst', 'ahero__shape')}</span></h1>
+    <p class="ahero__lead">${esc(a.lead)}</p>
+  </div>
+  <img class="ahero__img" src="${esc(a.portrait)}" alt="${esc(a.portraitAlt)}" width="800" height="1000" fetchpriority="high" />
+</section>
+<section class="afast wrap wrap--work" aria-labelledby="fast-t">
+  <h2 class="sec-title" id="fast-t" data-reveal>${accent(a.fast.title)}</h2>
+  <div class="afast__cols">
+    <div class="afast__art" aria-hidden="true" data-reveal>${['burst', 'clover', 'star4', 'ring', 'asterisk', 'eye', 'checker', 'half'].map((s) => shape(s)).join('')}</div>
+    <div class="afast__text" data-reveal style="--i:1">${fast}</div>
+  </div>
+</section>
+<section class="tools wrap wrap--work" aria-labelledby="tools-t">
+  <h2 class="sec-title" id="tools-t" data-reveal>${accent(a.tools.title)}</h2>
+  <p class="tools__text" data-reveal>${esc(a.tools.text)}</p>
+  <div class="tools__chips" data-reveal role="group" data-tools-filter>${chips}</div>
+  <ul class="tools__grid" data-reveal>${tools}</ul>
+</section>
+${renderBigText(c)}
+<section class="photos wrap wrap--work" aria-hidden="false">
+  <figure class="photos__a" data-reveal><img src="${esc(a.photos[0].src)}" alt="${esc(a.photos[0].alt)}" loading="lazy" decoding="async" /></figure>
+  <figure class="photos__b" data-reveal style="--i:1"><img src="${esc(a.photos[1].src)}" alt="${esc(a.photos[1].alt)}" loading="lazy" decoding="async" /></figure>
+</section>
+<section class="principles wrap wrap--work" aria-labelledby="pr-t">
+  <h2 class="sec-title" id="pr-t" data-reveal>${accent(a.principles.title)}</h2>
+  <ul class="plist">${plist}</ul>
+</section>
+<section class="awards wrap wrap--work" aria-labelledby="aw-t">
+  <h2 class="sec-title" id="aw-t" data-reveal>${accent(a.awards.title)}</h2>
+  <ul class="alist">${awards}</ul>
+</section>
+${renderClosing(c, true)}`;
+}
+
+/* ---------- /work/<slug> ---------- */
+export function renderProjectPage(c, slug) {
+  const items = c.work.items;
+  const idx = items.findIndex((p) => p.slug === slug);
+  const p = items[idx];
+  const d = p.detail;
+  const meta = d.meta.map((m) => `<div><dt>${esc(m.label)}</dt><dd>${esc(m.value)}</dd></div>`).join('');
+  const sections = d.sections
+    .map((s) => {
+      const bullets = s.bullets?.length ? `<ul class="case__bullets">${s.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>` : '';
+      const imgs = s.images.map((src) => `<figure><img src="${esc(src)}" alt="" loading="lazy" decoding="async" /></figure>`).join('');
+      return `
+<section class="case__sec wrap wrap--work">
+  <div class="case__cols" data-reveal>
+    <h2 class="case__h">${accent(s.title)}</h2>
+    <div><p>${esc(s.text)}</p>${bullets}</div>
+  </div>
+  <div class="case__imgs case__imgs--${s.images.length}" data-reveal>${imgs}</div>
+</section>`;
+    })
+    .join('');
+  const next = items.filter((x) => x.status !== 'soon');
+  const nextItem = next[(next.findIndex((x) => x.slug === slug) + 1) % next.length];
+  return `
+<section class="chero" aria-labelledby="page-title">
+  ${logo(c)}
+  <img class="chero__img" src="${esc(p.image)}" alt="${esc(p.alt)}" width="1200" height="700" fetchpriority="high" />
+  <div class="chero__fade" aria-hidden="true"></div>
+</section>
+<section class="cinfo wrap wrap--work">
+  <h1 class="cinfo__title" id="page-title">${esc(p.title)}</h1>
+  <dl class="cinfo__meta">${meta}</dl>
+  <div class="cinfo__intro" data-reveal>
+    <h2 class="case__h">${accent(d.intro.title)}</h2>
+    <p>${esc(d.intro.text)}</p>
+  </div>
+</section>
+${sections}
+<section class="cresult wrap wrap--work" data-reveal>
+  <h2 class="sec-title">${accent(d.result.title)}</h2>
+  <p>${esc(d.result.text)}</p>
+</section>
+<section class="cnext wrap wrap--work">
+  <p class="cnext__label">${esc(c.work.next)}</p>
+  <a class="cnext__link" href="${href(`/work/${nextItem.slug}/`)}" data-magnetic>${esc(nextItem.title)}<span aria-hidden="true">${icon('arrow')}</span></a>
+</section>`;
+}
+
+export const pageMain = { work: renderWorkPage, services: renderServicesPage, about: renderAboutPage };
+export { getContext };

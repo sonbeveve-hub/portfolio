@@ -2,3 +2,10 @@ node_modules
 dist
 .DS_Store
 *.log
+
+# Điểm vào HTML do vite.config.js tự sinh từ content/*.json
+/index.html
+/en/
+/work/
+/services/
+/about/
