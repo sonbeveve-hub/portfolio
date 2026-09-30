@@ -861,7 +861,7 @@
         }
       ],
       "awards": {
-        "title": "Awards, publications *and certifications*",
+        "title": "Certifications, awards *& press*",
         "types": {
           "cert": "Certification",
           "award": "Award",
@@ -898,7 +898,9 @@
             "type": "pub",
             "topic": "Digital Arts"
           }
-        ]
+        ],
+        "colCert": "Certifications",
+        "colMore": "Awards & press"
       },
       "closing": {
         "a": "Your *next product* is",
@@ -907,7 +909,135 @@
         "btn": "Work"
       },
       "dither": "/assets/images/portrait-dither-2.png",
-      "clean": "/assets/images/portrait-clean-2.webp"
+      "clean": "/assets/images/portrait-clean-2.webp",
+      "experience": {
+        "title": "Work *experience*",
+        "lead": "Two tracks that run in parallel: employment contracts, and freelance projects taken on during the same periods.",
+        "lanes": {
+          "employment": "Employment",
+          "freelance": "Freelance"
+        },
+        "all": "All",
+        "now": "Present",
+        "chartLabel": "Timeline of work across two tracks: employment and freelance",
+        "units": {
+          "y": "yr",
+          "m": "mo"
+        },
+        "resultsLabel": "Results",
+        "items": [
+          {
+            "type": "employment",
+            "org": "Tech Company A",
+            "role": "Senior UI/UX Designer",
+            "from": "2022-03",
+            "to": null,
+            "summary": "Lead design for the product team, build the design system and work closely with engineering and sales.",
+            "results": [
+              "Shared design system across 4 products",
+              "30% faster design handoff",
+              "Mentored 3 new designers"
+            ]
+          },
+          {
+            "type": "employment",
+            "org": "Solutions Company B",
+            "role": "Product Designer",
+            "from": "2019-06",
+            "to": "2022-02",
+            "summary": "Designed the experience of web and mobile apps, from user research to testing.",
+            "results": [
+              "18% higher sign-up completion",
+              "Launched 2 mobile apps",
+              "Standardised the user research process"
+            ]
+          },
+          {
+            "type": "employment",
+            "org": "Media Company C",
+            "role": "UI Designer",
+            "from": "2018-03",
+            "to": "2019-05",
+            "summary": "Designed web interfaces and digital collateral for brand clients.",
+            "results": [
+              "Delivered 25+ interface projects",
+              "Built the company's first component library"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Clinic booking app",
+            "role": "UI/UX design",
+            "from": "2024-01",
+            "to": null,
+            "summary": "Redesigned the booking flow and admin dashboard for a clinic chain.",
+            "results": [
+              "40% fewer booking calls",
+              "Design handoff to the dev team"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Furniture brand website",
+            "role": "Web & brand design",
+            "from": "2023-02",
+            "to": "2023-11",
+            "summary": "Designed the marketing site and identity for a furniture brand.",
+            "results": [
+              "2.5x more quote requests",
+              "Shipped on time after 9 months"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Logistics startup dashboard",
+            "role": "Product design",
+            "from": "2021-05",
+            "to": "2022-08",
+            "summary": "Designed an order-tracking dashboard for a logistics startup.",
+            "results": [
+              "Closed their seed round",
+              "50% faster order tracking"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Fashion online store",
+            "role": "UI design & closing scripts",
+            "from": "2020-03",
+            "to": "2021-01",
+            "summary": "Designed the online store and the customer-care scripts.",
+            "results": [
+              "22% higher close rate",
+              "Best month revenue 3x"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Event collateral set",
+            "role": "Graphic design",
+            "from": "2019-09",
+            "to": "2020-02",
+            "summary": "Designed an identity collateral set for an annual event series.",
+            "results": [
+              "60+ pieces delivered",
+              "Invited back by the organiser"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Online course landing page",
+            "role": "Design & sales consulting",
+            "from": "2018-08",
+            "to": "2019-03",
+            "summary": "Designed the landing page and consulting script for an online course.",
+            "results": [
+              "7.4% conversion rate",
+              "300+ students in the first cohort"
+            ]
+          }
+        ]
+      }
     }
   }
 }

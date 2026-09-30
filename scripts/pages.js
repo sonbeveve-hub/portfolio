@@ -154,6 +154,71 @@ ${sections}
 ${renderClosing(c, false)}`;
 }
 
+/* ---------- Kinh nghiệm làm việc (About) ---------- */
+const mIdx = (ym) => { const [y, m] = ym.split('-').map(Number); return y * 12 + (m - 1); };
+const fmtMY = (ym) => `${ym.slice(5, 7)}/${ym.slice(0, 4)}`;
+
+function renderExperience(x) {
+  const now = new Date();
+  const nowYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const items = x.items
+    .map((it, i) => ({ ...it, i, s: mIdx(it.from), e: mIdx(it.to || nowYM) }))
+    .sort((p, q) => q.s - p.s || q.e - p.e);
+  const y0 = Math.min(...items.map((t) => t.s)) / 12 | 0;
+  const start = y0 * 12, end = Math.max(...items.map((t) => t.e)) + 1, span = end - start;
+  const pct = (v) => ((v - start) / span) * 100;
+  const dur = (it) => {
+    const n = it.e - it.s + 1, y = Math.floor(n / 12), m = n % 12;
+    return [y ? `${y} ${x.units.y}` : '', m ? `${m} ${x.units.m}` : ''].filter(Boolean).join(' ');
+  };
+  const period = (it) => `${fmtMY(it.from)} — ${it.to ? fmtMY(it.to) : x.now}`;
+
+  // Xếp các thanh freelance chồng thời gian vào các hàng phụ
+  const packed = (type) => {
+    const rows = [];
+    items.filter((t) => t.type === type).sort((p, q) => p.s - q.s).forEach((t) => {
+      let r = rows.findIndex((last) => last < t.s);
+      if (r < 0) { r = rows.length; rows.push(-1); }
+      rows[r] = t.e; t.row = r;
+    });
+    return Math.max(1, rows.length);
+  };
+  const lane = (type) => {
+    const n = packed(type);
+    const bars = items.filter((t) => t.type === type)
+      .map((t) => `<button type="button" class="xbar${t.to ? '' : ' is-now'}" data-x="${t.i}" style="left:${pct(t.s).toFixed(2)}%;width:${(pct(t.e + 1) - pct(t.s)).toFixed(2)}%;--r:${t.row}" aria-label="${esc(t.org)}, ${esc(period(t))}"><span>${esc(t.org)}</span></button>`)
+      .join('');
+    return `<div class="xlane"><span class="xlane__name">${esc(x.lanes[type])}</span><div class="xlane__track" style="--rows:${n}">${bars}</div></div>`;
+  };
+  const years = [];
+  for (let y = y0; y * 12 < end; y++) years.push(`<span style="left:${pct(y * 12).toFixed(2)}%">${y}</span>`);
+  const chips = [`<button type="button" class="chip-btn is-on" data-xcat="*" aria-pressed="true">${esc(x.all)}</button>`]
+    .concat(['employment', 'freelance'].map((k) => `<button type="button" class="chip-btn" data-xcat="${k}" aria-pressed="false">${esc(x.lanes[k])}</button>`))
+    .join('');
+  const rows = items.map((t) => `<li class="xrow" data-x="${t.i}" data-type="${t.type}">
+      <button type="button" class="xrow__head" aria-expanded="false">
+        <span class="xrow__name">${esc(t.org)} <span class="tag">${esc(x.lanes[t.type])}</span></span>
+        <span class="xrow__role">${esc(t.role)}</span>
+        <span class="xrow__time">${esc(period(t))}<small>${esc(dur(t))}</small></span>
+        <span class="xrow__plus" aria-hidden="true"></span>
+      </button>
+      <div class="xrow__body"><div class="xrow__inner">
+        <p>${esc(t.summary)}</p>
+        <div><h4>${esc(x.resultsLabel)}</h4><ul>${t.results.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
+      </div></div>
+    </li>`).join('');
+  return `<section class="exp wrap wrap--work" aria-labelledby="exp-t" data-exp>
+  <h2 class="sec-title" id="exp-t" data-reveal>${accent(x.title)}</h2>
+  <p class="exp__lead" data-reveal>${esc(x.lead)}</p>
+  <div class="xchart" data-reveal role="group" aria-label="${esc(x.chartLabel)}">
+    ${lane('employment')}${lane('freelance')}
+    <div class="xaxis" aria-hidden="true">${years.join('')}</div>
+  </div>
+  <div class="tools__chips" data-reveal role="group">${chips}</div>
+  <ul class="xlist">${rows}</ul>
+</section>`;
+}
+
 /* ---------- /about ---------- */
 export function renderAboutPage(c) {
   const a = c.pages.about;
@@ -164,9 +229,11 @@ export function renderAboutPage(c) {
     .map((t) => `<li class="tool" data-cat="${esc(t.cat)}"><span class="tool__tile" aria-hidden="true">${esc(t.name.slice(0, 1))}</span><span class="tool__name">${esc(t.name)}</span></li>`)
     .join('');
   const plist = a.principles.items.map((x) => `<li class="plist__row" data-reveal><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`).join('');
-  const awards = a.awards.items
-    .map((x) => `<li class="alist__row" data-reveal><span class="alist__name">${esc(x.name)} <span class="tag">${esc(a.awards.types[x.type])}</span></span><span class="alist__topic">${esc(x.topic)}</span></li>`)
+  const cred = (types) => a.awards.items
+    .filter((x) => types.includes(x.type))
+    .map((x) => `<li class="cred__row"><span class="cred__name">${esc(x.name)}</span><span class="cred__topic">${esc(x.topic)}</span></li>`)
     .join('');
+  const exp = renderExperience(a.experience);
   const fast = a.fast.text.map((t) => `<p>${esc(t)}</p>`).join('');
   return `
 ${bgShapes()}
@@ -203,9 +270,13 @@ ${renderBigText(c)}
   <h2 class="sec-title" id="pr-t" data-reveal>${accent(a.principles.title)}</h2>
   <ul class="plist">${plist}</ul>
 </section>
-<section class="awards wrap wrap--work" aria-labelledby="aw-t">
-  <h2 class="sec-title" id="aw-t" data-reveal>${accent(a.awards.title)}</h2>
-  <ul class="alist">${awards}</ul>
+${exp}
+<section class="cred wrap wrap--work" aria-labelledby="aw-t">
+  <h2 class="cred__title" id="aw-t" data-reveal>${accent(a.awards.title)}</h2>
+  <div class="cred__cols" data-reveal>
+    <div><h3 class="cred__h">${esc(a.awards.colCert)}</h3><ul class="cred__list">${cred(['cert'])}</ul></div>
+    <div><h3 class="cred__h">${esc(a.awards.colMore)}</h3><ul class="cred__list">${cred(['award', 'pub'])}</ul></div>
+  </div>
 </section>
 ${renderClosing(c, true)}`;
 }

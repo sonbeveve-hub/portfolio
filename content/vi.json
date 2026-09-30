@@ -861,7 +861,7 @@
         }
       ],
       "awards": {
-        "title": "Giải thưởng, báo chí *và chứng chỉ*",
+        "title": "Chứng chỉ, giải thưởng *& báo chí*",
         "types": {
           "cert": "Chứng chỉ",
           "award": "Giải thưởng",
@@ -898,7 +898,9 @@
             "type": "pub",
             "topic": "Nghệ thuật số"
           }
-        ]
+        ],
+        "colCert": "Chứng chỉ",
+        "colMore": "Giải thưởng & báo chí"
       },
       "closing": {
         "a": "Sản phẩm *tiếp theo* của bạn",
@@ -907,7 +909,135 @@
         "btn": "Dự án"
       },
       "dither": "/assets/images/portrait-dither-2.png",
-      "clean": "/assets/images/portrait-clean-2.webp"
+      "clean": "/assets/images/portrait-clean-2.webp",
+      "experience": {
+        "title": "Kinh nghiệm *làm việc*",
+        "lead": "Hai dòng công việc chạy song song: làm theo hợp đồng lao động và nhận dự án freelance trong cùng khoảng thời gian.",
+        "lanes": {
+          "employment": "Hợp đồng lao động",
+          "freelance": "Freelance"
+        },
+        "all": "Tất cả",
+        "now": "Nay",
+        "chartLabel": "Biểu đồ thời gian làm việc theo hai dòng: hợp đồng lao động và freelance",
+        "units": {
+          "y": "năm",
+          "m": "tháng"
+        },
+        "resultsLabel": "Kết quả",
+        "items": [
+          {
+            "type": "employment",
+            "org": "Công ty Công nghệ A",
+            "role": "Senior UI/UX Designer",
+            "from": "2022-03",
+            "to": null,
+            "summary": "Dẫn dắt thiết kế cho nhóm sản phẩm, xây dựng design system và phối hợp chặt với kỹ sư, kinh doanh.",
+            "results": [
+              "Design system dùng chung cho 4 sản phẩm",
+              "Giảm 30% thời gian bàn giao thiết kế",
+              "Hướng dẫn 3 designer mới"
+            ]
+          },
+          {
+            "type": "employment",
+            "org": "Công ty Giải pháp B",
+            "role": "Product Designer",
+            "from": "2019-06",
+            "to": "2022-02",
+            "summary": "Thiết kế trải nghiệm cho ứng dụng web và di động, từ nghiên cứu người dùng đến thử nghiệm.",
+            "results": [
+              "Tăng 18% tỷ lệ hoàn tất đăng ký",
+              "Ra mắt 2 ứng dụng di động",
+              "Chuẩn hoá quy trình nghiên cứu người dùng"
+            ]
+          },
+          {
+            "type": "employment",
+            "org": "Công ty Truyền thông C",
+            "role": "UI Designer",
+            "from": "2018-03",
+            "to": "2019-05",
+            "summary": "Thiết kế giao diện web và ấn phẩm số cho khách hàng thương hiệu.",
+            "results": [
+              "Hoàn thành hơn 25 dự án giao diện",
+              "Xây bộ thư viện thành phần đầu tiên của công ty"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Ứng dụng đặt lịch cho phòng khám",
+            "role": "Thiết kế UI/UX",
+            "from": "2024-01",
+            "to": null,
+            "summary": "Thiết kế lại luồng đặt lịch và trang quản trị cho chuỗi phòng khám.",
+            "results": [
+              "Giảm 40% cuộc gọi đặt lịch",
+              "Bàn giao bộ thiết kế cho đội phát triển"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Website thương hiệu nội thất",
+            "role": "Thiết kế web & thương hiệu",
+            "from": "2023-02",
+            "to": "2023-11",
+            "summary": "Thiết kế website giới thiệu và bộ nhận diện cho thương hiệu nội thất.",
+            "results": [
+              "Tăng 2,5 lần lượng yêu cầu báo giá",
+              "Ra mắt đúng hạn sau 9 tháng"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Bảng điều khiển cho startup logistics",
+            "role": "Thiết kế sản phẩm",
+            "from": "2021-05",
+            "to": "2022-08",
+            "summary": "Thiết kế bảng điều khiển theo dõi đơn hàng cho startup logistics.",
+            "results": [
+              "Gọi vốn thành công vòng hạt giống",
+              "Rút ngắn 50% thời gian theo dõi đơn"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Cửa hàng trực tuyến thời trang",
+            "role": "Thiết kế UI & chốt đơn",
+            "from": "2020-03",
+            "to": "2021-01",
+            "summary": "Thiết kế cửa hàng trực tuyến và kịch bản chăm sóc khách hàng.",
+            "results": [
+              "Tỷ lệ chốt đơn tăng 22%",
+              "Doanh thu tháng cao nhất gấp 3 lần"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Bộ ấn phẩm sự kiện",
+            "role": "Thiết kế đồ hoạ",
+            "from": "2019-09",
+            "to": "2020-02",
+            "summary": "Thiết kế bộ ấn phẩm nhận diện cho chuỗi sự kiện thường niên.",
+            "results": [
+              "Hơn 60 ấn phẩm bàn giao",
+              "Được nhà tổ chức mời hợp tác tiếp"
+            ]
+          },
+          {
+            "type": "freelance",
+            "org": "Landing page khoá học trực tuyến",
+            "role": "Thiết kế & tư vấn bán hàng",
+            "from": "2018-08",
+            "to": "2019-03",
+            "summary": "Thiết kế landing page và kịch bản tư vấn cho khoá học trực tuyến.",
+            "results": [
+              "Tỷ lệ chuyển đổi 7,4%",
+              "Hơn 300 học viên trong đợt đầu"
+            ]
+          }
+        ]
+      }
     }
   }
 }
