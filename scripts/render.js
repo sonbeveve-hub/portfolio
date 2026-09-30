@@ -275,7 +275,7 @@ function renderTestimonials(c) {
     )
     .join('');
   return `
-<section class="testi" aria-labelledby="testi-title">
+<section class="testi" aria-labelledby="testi-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
   <div class="wrap wrap--work testi__grid">
     <div class="testi__intro" data-reveal>
       <h2 class="testi__title" id="testi-title">${accent(t.title)}</h2>
@@ -294,7 +294,7 @@ function renderTestimonials(c) {
 function renderBigText(c) {
   const q = c.quote;
   return `
-<section class="bigtext" aria-labelledby="bigtext-title">
+<section class="bigtext" aria-labelledby="bigtext-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
   <h2 class="bigtext__h" id="bigtext-title">
     <span class="bt bt--1" data-parallax="-1"><span>${esc(q.line1)}</span>${shape('burst')}${shape('star4')}${shape('asterisk')}</span>
     <span class="bt bt--2" data-parallax="1">${shape('half')}<span class="bt__serif">${esc(q.line2)}</span></span>
@@ -310,7 +310,7 @@ function renderPartners(c) {
     .map((it) => `<li class="pcell">${it.logo ? `<img src="${esc(it.logo)}" alt="${esc(it.name)}" loading="lazy" decoding="async" />` : `<span class="pname">${esc(it.name)}</span>`}</li>`)
     .join('');
   return `
-<section class="partners" aria-labelledby="partners-title">
+<section class="partners" aria-labelledby="partners-title" data-section="${esc(navLabel(c, '#about', 'About'))}">
   <div class="partners__head" data-reveal>
     <h2 class="partners__title" id="partners-title">${accent(p.title)}</h2>
     <p>${esc(p.text)}</p>
