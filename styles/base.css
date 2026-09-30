@@ -42,8 +42,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .h3 { font-size: var(--fs-h3); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
 .lead { font-size: var(--fs-lead); line-height: 1.5; color: var(--muted); max-width: 40ch; }
 .eyebrow { font-size: var(--fs-small); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-text); }
-.display em, .h2 em { font-style: normal; color: var(--accent-text); }
+.display em, .h2 em, .statement em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; font-size: 1.06em; }
+
+/* Hiện dần khi cuộn tới. Chỉ ẩn trước khi có JS (lớp .js) để trang vẫn đọc được nếu JS lỗi. */
+.js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

@@ -45,5 +45,9 @@ function contentPlugin() {
 
 export default defineConfig({
   plugins: [contentPlugin()],
-  build: { target: 'es2022' },
+  build: {
+    target: 'es2022',
+    // Nhắm trình duyệt hiện đại để bước nén CSS không bỏ mất backdrop-filter chuẩn.
+    cssTarget: ['chrome111', 'safari16.4', 'firefox113'],
+  },
 });

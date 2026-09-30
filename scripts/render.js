@@ -15,6 +15,12 @@ const icons = {
   arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>',
   close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  layout: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>',
+  compass: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+  layers: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></svg>',
+  calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  message: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 5.4 3.6 8.4 9 9-5.4.6-8.4 3.6-9 9-.6-5.4-3.6-8.4-9-9 5.4-.6 8.4-3.6 9-9z"/></svg>',
 };
 export const icon = (name) => icons[name] || '';
 
@@ -78,6 +84,84 @@ function renderHero(c) {
 </section>`;
 }
 
+
+const pad2 = (n) => String(n).padStart(2, '0');
+
+function renderStats(c) {
+  const items = c.stats
+    .map(
+      (s, i) => `
+      <li class="stat" data-reveal style="--i:${i}">
+        <p class="stat__num"><span data-count="${Number(s.value)}">${Number(s.value)}</span><span class="stat__suffix">${esc(s.suffix || '')}</span></p>
+        <p class="stat__label">${esc(s.label)}</p>
+      </li>`,
+    )
+    .join('');
+  return `
+<section class="stats" id="stats" aria-label="${esc(c.ui.statsLabel)}">
+  <div class="container"><ul class="stats__grid">${items}</ul></div>
+</section>`;
+}
+
+function renderServices(c) {
+  const s = c.services;
+  const rows = s.items
+    .map(
+      (it, i) => `
+      <li class="service" data-reveal>
+        <span class="service__num">${pad2(i + 1)}</span>
+        <h3 class="service__title"><span class="service__icon">${icon(it.icon)}</span><span>${esc(it.title)}</span></h3>
+        <p class="service__text">${esc(it.text)}</p>
+      </li>`,
+    )
+    .join('');
+  return `
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section__head">
+      <h2 class="h2" id="services-title" data-reveal>${accent(s.title)}</h2>
+      <p class="section__lead" data-reveal style="--i:1">${esc(s.tagline)}</p>
+    </div>
+    <ol class="services__list">${rows}</ol>
+  </div>
+</section>`;
+}
+
+// Tách câu thành từng từ để JS làm sáng dần theo lúc cuộn; "*từ*" thành chữ serif nghiêng.
+// Dấu câu dính liền từ đứng trước thì không chèn khoảng trắng.
+function statementWords(text = '') {
+  const tokens = [];
+  text.split(/(\*[^*]+\*)/).filter(Boolean).forEach((part) => {
+    const em = part.startsWith('*') && part.endsWith('*');
+    const body = em ? part.slice(1, -1) : part;
+    const words = body.split(/\s+/).filter(Boolean);
+    words.forEach((w, i) => {
+      const glued = i === 0 && tokens.length > 0 && !em && !/^\s/.test(part);
+      const inner = em ? `<em>${esc(w)}</em>` : esc(w);
+      tokens.push({ html: `<span class="word">${inner}</span>`, glued });
+    });
+  });
+  return tokens.map((t, i) => (i && !t.glued ? ' ' : '') + t.html).join('');
+}
+
+function renderAbout(c) {
+  const a = c.about;
+  const paras = a.text.map((t) => `<p>${esc(t)}</p>`).join('');
+  return `
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <h2 class="eyebrow" id="about-title">${esc(a.title)}</h2>
+    <p class="statement" data-statement>${statementWords(a.statement)}</p>
+    <div class="about__body">
+      <figure class="portrait" data-reveal>
+        <img src="${esc(a.portrait)}" alt="${esc(a.portraitAlt)}" width="800" height="1000" loading="lazy" decoding="async" />
+      </figure>
+      <div class="about__text" data-reveal style="--i:1">${paras}</div>
+    </div>
+  </div>
+</section>`;
+}
+
 // Các section còn lại được hoàn thiện ở các mốc sau; tạm render tiêu đề để anchor menu hoạt động.
 function renderStub(id, title) {
   return `
@@ -103,9 +187,10 @@ export function renderPage(c) {
 ${renderHeader(c)}
 <main id="main">
 ${renderHero(c)}
-${renderStub('services', c.services.title)}
+${renderStats(c)}
+${renderServices(c)}
 ${renderStub('work', c.work.title)}
-${renderStub('about', c.about.title)}
+${renderAbout(c)}
 ${renderStub('contact', c.contactCta.title)}
 </main>
 ${renderFooter(c)}`;
