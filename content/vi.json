@@ -114,7 +114,8 @@
           "Hỗ trợ trong lúc triển khai"
         ],
         "image": "/assets/images/project-1.svg",
-        "imageAlt": "Ảnh minh họa"
+        "imageAlt": "Ảnh minh họa",
+        "badge": "Quy trình có AI"
       },
       {
         "slug": "research-ux",
@@ -131,7 +132,8 @@
           "Báo cáo phát hiện"
         ],
         "image": "/assets/images/project-2.svg",
-        "imageAlt": "Ảnh minh họa"
+        "imageAlt": "Ảnh minh họa",
+        "badge": "Tăng tốc bằng AI"
       },
       {
         "slug": "design-system",
@@ -182,7 +184,8 @@
           "Đề xuất cải tiến"
         ],
         "image": "/assets/images/project-1.svg",
-        "imageAlt": "Ảnh minh họa"
+        "imageAlt": "Ảnh minh họa",
+        "badge": "Zalo & Email"
       },
       {
         "slug": "branding",
@@ -201,7 +204,11 @@
         "image": "/assets/images/project-2.svg",
         "imageAlt": "Ảnh minh họa"
       }
-    ]
+    ],
+    "soon": {
+      "title": "Phát triển Webflow",
+      "label": "Sắp ra mắt"
+    }
   },
   "work": {
     "title": "Dự án nổi bật",
@@ -695,27 +702,54 @@
       "lead": "Sáu mảng việc, một đối tác chịu trách nhiệm. Tôi làm việc với founder và đội ngũ đang lớn cần chất lượng ở tốc độ startup — dùng AI để rút ngắn thời gian mà không cắt xén tay nghề.",
       "expect": "Bạn sẽ nhận được",
       "bag": "Trong gói gồm",
-      "principlesTitle": "Sau hơn 5 năm làm sản phẩm, *vài điều vẫn không đổi*",
+      "principlesTitle": "Sau hơn 5 năm làm sản phẩm, *vài điều đã trở thành bắt buộc*",
       "principles": [
         {
-          "title": "Rõ ràng trước, đẹp sau",
-          "text": "Giao diện đẹp mà người dùng không hiểu là thất bại."
+          "title": "Tập trung vào sản phẩm",
+          "text": "Giao diện đẹp mà người dùng không hiểu là thất bại. Mọi quyết định bắt đầu từ sản phẩm và người dùng của nó."
         },
         {
-          "title": "Thử sớm, sửa sớm",
-          "text": "Một buổi thử với 5 người rẻ hơn nhiều so với sửa sau khi ra mắt."
+          "title": "Tư duy đồng sáng lập",
+          "text": "Tôi quan tâm kết quả như người trong cuộc: nói thẳng khi thấy hướng đi chưa ổn, trước khi bạn ra mắt."
         },
         {
-          "title": "Bàn giao gọn",
-          "text": "Bản thiết kế chỉ có giá trị khi đội kỹ thuật dùng được ngay."
+          "title": "Giao hàng đã được kiểm chứng",
+          "text": "Nhiều năm làm việc với startup lẫn doanh nghiệp. Quy trình đã được thử qua thực tế nên sản phẩm đến đúng hạn và chạy ổn khi ra thật."
         },
         {
-          "title": "Nói thẳng",
-          "text": "Tôi sẽ nói khi thấy hướng đi chưa ổn — trước khi bạn ra mắt, không phải sau."
+          "title": "Nhịp độ startup",
+          "text": "Thử sớm, sửa sớm, bàn giao gọn. Dùng AI để rút ngắn thời gian mà không cắt xén tay nghề."
         }
       ],
       "quoteBand": "Thiết kế tốt *nhìn như hiển nhiên*",
-      "metricsTitle": "Những con số *có ý nghĩa*. Đây là điều công việc thật sự mang lại."
+      "metricsTitle": "Những con số *có ý nghĩa.* Đây là điều công việc thật sự mang lại.",
+      "expand": "Mở rộng",
+      "metricItems": [
+        {
+          "value": "04",
+          "label": "Dự án thiện nguyện đã hoàn thành"
+        },
+        {
+          "value": "+5",
+          "label": "Lĩnh vực chuyên môn chính"
+        },
+        {
+          "value": "23M",
+          "label": "Vốn các đối tác đã huy động"
+        },
+        {
+          "value": "97%",
+          "label": "Tỉ lệ khách hàng hài lòng theo khảo sát sau dự án"
+        },
+        {
+          "value": "111M",
+          "label": "Lượt người dùng sản phẩm trên toàn thế giới"
+        },
+        {
+          "value": "38%",
+          "label": "Thời gian ra thị trường rút ngắn nhờ quy trình thiết kế dùng AI"
+        }
+      ]
     },
     "about": {
       "seoTitle": "Giới thiệu",

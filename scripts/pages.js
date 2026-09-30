@@ -60,15 +60,36 @@ ${renderClosing(c, false)}`;
 }
 
 /* ---------- /services ---------- */
+const SERVICE_SHAPES = ['burst', 'clover', 'star4', 'asterisk', 'ring', 'eye'];
+
 export function renderServicesPage(c) {
   const p = c.pages.services;
-  const strip = c.services.items.concat(c.services.items).map((it) => `<img src="${esc(it.image)}" alt="" loading="lazy" decoding="async" />`).join('');
-  const sections = c.services.items
+  const items = c.services.items;
+
+  // Dải ảnh đầu trang (mờ dần ở đáy)
+  const widths = ['1.3', '0.95', '1.7', '0.8', '1.4'];
+  const strip = items
+    .concat(items)
+    .map((it, i) => `<img src="${esc(it.image)}" alt="" style="aspect-ratio:${widths[i % widths.length]}" loading="lazy" decoding="async" />`)
+    .join('');
+
+  // Mục lục dịch vụ: 2 cột, có số, nhãn nhỏ, mũi tên; mục "sắp ra mắt" bị mờ
+  const soon = c.services.soon;
+  const total = items.length + (soon ? 1 : 0);
+  const idx = items
+    .map(
+      (it, i) => `<li><a class="sidx" href="#${esc(it.slug)}" data-reveal style="--i:${i % 4}">
+        <span class="sidx__n">${pad2(i + 1)}</span><span class="sidx__t">${esc(it.title)}</span>${it.badge ? `<span class="badge">${esc(it.badge)}</span>` : ''}<span class="sidx__arrow">${icon('arrow')}</span></a></li>`,
+    )
+    .concat(soon ? [`<li><span class="sidx is-soon"><span class="sidx__n">${pad2(total)}</span><span class="sidx__t">${esc(soon.title)}</span><span class="badge">${esc(soon.label)}</span></span></li>`] : [])
+    .join('');
+
+  const sections = items
     .map(
       (it, i) => `
 <section class="svc" id="${esc(it.slug)}" aria-labelledby="${esc(it.slug)}-t">
   <div class="wrap wrap--work">
-    <h2 class="svc__title" id="${esc(it.slug)}-t" data-reveal><span class="svc__icon">${icon(it.icon)}</span>${esc(it.title)}</h2>
+    <h2 class="svc__title" id="${esc(it.slug)}-t" data-reveal>${shape(SERVICE_SHAPES[i % SERVICE_SHAPES.length], 'svc__shape')}${esc(it.title)}</h2>
     <div class="svc__cols">
       <div data-reveal>
         <p class="svc__label">${esc(p.expect)}</p>
@@ -81,14 +102,31 @@ export function renderServicesPage(c) {
       </div>
     </div>
   </div>
-  <figure class="svc__band" data-reveal><img src="${esc(it.image)}" alt="${esc(it.imageAlt || '')}" loading="lazy" decoding="async" /></figure>
-  <span class="sr-only">${pad2(i + 1)}</span>
+  <div class="svc__band" data-reveal>
+    <figure><img src="${esc(it.image)}" alt="${esc(it.imageAlt || '')}" loading="lazy" decoding="async" /></figure>
+    <figure><img src="${esc(items[(i + 1) % items.length].image)}" alt="" loading="lazy" decoding="async" /></figure>
+  </div>
 </section>`,
     )
     .join('');
-  const principles = p.principles
-    .map((x) => `<li class="plist__row" data-reveal><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`)
+
+  // Nguyên tắc: 4 cột mở rộng khi rê chuột / bấm (con trỏ hiện nhãn "Mở rộng")
+  const acc = p.principles
+    .map(
+      (x, i) => `<button type="button" class="acc__col" aria-expanded="false" data-acc data-cursor-label="${esc(p.expand)}">
+        <span class="acc__n">${pad2(i + 1)}</span>
+        <span class="acc__text">${esc(x.text)}</span>
+        <span class="acc__t">${esc(x.title)}</span>
+      </button>`,
+    )
     .join('');
+
+  // Số liệu: lưới thẻ bo góc, ô tiêu đề chiếm hai cột đầu
+  const cards = p.metricItems
+    .map((m, i) => `<div class="mcard" data-reveal style="--i:${i % 3}"><span class="mcard__v">${esc(m.value)}</span><span class="mcard__l">${esc(m.label)}</span></div>`)
+    .join('');
+  const first = cards.indexOf('</div>') + 6;
+
   return `
 ${bgShapes()}
 <section class="phero phero--services" aria-labelledby="page-title">
@@ -99,15 +137,19 @@ ${bgShapes()}
   </div>
   <div class="strip" aria-hidden="true"><div class="strip__track">${strip}</div></div>
 </section>
-${sections}
-<section class="principles wrap wrap--work" aria-labelledby="principles-t">
-  <h2 class="sec-title" id="principles-t" data-reveal>${accent(p.principlesTitle)}</h2>
-  <ul class="plist">${principles}</ul>
+<section class="sindex wrap wrap--work" aria-label="${esc(c.services.title.replace(/\*/g, ''))}">
+  <ul class="sindex__list" style="--rows:${Math.ceil(total / 2)}">${idx}</ul>
 </section>
-<section class="qband" aria-hidden="true"><p data-reveal>${accent(p.quoteBand)}</p></section>
-<section class="metrics" aria-labelledby="metrics-t">
-  <div class="wrap wrap--work"><h2 class="sec-title" id="metrics-t" data-reveal>${accent(p.metricsTitle)}</h2></div>
-  ${renderStats(c)}
+${sections}
+<section class="acc wrap wrap--work" aria-labelledby="acc-t">
+  <h2 class="acc__h" id="acc-t" data-reveal>${accent(p.principlesTitle)}</h2>
+  <div class="acc__row" data-reveal>${acc}</div>
+</section>
+<section class="metrics2 wrap wrap--work" aria-labelledby="metrics-t">
+  <div class="metrics2__grid">
+    <h2 class="metrics2__title" id="metrics-t" data-reveal>${accent(p.metricsTitle)}</h2>
+    ${cards}
+  </div>
 </section>
 ${renderClosing(c, false)}`;
 }

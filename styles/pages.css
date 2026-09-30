@@ -156,3 +156,69 @@ a.srow { color: inherit; }
 .cnext__link { display: inline-flex; align-items: center; gap: 0.3em; font-size: var(--fs-xl); font-weight: 300; line-height: 1.1; }
 .cnext__link svg { width: 0.6em; height: 0.6em; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s var(--ease); }
 .cnext__link:hover svg { transform: translateX(10px); color: var(--accent-text); }
+
+/* ===== Dải ảnh đầu trang Services: mờ dần ở đáy ===== */
+.strip { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent); mask-image: linear-gradient(180deg, #000 62%, transparent); }
+.strip img { height: clamp(150px, 15vw, 210px); }
+
+/* ===== Mục lục dịch vụ (2 cột, có số, nhãn, mũi tên) ===== */
+.sindex { padding-block: var(--sp-8) var(--sp-7); }
+.sindex__list { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows), auto); column-gap: 48px; }
+.sidx { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--stroke); font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.35rem); transition: color var(--dur) var(--ease), padding var(--dur) var(--ease); }
+.sidx__n { color: var(--dim); font-size: 0.85em; font-variant-numeric: tabular-nums; min-width: 1.8em; }
+.sidx__t { font-weight: 300; }
+.badge { padding: 3px 9px 2px; border: 1px solid var(--tag-stroke); border-radius: 999px; font-size: 10.5px; line-height: 1.3; color: var(--muted); white-space: nowrap; }
+.sidx__arrow { margin-left: auto; display: grid; width: 18px; height: 18px; }
+.sidx__arrow svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s var(--ease); }
+a.sidx:hover { color: var(--accent-text); padding-left: 6px; }
+a.sidx:hover .sidx__arrow svg { transform: translateX(4px); }
+.sidx.is-soon { color: var(--dim); }
+@media (max-width: 760px) { .sindex__list { grid-auto-flow: row; grid-template-rows: none; } }
+
+/* ===== Mỗi dịch vụ: hình trang trí ở tiêu đề, hai ảnh cạnh nhau ===== */
+.svc__shape { width: 1.05em; height: 1.05em; color: var(--text); opacity: 0.9; }
+.svc__shape svg, .svc__shape svg * { fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.svc__band { display: grid; gap: 12px; padding: clamp(18px, 3vw, 36px) var(--gutter); background: var(--bg-elev); margin-top: var(--sp-8); }
+.svc__band figure { margin: 0; overflow: hidden; border-radius: 6px; aspect-ratio: 1.3; }
+.svc__band img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: auto; border-radius: 0; margin: 0; }
+@media (min-width: 760px) { .svc__band { grid-template-columns: 1fr 1fr; max-width: calc(var(--w-work) + 2 * var(--gutter)); margin-inline: auto; } }
+.svc__band { width: 100%; }
+
+/* ===== Nguyên tắc: 4 cột mở rộng ===== */
+.acc { padding-block: var(--sp-9) var(--sp-8); }
+.acc__h { font-size: var(--fs-h2); font-weight: 300; line-height: 1.22; max-width: 30ch; margin-bottom: var(--sp-8); }
+.acc__row { display: flex; height: clamp(260px, 26vw, 320px); }
+.acc__col { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 0 18px 0 22px; text-align: left; border-left: 1px solid var(--stroke); transition: flex-grow 0.8s var(--ease); cursor: pointer; }
+.acc__col:last-child { border-right: 1px solid var(--stroke); }
+.acc__n { font-size: 12px; color: var(--dim); }
+.acc__t { font-size: var(--fs-s); font-weight: 400; line-height: 1.3; }
+.acc__text { position: absolute; left: 22px; right: 18px; top: 52px; max-width: 34ch; font-size: var(--fs-xs); line-height: 1.6; color: var(--muted); opacity: 0; transform: translateY(8px); transition: opacity 0.4s var(--ease), transform 0.6s var(--ease); pointer-events: none; }
+.acc__col.is-open { flex-grow: 4; }
+.acc__col.is-open .acc__text { opacity: 1; transform: none; transition-delay: 0.25s; }
+@media (hover: hover) {
+  .acc__row:hover .acc__col { flex-grow: 1; }
+  .acc__row .acc__col:hover { flex-grow: 4; }
+  .acc__row .acc__col:hover .acc__text { opacity: 1; transform: none; transition-delay: 0.25s; }
+  .acc__row:hover .acc__col.is-open:not(:hover) { flex-grow: 1; }
+  .acc__row:hover .acc__col.is-open:not(:hover) .acc__text { opacity: 0; }
+}
+@media (max-width: 760px) {
+  .acc__row { flex-direction: column; height: auto; }
+  .acc__col { flex: none; min-height: 64px; padding: 14px 0 14px 18px; border-left: 0; border-top: 1px solid var(--stroke); flex-direction: row; gap: 14px; align-items: flex-start; }
+  .acc__col:last-child { border-right: 0; border-bottom: 1px solid var(--stroke); }
+  .acc__n { order: 1; } .acc__t { order: 2; }
+  .acc__text { position: static; order: 3; flex-basis: 100%; max-height: 0; overflow: hidden; margin: 0; }
+  .acc__col { flex-wrap: wrap; }
+  .acc__col.is-open .acc__text { max-height: 200px; opacity: 1; margin-top: 8px; }
+}
+
+/* ===== Số liệu dạng thẻ ===== */
+.metrics2 { padding-block: var(--sp-8) var(--sp-7); }
+.metrics2__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 660px; }
+.metrics2__title { grid-column: 1 / span 2; font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem); font-weight: 400; line-height: 1.3; }
+.mcard { display: flex; flex-direction: column; justify-content: space-between; aspect-ratio: 1 / 1.02; padding: 16px 14px 14px; border: 1px solid var(--stroke); border-radius: 12px; transition: color 0.5s var(--ease), border-color 0.5s var(--ease); position: relative; isolation: isolate; overflow: hidden; }
+.mcard::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--grad); opacity: 0; transition: opacity 0.5s var(--ease); }
+.mcard__v { font-size: clamp(2.6rem, 1.4rem + 3.2vw, 4.4rem); font-weight: 300; line-height: 1; }
+.mcard__l { font-size: 11px; line-height: 1.4; color: var(--muted); max-width: 26ch; transition: color 0.5s var(--ease); }
+@media (hover: hover) { .mcard:hover { color: #121212; border-color: transparent; } .mcard:hover::before { opacity: 1; } .mcard:hover .mcard__l { color: #121212; } }
+@media (max-width: 560px) { .metrics2__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metrics2__title { grid-column: 1 / -1; } }

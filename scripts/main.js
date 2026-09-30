@@ -26,6 +26,7 @@ import { initMagnetic } from './magnetic.js';
 import { initForm } from './form.js';
 import { initTransitions } from './transition.js';
 import { initTools } from './tools.js';
+import { initAccordion } from './accordion.js';
 import { initWorkPreview } from './wlist.js';
 
 initTransitions();
@@ -45,4 +46,5 @@ initCursor();
 initMagnetic();
 initForm();
 initTools();
+initAccordion();
 initWorkPreview();

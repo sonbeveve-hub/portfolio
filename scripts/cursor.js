@@ -24,7 +24,10 @@ export function initCursor() {
     if (e.pointerType === 'touch') return;
     tx = e.clientX; ty = e.clientY;
     if (!on) { on = true; x = tx; y = ty; el.classList.add('is-on'); }
-    el.classList.toggle('is-hover', !!e.target.closest?.(HOVER));
+    const lab = e.target.closest?.('[data-cursor-label]');
+    el.classList.toggle('is-label', !!lab);
+    el.textContent = lab ? lab.dataset.cursorLabel : '';
+    el.classList.toggle('is-hover', !lab && !!e.target.closest?.(HOVER));
   }, { passive: true });
   document.addEventListener('pointerleave', () => { on = false; el.classList.remove('is-on'); });
 }

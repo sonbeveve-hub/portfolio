@@ -114,7 +114,8 @@
           "Support during build"
         ],
         "image": "/assets/images/project-1.svg",
-        "imageAlt": "Illustration"
+        "imageAlt": "Illustration",
+        "badge": "AI-powered workflow"
       },
       {
         "slug": "research-ux",
@@ -131,7 +132,8 @@
           "Findings report"
         ],
         "image": "/assets/images/project-2.svg",
-        "imageAlt": "Illustration"
+        "imageAlt": "Illustration",
+        "badge": "AI-accelerated"
       },
       {
         "slug": "design-system",
@@ -182,7 +184,8 @@
           "Improvement proposals"
         ],
         "image": "/assets/images/project-1.svg",
-        "imageAlt": "Illustration"
+        "imageAlt": "Illustration",
+        "badge": "Chat & email"
       },
       {
         "slug": "branding",
@@ -201,7 +204,11 @@
         "image": "/assets/images/project-2.svg",
         "imageAlt": "Illustration"
       }
-    ]
+    ],
+    "soon": {
+      "title": "Webflow development",
+      "label": "Coming soon"
+    }
   },
   "work": {
     "title": "Selected work",
@@ -695,27 +702,54 @@
       "lead": "Six disciplines, one accountable partner. I work with founders and scaling teams who need quality output at start-up speed — using AI to cut timelines without cutting corners on craft.",
       "expect": "What to expect",
       "bag": "What’s in the bag",
-      "principlesTitle": "After 5+ years of shipping products, *a few things haven’t changed*",
+      "principlesTitle": "After 5+ years and many shipped products, *a few things have become non-negotiable*",
       "principles": [
         {
-          "title": "Clarity first",
-          "text": "A beautiful interface nobody understands is a failure."
+          "title": "Product focus",
+          "text": "A beautiful interface nobody understands is a failure. Every decision starts with the product and its users."
         },
         {
-          "title": "Test early",
-          "text": "One session with five people costs far less than fixing after launch."
+          "title": "Co-founder mentality",
+          "text": "I care about the outcome like an insider: I’ll say so when a direction looks off, before you ship."
         },
         {
-          "title": "Clean handoff",
-          "text": "A design only has value when engineering can use it right away."
+          "title": "Proven delivery",
+          "text": "Years of shipping for start-ups and enterprises alike. The process is battle-tested, so the work lands on time and holds up in production."
         },
         {
-          "title": "Straight talk",
-          "text": "I’ll say so when a direction looks off — before you ship, not after."
+          "title": "Start-up pace",
+          "text": "Test early, fix early, hand off clean. AI shortens the timeline without cutting corners on craft."
         }
       ],
       "quoteBand": "Good design *looks obvious*",
-      "metricsTitle": "Numbers that mean something. *Here’s what the work has actually produced.*"
+      "metricsTitle": "Numbers that mean something. *Here’s what the work has actually produced.*",
+      "expand": "Expand",
+      "metricItems": [
+        {
+          "value": "04",
+          "label": "Pro-bonos completed"
+        },
+        {
+          "value": "+5",
+          "label": "Key domain areas of knowledge"
+        },
+        {
+          "value": "23M",
+          "label": "Money raised by my partners"
+        },
+        {
+          "value": "97%",
+          "label": "Client satisfaction rate based on post-project surveys."
+        },
+        {
+          "value": "111M",
+          "label": "Products used worldwide by satisfied users"
+        },
+        {
+          "value": "38%",
+          "label": "Average time to market reduced due to AI streamlined design process."
+        }
+      ]
     },
     "about": {
       "seoTitle": "About",
