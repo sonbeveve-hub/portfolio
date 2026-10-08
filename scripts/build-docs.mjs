@@ -124,7 +124,7 @@ const motion = [
 ].map(([a, b]) => `<tr><th scope="row">${a}</th><td>${b}</td></tr>`).join('');
 
 const structure = [
-  ['content/vi.json · en.json', 'Toàn bộ chữ, liên kết, đường dẫn ảnh (2 ngôn ngữ)'],
+  ['content/ (settings, pages/, projects/, services/, experience/, testimonials/, partners/)', 'Toàn bộ chữ, liên kết, đường dẫn ảnh — mỗi file có bản vi và en; sửa qua /admin'],
   ['styles/tokens.css', 'Design token — sửa ở đây để đổi toàn site'],
   ['scripts/render.js · pages.js', 'Hàm dựng HTML (Node, lúc build) cho thành phần và từng trang'],
   ['scripts/*.js (trình duyệt)', 'Hiệu ứng và tương tác; đăng ký trong main.js'],

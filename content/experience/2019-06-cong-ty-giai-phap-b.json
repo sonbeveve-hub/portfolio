@@ -1,0 +1,28 @@
+{
+  "vi": {
+    "type": "employment",
+    "org": "Công ty Giải pháp B",
+    "role": "Product Designer",
+    "from": "2019-06",
+    "to": "2022-02",
+    "summary": "Thiết kế trải nghiệm cho ứng dụng web và di động, từ nghiên cứu người dùng đến thử nghiệm.",
+    "results": [
+      "Tăng 18% tỷ lệ hoàn tất đăng ký",
+      "Ra mắt 2 ứng dụng di động",
+      "Chuẩn hoá quy trình nghiên cứu người dùng"
+    ]
+  },
+  "en": {
+    "type": "employment",
+    "org": "Solutions Company B",
+    "role": "Product Designer",
+    "from": "2019-06",
+    "to": "2022-02",
+    "summary": "Designed the experience of web and mobile apps, from user research to testing.",
+    "results": [
+      "18% higher sign-up completion",
+      "Launched 2 mobile apps",
+      "Standardised the user research process"
+    ]
+  }
+}

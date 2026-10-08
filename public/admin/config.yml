@@ -1,6 +1,6 @@
-# Cấu hình trang quản trị nội dung (Decap CMS) — mở tại /admin/
-# Nội dung nằm ở content/vi.json và content/en.json. Mỗi lần bấm "Publish" là một commit lên nhánh main,
-# Vercel tự build và đăng bản mới sau khoảng 1–2 phút.
+# Trang quản trị nội dung (Decap CMS) — mở tại /admin/
+# Nội dung nằm trong thư mục content/ (xem scripts/content.js). Mỗi file chứa cả bản tiếng Việt (vi) và tiếng Anh (en).
+# Bấm "Công bố → Công bố ngay" = một commit lên nhánh main; Vercel đăng bản mới sau 1–2 phút.
 
 backend:
   name: github
@@ -9,504 +9,570 @@ backend:
   base_url: https://portfolio-pi-eight-jsed3pl308.vercel.app
   auth_endpoint: api/auth
   commit_messages:
-    update: "CMS: cập nhật {{slug}}"
+    create: "CMS: thêm {{collection}} “{{slug}}”"
+    update: "CMS: cập nhật {{collection}} “{{slug}}”"
+    delete: "CMS: xoá {{collection}} “{{slug}}”"
     uploadMedia: "CMS: tải lên {{path}}"
     deleteMedia: "CMS: xoá {{path}}"
 
-# Khi chạy thử trên máy (npx decap-server) thì sửa thẳng file, không cần đăng nhập GitHub.
+# Chạy thử trên máy: `npx decap-server` trong thư mục repo → sửa thẳng file, không cần đăng nhập GitHub.
 local_backend: true
 
 locale: vi
 site_url: https://portfolio-pi-eight-jsed3pl308.vercel.app
 display_url: https://portfolio-pi-eight-jsed3pl308.vercel.app
-logo_url: /favicon.svg
+logo_url: /admin/logo.svg
 
 media_folder: public/assets/images
 public_folder: /assets/images
 
-# Quy ước chung cho ô chữ (ghi trong gợi ý của từng ô):
-#   *chữ*  → chữ serif nghiêng (nhấn)   __chữ__ → gạch chân   [[gem]] → hình trang trí nhỏ
+# Tên file của mục mới = tên không dấu, nối bằng gạch ngang (vd. "Bệnh viện ABC" → benh-vien-abc).
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+# Song ngữ: mỗi file có { "vi": …, "en": … }. Ô nào bản tiếng Anh để trống, site tự dùng bản tiếng Việt.
+i18n:
+  structure: single_file
+  locales: [vi, en]
+  default_locale: vi
+
 collections:
-  - name: noidung
-    label: "Nội dung website"
-    description: "Mỗi ngôn ngữ là một file. Sửa xong bấm Publish → Publish now; Vercel đăng bản mới sau 1–2 phút."
+  # ================================================================ DỰ ÁN
+  - name: projects
+    label: "Dự án"
+    label_singular: "dự án"
+    description: "Mỗi dự án có một trang riêng tại /work/<tên-file>/. Số thứ tự nhỏ hiện trước. Ảnh, trạng thái và số thứ tự chỉ cần nhập ở bản tiếng Việt."
+    folder: content/projects
+    extension: json
     format: json
-    editor:
-      preview: false
+    create: true
+    delete: true
+    i18n: true
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{order}}. {{title}} — {{industry}}"
+    sortable_fields: [order, title, industry]
+    view_filters:
+      - { label: "Đang hiển thị", field: status, pattern: live }
+      - { label: "Sắp ra mắt", field: status, pattern: soon }
+    fields:
+      - { label: "Tên dự án", name: title, widget: string, i18n: true }
+      - { label: "Thứ tự hiển thị", name: order, widget: number, value_type: int, default: 10, min: 1, i18n: duplicate, hint: "1 = đứng đầu danh sách" }
+      - { label: "Trạng thái", name: status, widget: select, default: live, i18n: duplicate, options: [ { label: "Đang hiển thị", value: live }, { label: "Sắp ra mắt (chưa có trang chi tiết)", value: soon } ] }
+      - { label: "Ngành", name: industry, widget: string, i18n: true }
+      - { label: "Nhãn (vai trò, hạng mục)", name: tags, widget: list, i18n: true, hint: "Gõ các nhãn, ngăn cách bằng dấu phẩy. Vd: Thiết kế sản phẩm, Nghiên cứu UX" }
+      - { label: "Ảnh chính", name: image, widget: image, i18n: duplicate, hint: "Tỉ lệ 16:10, nên dưới 500 KB. Khi thay ảnh, đặt tên file mới." }
+      - { label: "Ảnh phụ (hiện khi rê chuột)", name: image2, widget: image, required: false, i18n: duplicate }
+      - { label: "Mô tả ảnh (cho người khiếm thị)", name: alt, widget: string, i18n: true }
+      - label: "Trang chi tiết"
+        name: detail
+        widget: object
+        i18n: true
+        fields:
+          - label: "Thông tin nhanh"
+            name: meta
+            widget: list
+            required: false
+            summary: "{{fields.label}}: {{fields.value}}"
+            hint: "Ví dụ: Khách hàng, Năm, Vai trò, Ngành"
+            fields:
+              - { label: "Nhãn", name: label, widget: string }
+              - { label: "Nội dung", name: value, widget: string }
+          - label: "Mở đầu"
+            name: intro
+            widget: object
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Đoạn văn", name: text, widget: text }
+          - label: "Các phần nội dung"
+            name: sections
+            widget: list
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Đoạn văn", name: text, widget: text }
+              - { label: "Gạch đầu dòng", name: bullets, widget: list, collapsed: false, required: false, field: { label: "Ý", name: bullet, widget: string } }
+              - { label: "Ảnh (1 hoặc 2 ảnh)", name: images, widget: list, collapsed: false, required: false, field: { label: "Ảnh", name: image, widget: image } }
+          - label: "Kết quả"
+            name: result
+            widget: object
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Đoạn văn", name: text, widget: text }
+
+  # ================================================================ KINH NGHIỆM
+  - name: experience
+    label: "Kinh nghiệm làm việc"
+    label_singular: "công việc"
+    description: "Hiện ở trang Giới thiệu. Site tự sắp theo thời gian; freelance tự xếp dưới công việc hợp đồng trùng thời gian nhiều nhất."
+    folder: content/experience
+    extension: json
+    format: json
+    create: true
+    delete: true
+    i18n: true
+    identifier_field: role
+    slug: "{{from}}-{{org}}"
+    summary: "{{from}} → {{to}} · {{role}} · {{org}}"
+    sortable_fields: [from, role, org]
+    view_filters:
+      - { label: "Hợp đồng lao động", field: type, pattern: employment }
+      - { label: "Freelance", field: type, pattern: freelance }
+    fields:
+      - { label: "Loại", name: type, widget: select, i18n: duplicate, options: [ { label: "Hợp đồng lao động", value: employment }, { label: "Freelance", value: freelance } ] }
+      - { label: "Vai trò", name: role, widget: string, i18n: true }
+      - { label: "Đơn vị / tên dự án", name: org, widget: string, i18n: true }
+      - { label: "Từ (năm-tháng)", name: from, widget: string, i18n: duplicate, pattern: ['^\d{4}-\d{2}$', "Định dạng YYYY-MM, vd. 2022-03"] }
+      - { label: "Đến (năm-tháng)", name: to, widget: string, required: false, i18n: duplicate, pattern: ['^(\d{4}-\d{2})?$', "Định dạng YYYY-MM hoặc để trống"], hint: "Để trống nếu vẫn đang làm (hiện chữ Nay)" }
+      - { label: "Mô tả", name: summary, widget: text, i18n: true }
+      - { label: "Kết quả", name: results, widget: list, collapsed: false, i18n: true, field: { label: "Kết quả", name: result, widget: string } }
+
+  # ================================================================ NHẬN XÉT
+  - name: testimonials
+    label: "Nhận xét khách hàng"
+    label_singular: "nhận xét"
+    description: "Chồng thẻ nhận xét ở trang chủ."
+    folder: content/testimonials
+    extension: json
+    format: json
+    create: true
+    delete: true
+    i18n: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{order}}. {{name}} — {{role}}"
+    sortable_fields: [order, name]
+    fields:
+      - { label: "Tên người nhận xét", name: name, widget: string, i18n: duplicate }
+      - { label: "Chức vụ, đơn vị", name: role, widget: string, i18n: true }
+      - { label: "Lời nhận xét", name: quote, widget: text, i18n: true }
+      - { label: "Thứ tự", name: order, widget: number, value_type: int, default: 10, i18n: duplicate }
+
+  # ================================================================ DỊCH VỤ
+  - name: services
+    label: "Dịch vụ"
+    label_singular: "dịch vụ"
+    description: "Danh sách dịch vụ ở trang chủ và trang Dịch vụ."
+    folder: content/services
+    extension: json
+    format: json
+    create: true
+    delete: true
+    i18n: true
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: "Tên dịch vụ", name: title, widget: string, i18n: true }
+      - { label: "Thứ tự", name: order, widget: number, value_type: int, default: 10, i18n: duplicate }
+      - { label: "Biểu tượng", name: icon, widget: select, i18n: duplicate, options: [ { label: "Bố cục", value: layout }, { label: "La bàn", value: compass }, { label: "Lớp", value: layers }, { label: "Lịch", value: calendar }, { label: "Tin nhắn", value: message }, { label: "Tia sáng", value: spark } ] }
+      - { label: "Mô tả ngắn (trang chủ)", name: text, widget: text, i18n: true }
+      - { label: "Mô tả dài (trang Dịch vụ)", name: long, widget: text, i18n: true }
+      - { label: "Trong gói gồm", name: deliverables, widget: list, collapsed: false, i18n: true, field: { label: "Hạng mục", name: item, widget: string } }
+      - { label: "Ảnh minh hoạ", name: image, widget: image, i18n: duplicate }
+      - { label: "Mô tả ảnh", name: imageAlt, widget: string, i18n: true }
+      - { label: "Nhãn nhỏ (tuỳ chọn)", name: badge, widget: string, required: false, i18n: true }
+
+  # ================================================================ ĐỐI TÁC
+  - name: partners
+    label: "Đối tác"
+    label_singular: "đối tác"
+    description: "Lưới logo “Đối tác đáng tin” ở trang chủ. Không có logo thì hiện tên bằng chữ."
+    folder: content/partners
+    extension: json
+    format: json
+    create: true
+    delete: true
+    i18n: true
+    identifier_field: name
+    slug: "{{order}}-{{name}}"
+    summary: "{{order}}. {{name}}"
+    sortable_fields: [order, name]
+    fields:
+      - { label: "Tên đối tác", name: name, widget: string, i18n: duplicate }
+      - { label: "Logo (SVG hoặc PNG nền trong)", name: logo, widget: image, required: false, i18n: duplicate }
+      - { label: "Thứ tự", name: order, widget: number, value_type: int, default: 10, i18n: duplicate }
+
+  # ================================================================ CÁC TRANG
+  - name: pages
+    label: "Các trang"
+    description: "Chữ và hình của từng trang. Danh sách (dự án, dịch vụ, kinh nghiệm, nhận xét, đối tác) sửa ở mục riêng bên trái."
+    editor: { preview: false }
+    i18n: true
     files:
-      - label: "Tiếng Việt"
-        name: vi
-        file: content/vi.json
-        fields: &fields
-        # ---------------- THÔNG TIN CHUNG ----------------
-        - label: "Thông tin chung & SEO"
-          name: site
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề trang (hiện trên tab trình duyệt và Google)", name: title, widget: string }
-            - { label: "Mô tả ngắn cho Google", name: description, widget: text }
-            - { label: "Ảnh khi chia sẻ link (1200×630)", name: ogImage, widget: image }
-            - { label: "Địa chỉ website", name: url, widget: string, hint: "Chỉ đổi khi gắn tên miền riêng. Sửa ở cả bản tiếng Việt và tiếng Anh." }
-            - { label: "Mã ngôn ngữ (không đổi)", name: lang, widget: string }
-            - { label: "Màu thanh trình duyệt", name: themeColor, widget: color }
+      - label: "Trang chủ"
+        name: home
+        file: content/pages/home.json
+        i18n: true
+        fields:
+          - label: "Tiêu đề lớn (hero)"
+            name: hero
+            widget: object
+            i18n: true
+            fields:
+              - label: "Các dòng tiêu đề"
+                name: lines
+                widget: list
+                summary: "{{fields.text}}"
+                fields:
+                  - { label: "Chữ", name: text, widget: string }
+                  - { label: "Kiểu chữ", name: style, widget: select, default: sans, options: [ { label: "Thường", value: sans }, { label: "Serif nghiêng", value: serif } ] }
+                  - { label: "Canh lề", name: align, widget: select, required: false, options: [ { label: "Phải", value: right } ], hint: "Để trống = canh trái" }
+                  - { label: "Đặt nút Đặt lịch ở dòng này", name: cta, widget: boolean, required: false, default: false }
+              - { label: "Cả câu tiêu đề (cho Google, trình đọc màn hình)", name: headlineSr, widget: string }
+              - { label: "Dòng mô tả trái", name: tagLeft, widget: text }
+              - { label: "Dòng mô tả phải", name: tagRight, widget: text }
+          - label: "Đoạn giới thiệu"
+            name: about
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Đoạn văn lớn", name: statement, widget: text, hint: "*nghiêng*, __gạch chân__, chèn hình nhỏ: [[gem]] [[clover]] [[burst]] [[star4]] [[ring]] [[asterisk]]" }
+              - { label: "Ảnh chân dung", name: portrait, widget: image }
+              - { label: "Mô tả ảnh", name: portraitAlt, widget: string }
+          - label: "Video showreel"
+            name: reel
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Chữ trên video", name: label, widget: string }
+              - { label: "Chữ chạy ngang", name: marquee, widget: string }
+              - { label: "Video (.webm/.mp4, nên dưới 8 MB)", name: video, widget: file, media_folder: /public/assets/video, public_folder: /assets/video }
+              - { label: "Ảnh chờ của video", name: poster, widget: image }
+              - { label: "Nhãn nút phát", name: playLabel, widget: string }
+              - { label: "Nhãn nút dừng", name: pauseLabel, widget: string }
+          - label: "3 con số"
+            name: stats
+            widget: list
+            i18n: true
+            summary: "{{fields.value}}{{fields.suffix}} {{fields.unit}}"
+            fields:
+              - { label: "Số", name: value, widget: number, value_type: int }
+              - { label: "Hậu tố (vd. +, %)", name: suffix, widget: string, required: false }
+              - { label: "Đơn vị", name: unit, widget: string }
+              - { label: "Mô tả", name: label, widget: string }
+          - label: "Khối Dịch vụ"
+            name: services
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Câu mô tả", name: tagline, widget: text }
+              - { label: "Nút xem dịch vụ", name: button, widget: object, fields: [ { label: "Chữ trên nút", name: label, widget: string } ] }
+              - label: "Tôi làm cho ai"
+                name: audience
+                widget: object
+                fields:
+                  - { label: "Nhãn", name: label, widget: string }
+                  - { label: "Đoạn 1", name: textA, widget: text }
+                  - { label: "Đoạn 2", name: textB, widget: text }
+              - label: "Dịch vụ sắp ra mắt"
+                name: soon
+                widget: object
+                fields:
+                  - { label: "Tên", name: title, widget: string }
+                  - { label: "Nhãn", name: label, widget: string }
+          - label: "Khối Dự án"
+            name: work
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Chữ nút xem dự án", name: linkLabel, widget: string }
+              - { label: "Nhãn sắp ra mắt", name: soonLabel, widget: string }
+              - { label: "Chữ \"Dự án tiếp theo\" (cuối trang chi tiết)", name: next, widget: string }
+          - label: "Kêu gọi xem dự án"
+            name: worksCta
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Dòng 1", name: line1, widget: string }
+              - { label: "Dòng 2 (trước nút gạt)", name: line2a, widget: string }
+              - { label: "Dòng 2 (sau nút gạt, serif)", name: line2b, widget: string }
+              - { label: "Dòng 3", name: line3, widget: string }
+              - { label: "Câu mô tả", name: text, widget: text }
+              - { label: "Chữ trên nút", name: label, widget: string }
+          - label: "Khối Nhận xét"
+            name: testimonials
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Mô tả", name: text, widget: text }
+              - { label: "Nhãn nút trước", name: prev, widget: string }
+              - { label: "Nhãn nút sau", name: next, widget: string }
+          - label: "Chữ khổng lồ"
+            name: quote
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Dòng 1", name: line1, widget: string }
+              - { label: "Dòng 2 (serif)", name: line2, widget: string }
+              - { label: "Dòng 3", name: line3, widget: string }
+          - label: "Khối Đối tác"
+            name: partners
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Mô tả", name: text, widget: text }
 
-        - label: "Tên & logo"
-          name: brand
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tên hiển thị", name: logo, widget: string }
-            - { label: "Dấu sau tên (thường là dấu chấm màu xanh)", name: logoMark, widget: string }
-            - { label: "Tên ở màn chờ (mỗi dòng một mục)", name: nameLines, widget: list, field: { label: "Dòng", name: line, widget: string } }
+      - label: "Trang Giới thiệu"
+        name: about
+        file: content/pages/about.json
+        i18n: true
+        fields:
+          - { label: "Tên trang trên Google", name: seoTitle, widget: string, i18n: true }
+          - { label: "Tiêu đề dòng 1", name: h1a, widget: string, i18n: true }
+          - { label: "Tiêu đề dòng 2", name: h1b, widget: string, i18n: true, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+          - { label: "Đoạn mở đầu", name: lead, widget: text, i18n: true }
+          - { label: "Ảnh chân dung (bản thường)", name: portrait, widget: image, i18n: duplicate }
+          - { label: "Mô tả ảnh chân dung", name: portraitAlt, widget: string, i18n: true }
+          - { label: "Ảnh chân dung chấm điểm (hiệu ứng)", name: dither, widget: image, i18n: duplicate, hint: "Ảnh tạo bằng script riêng. Khi thay, đặt tên file mới (vd. -3)." }
+          - { label: "Ảnh chân dung sạch (vùng soi)", name: clean, widget: image, i18n: duplicate, hint: "Đặt tên file mới khi thay ảnh." }
+          - label: "Nhanh, tập trung, dùng AI"
+            name: fast
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Các đoạn văn", name: text, widget: list, collapsed: false, field: { label: "Đoạn", name: paragraph, widget: text } }
+          - label: "Bộ công cụ"
+            name: tools
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Mô tả", name: text, widget: text }
+              - { label: "Nhãn lọc \"Tất cả\"", name: all, widget: string }
+              - label: "Công cụ"
+                name: items
+                widget: list
+                summary: "{{fields.name}} · {{fields.cat}}"
+                fields:
+                  - { label: "Tên công cụ", name: name, widget: string }
+                  - { label: "Nhóm (dùng để lọc)", name: cat, widget: string, hint: "Viết giống hệt tên nhóm đã có để gom chung" }
+          - label: "Nguyên tắc làm việc"
+            name: principles
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - label: "Danh sách"
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Tên", name: title, widget: string }
+                  - { label: "Mô tả", name: text, widget: text }
+          - label: "Ảnh minh hoạ"
+            name: photos
+            widget: list
+            i18n: true
+            summary: "{{fields.alt}}"
+            fields:
+              - { label: "Ảnh", name: src, widget: image }
+              - { label: "Mô tả ảnh", name: alt, widget: string }
+          - label: "Chữ của mục Kinh nghiệm"
+            name: experience
+            widget: object
+            i18n: true
+            hint: "Danh sách công việc sửa ở mục “Kinh nghiệm làm việc” bên trái."
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Đoạn mở đầu", name: lead, widget: text }
+              - { label: "Nhãn hai dòng công việc", name: lanes, widget: object, fields: [ { label: "Hợp đồng", name: employment, widget: string }, { label: "Freelance", name: freelance, widget: string } ] }
+              - { label: "Nhãn \"Tất cả\"", name: all, widget: string }
+              - { label: "Chữ \"Nay\"", name: now, widget: string }
+              - { label: "Mô tả biểu đồ (trình đọc màn hình)", name: chartLabel, widget: string }
+              - { label: "Đơn vị thời gian", name: units, widget: object, fields: [ { label: "năm", name: y, widget: string }, { label: "tháng", name: m, widget: string } ] }
+              - { label: "Nhãn \"Kết quả\"", name: resultsLabel, widget: string }
+              - { label: "Nhãn freelance cùng thời gian", name: during, widget: string }
+              - { label: "Nhãn freelance ngoài hợp đồng", name: solo, widget: string }
+              - { label: "Chữ \"dự án\"", name: projects, widget: string }
+          - label: "Chứng chỉ, giải thưởng & báo chí"
+            name: awards
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Tên cột chứng chỉ", name: colCert, widget: string }
+              - { label: "Tên cột giải thưởng & báo chí", name: colMore, widget: string }
+              - { label: "Tên các loại", name: types, widget: object, collapsed: true, fields: [ { label: "Chứng chỉ", name: cert, widget: string }, { label: "Giải thưởng", name: award, widget: string }, { label: "Báo chí", name: pub, widget: string } ] }
+              - label: "Danh sách"
+                name: items
+                widget: list
+                summary: "{{fields.name}} · {{fields.topic}}"
+                fields:
+                  - { label: "Tên", name: name, widget: string }
+                  - { label: "Loại", name: type, widget: select, options: [ { label: "Chứng chỉ", value: cert }, { label: "Giải thưởng", value: award }, { label: "Báo chí", value: pub } ] }
+                  - { label: "Lĩnh vực", name: topic, widget: string }
+          - label: "Dải kêu gọi cuối trang"
+            name: closing
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Dòng 1", name: a, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+              - { label: "Dòng 2", name: b, widget: string }
+              - { label: "Dòng 3", name: c, widget: string }
+              - { label: "Chữ trên nút", name: btn, widget: string }
 
-        - label: "Menu"
-          name: nav
-          widget: list
-          collapsed: true
-          allow_add: false
-          summary: "{{fields.label}}"
-          fields:
-            - { label: "Trang", name: key, widget: select, options: [ { label: "Dự án", value: work }, { label: "Dịch vụ", value: services }, { label: "Giới thiệu", value: about } ] }
-            - { label: "Chữ trên menu", name: label, widget: string }
+      - label: "Trang Dịch vụ"
+        name: services
+        file: content/pages/services.json
+        i18n: true
+        fields:
+          - { label: "Tên trang trên Google", name: seoTitle, widget: string, i18n: true }
+          - { label: "Tiêu đề", name: h1, widget: string, i18n: true, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+          - { label: "Đoạn mở đầu", name: lead, widget: text, i18n: true }
+          - { label: "Nhãn \"Bạn sẽ nhận được\"", name: expect, widget: string, i18n: true }
+          - { label: "Nhãn \"Trong gói gồm\"", name: bag, widget: string, i18n: true }
+          - { label: "Tiêu đề nguyên tắc", name: principlesTitle, widget: string, i18n: true }
+          - label: "Nguyên tắc"
+            name: principles
+            widget: list
+            i18n: true
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Tên", name: title, widget: string }
+              - { label: "Mô tả", name: text, widget: text }
+          - { label: "Dải câu nhấn", name: quoteBand, widget: string, i18n: true }
+          - { label: "Tiêu đề số liệu", name: metricsTitle, widget: string, i18n: true }
+          - { label: "Nhãn nút mở rộng", name: expand, widget: string, i18n: true }
+          - label: "Số liệu"
+            name: metricItems
+            widget: list
+            i18n: true
+            summary: "{{fields.value}} — {{fields.label}}"
+            fields:
+              - { label: "Số (dạng chữ, vd. 04, 97%, 23M)", name: value, widget: string }
+              - { label: "Mô tả", name: label, widget: string }
 
-        - label: "Nút Đặt lịch"
-          name: cta
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Chữ trên nút", name: label, widget: string }
-            - { label: "Link đặt lịch (Calendly, Google Calendar…)", name: href, widget: string }
+      - label: "Trang Dự án"
+        name: work
+        file: content/pages/work.json
+        i18n: true
+        fields:
+          - { label: "Tiêu đề", name: title, widget: string, i18n: true, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+          - { label: "Mô tả", name: text, widget: text, i18n: true }
+          - { label: "Tên trang trên Google", name: seoTitle, widget: string, i18n: true }
 
-        # ---------------- TRANG CHỦ ----------------
-        - label: "Trang chủ · Tiêu đề lớn (hero)"
-          name: hero
-          widget: object
-          collapsed: true
-          fields:
-            - label: "Các dòng tiêu đề"
-              name: lines
-              widget: list
-              summary: "{{fields.text}}"
-              fields:
-                - { label: "Chữ", name: text, widget: string }
-                - { label: "Kiểu chữ", name: style, widget: select, options: [ { label: "Thường", value: sans }, { label: "Serif nghiêng", value: serif } ], default: sans }
-                - { label: "Canh lề", name: align, widget: select, required: false, options: [ { label: "Phải", value: right } ], hint: "Để trống = canh trái" }
-                - { label: "Đặt nút Đặt lịch ở dòng này", name: cta, widget: boolean, required: false, default: false }
-            - { label: "Cả câu tiêu đề (cho Google, trình đọc màn hình)", name: headlineSr, widget: string }
-            - { label: "Dòng mô tả trái", name: tagLeft, widget: text }
-            - { label: "Dòng mô tả phải", name: tagRight, widget: text }
-
-        - label: "Trang chủ · Đoạn giới thiệu"
-          name: about
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Đoạn văn lớn", name: statement, widget: text, hint: "*nghiêng*, __gạch chân__, [[gem]] [[clover]] [[burst]] [[star4]] [[ring]] [[asterisk]] để chèn hình nhỏ" }
-            - { label: "Ảnh chân dung", name: portrait, widget: image }
-            - { label: "Mô tả ảnh (cho người khiếm thị)", name: portraitAlt, widget: string }
-
-        - label: "Trang chủ · Video showreel"
-          name: reel
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Chữ trên video", name: label, widget: string }
-            - { label: "Chữ chạy ngang", name: marquee, widget: string }
-            - { label: "Video (.webm hoặc .mp4, nên dưới 8 MB)", name: video, widget: file, media_folder: /public/assets/video, public_folder: /assets/video }
-            - { label: "Ảnh chờ của video", name: poster, widget: image }
-            - { label: "Nhãn nút phát", name: playLabel, widget: string }
-            - { label: "Nhãn nút dừng", name: pauseLabel, widget: string }
-
-        - label: "Trang chủ · 3 con số"
-          name: stats
-          widget: list
-          collapsed: true
-          summary: "{{fields.value}}{{fields.suffix}} {{fields.unit}}"
-          fields:
-            - { label: "Số", name: value, widget: number, value_type: int }
-            - { label: "Hậu tố (vd. +, %)", name: suffix, widget: string, required: false }
-            - { label: "Đơn vị", name: unit, widget: string }
-            - { label: "Mô tả", name: label, widget: string }
-
-        - label: "Dịch vụ (trang chủ + trang Dịch vụ)"
-          name: services
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề", name: title, widget: string, hint: &accent "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif, ví dụ: Khách hàng *nói gì*" }
-            - { label: "Câu mô tả", name: tagline, widget: text }
-            - { label: "Nút xem dịch vụ", name: button, widget: object, fields: [ { label: "Chữ trên nút", name: label, widget: string } ] }
-            - label: "Tôi làm cho ai"
-              name: audience
-              widget: object
-              fields:
-                - { label: "Nhãn", name: label, widget: string }
-                - { label: "Đoạn 1", name: textA, widget: text }
-                - { label: "Đoạn 2", name: textB, widget: text }
-            - label: "Danh sách dịch vụ"
-              name: items
-              widget: list
-              summary: "{{fields.title}}"
-              fields:
-                - { label: "Tên dịch vụ", name: title, widget: string }
-                - { label: "Mã đường dẫn (không dấu, gạch ngang)", name: slug, widget: string, pattern: ['^[a-z0-9-]+$', "Chỉ chữ thường không dấu, số và gạch ngang"] }
-                - { label: "Biểu tượng", name: icon, widget: select, options: [ { label: "Bố cục", value: layout }, { label: "La bàn", value: compass }, { label: "Lớp", value: layers }, { label: "Lịch", value: calendar }, { label: "Tin nhắn", value: message }, { label: "Tia sáng", value: spark } ] }
-                - { label: "Mô tả ngắn (trang chủ)", name: text, widget: text }
-                - { label: "Mô tả dài (trang Dịch vụ)", name: long, widget: text }
-                - { label: "Trong gói gồm", name: deliverables, widget: list, field: { label: "Hạng mục", name: item, widget: string } }
-                - { label: "Ảnh minh hoạ", name: image, widget: image }
-                - { label: "Mô tả ảnh", name: imageAlt, widget: string }
-                - { label: "Nhãn nhỏ (tuỳ chọn)", name: badge, widget: string, required: false }
-            - label: "Dịch vụ sắp ra mắt"
-              name: soon
-              widget: object
-              fields:
-                - { label: "Tên", name: title, widget: string }
-                - { label: "Nhãn", name: label, widget: string }
-
-        # ---------------- DỰ ÁN ----------------
-        - label: "Dự án"
-          name: work
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề khối dự án (trang chủ)", name: title, widget: string }
-            - { label: "Chữ nút xem dự án", name: linkLabel, widget: string }
-            - { label: "Nhãn sắp ra mắt", name: soonLabel, widget: string }
-            - { label: "Chữ \"Dự án tiếp theo\"", name: next, widget: string }
-            - label: "Danh sách dự án"
-              name: items
-              widget: list
-              summary: "{{fields.title}} · {{fields.industry}}"
-              hint: "Kéo thả để đổi thứ tự. Thêm dự án mới bằng nút Add ở cuối danh sách."
-              fields:
-                - { label: "Tên dự án", name: title, widget: string }
-                - { label: "Mã đường dẫn", name: slug, widget: string, pattern: ['^[a-z0-9-]+$', "Chỉ chữ thường không dấu, số và gạch ngang"], hint: "Ví dụ benh-vien-abc → trang /work/benh-vien-abc/. Sửa ở cả bản tiếng Anh, giữ giống nhau." }
-                - { label: "Trạng thái", name: status, widget: select, options: [ { label: "Đang hiển thị", value: live }, { label: "Sắp ra mắt", value: soon } ], default: live }
-                - { label: "Ngành", name: industry, widget: string }
-                - { label: "Nhãn (vai trò, hạng mục)", name: tags, widget: list, field: { label: "Nhãn", name: tag, widget: string } }
-                - { label: "Ảnh chính", name: image, widget: image }
-                - { label: "Ảnh phụ (hiện khi rê chuột)", name: image2, widget: image, required: false }
-                - { label: "Mô tả ảnh", name: alt, widget: string }
-                - label: "Trang chi tiết"
-                  name: detail
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - label: "Thông tin nhanh"
-                      name: meta
-                      widget: list
-                      required: false
-                      summary: "{{fields.label}}: {{fields.value}}"
-                      fields:
-                        - { label: "Nhãn (Khách hàng, Năm, Vai trò…)", name: label, widget: string }
-                        - { label: "Nội dung", name: value, widget: string }
-                    - label: "Mở đầu"
-                      name: intro
-                      widget: object
-                      fields:
-                        - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                        - { label: "Đoạn văn", name: text, widget: text }
-                    - label: "Các phần nội dung"
-                      name: sections
-                      widget: list
-                      required: false
-                      summary: "{{fields.title}}"
-                      fields:
-                        - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                        - { label: "Đoạn văn", name: text, widget: text }
-                        - { label: "Gạch đầu dòng", name: bullets, widget: list, required: false, field: { label: "Ý", name: bullet, widget: string } }
-                        - { label: "Ảnh", name: images, widget: list, required: false, field: { label: "Ảnh", name: image, widget: image } }
-                    - label: "Kết quả"
-                      name: result
-                      widget: object
-                      fields:
-                        - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                        - { label: "Đoạn văn", name: text, widget: text }
-
-        - label: "Trang chủ · Kêu gọi xem dự án"
-          name: worksCta
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Dòng 1", name: line1, widget: string }
-            - { label: "Dòng 2 (trước nút gạt)", name: line2a, widget: string }
-            - { label: "Dòng 2 (sau nút gạt, serif)", name: line2b, widget: string }
-            - { label: "Dòng 3", name: line3, widget: string }
-            - { label: "Câu mô tả", name: text, widget: text }
-            - { label: "Chữ trên nút", name: label, widget: string }
-
-        - label: "Lời nhận xét của khách"
-          name: testimonials
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-            - { label: "Mô tả", name: text, widget: text }
-            - { label: "Nhãn nút trước", name: prev, widget: string }
-            - { label: "Nhãn nút sau", name: next, widget: string }
-            - label: "Danh sách nhận xét"
-              name: items
-              widget: list
-              summary: "{{fields.name}} — {{fields.role}}"
-              fields:
-                - { label: "Lời nhận xét", name: quote, widget: text }
-                - { label: "Tên người nhận xét", name: name, widget: string }
-                - { label: "Chức vụ, đơn vị", name: role, widget: string }
-
-        - label: "Trang chủ · Chữ khổng lồ"
-          name: quote
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Dòng 1", name: line1, widget: string }
-            - { label: "Dòng 2 (serif)", name: line2, widget: string }
-            - { label: "Dòng 3", name: line3, widget: string }
-
-        - label: "Đối tác"
-          name: partners
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-            - { label: "Mô tả", name: text, widget: text }
-            - label: "Danh sách đối tác"
-              name: items
-              widget: list
-              summary: "{{fields.name}}"
-              fields:
-                - { label: "Tên đối tác", name: name, widget: string }
-                - { label: "Logo (SVG hoặc PNG nền trong, tuỳ chọn)", name: logo, widget: image, required: false, hint: "Để trống thì hiện tên bằng chữ" }
-
-        # ---------------- LIÊN HỆ & CHÂN TRANG ----------------
-        - label: "Liên hệ & form"
-          name: contact
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Tiêu đề", name: title, widget: string }
-            - { label: "Đoạn giới thiệu", name: text, widget: text }
-            - { label: "Email nhận liên hệ", name: email, widget: string }
-            - { label: "Chữ link gửi lời nhắn", name: writeLabel, widget: string }
-            - { label: "Nút liên hệ", name: button, widget: object, fields: [ { label: "Chữ trên nút", name: label, widget: string } ] }
-            - label: "Mạng xã hội"
-              name: socials
-              widget: list
-              summary: "{{fields.label}}"
-              fields:
-                - { label: "Tên hiển thị", name: label, widget: string }
-                - { label: "Biểu tượng", name: icon, widget: select, options: [ { label: "Zalo", value: zalo }, { label: "LinkedIn", value: linkedin }, { label: "Behance", value: behance }, { label: "Dribbble", value: dribbble }, { label: "Email", value: mail } ] }
-                - { label: "Đường dẫn", name: href, widget: string, hint: "Email thì ghi dạng mailto:ten@domain.com" }
-            - label: "Chữ trong form liên hệ"
-              name: form
-              widget: object
-              collapsed: true
-              fields:
-                - { label: "Tiêu đề form", name: title, widget: string, hint: *accent }
-                - { label: "Đoạn mở đầu", name: intro, widget: text }
-                - { label: "Nhãn nút đóng", name: close, widget: string }
-                - { label: "Nhãn ô Họ tên", name: name, widget: string }
-                - { label: "Nhãn ô Email", name: email, widget: string }
-                - { label: "Nhãn ô Zalo/LinkedIn", name: contact, widget: string }
-                - { label: "Nhãn ô Công ty", name: company, widget: string }
-                - { label: "Câu hỏi nhu cầu", name: lookingFor, widget: string }
-                - { label: "Các lựa chọn nhu cầu", name: options, widget: list, field: { label: "Lựa chọn", name: option, widget: string } }
-                - { label: "Nhãn ô mô tả dự án", name: message, widget: string }
-                - { label: "Chữ nút Gửi", name: submit, widget: string }
-                - { label: "Thông báo đang gửi", name: sending, widget: string }
-                - { label: "Thông báo gửi xong", name: success, widget: string }
-                - { label: "Thông báo lỗi", name: error, widget: string }
-                - { label: "Thông báo thiếu thông tin", name: invalid, widget: string }
-
-        - label: "Chân trang"
-          name: footer
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Dòng bản quyền", name: copyright, widget: string }
-            - label: "Liên kết pháp lý"
-              name: legal
-              widget: list
-              summary: "{{fields.label}}"
-              fields:
-                - { label: "Chữ", name: label, widget: string }
-                - { label: "Đường dẫn", name: href, widget: string }
-
-        # ---------------- CÁC TRANG CON ----------------
-        - label: "Các trang con (Dự án, Dịch vụ, Giới thiệu)"
-          name: pages
-          widget: object
-          collapsed: true
-          fields:
-            - label: "Trang Dự án (/work)"
-              name: work
-              widget: object
-              collapsed: true
-              fields:
-                - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                - { label: "Mô tả", name: text, widget: text }
-                - { label: "Tên trang trên Google", name: seoTitle, widget: string }
-            - label: "Trang Dịch vụ (/services)"
-              name: services
-              widget: object
-              collapsed: true
-              fields:
-                - { label: "Tên trang trên Google", name: seoTitle, widget: string }
-                - { label: "Tiêu đề", name: h1, widget: string, hint: *accent }
-                - { label: "Đoạn mở đầu", name: lead, widget: text }
-                - { label: "Nhãn \"Bạn sẽ nhận được\"", name: expect, widget: string }
-                - { label: "Nhãn \"Trong gói gồm\"", name: bag, widget: string }
-                - { label: "Tiêu đề nguyên tắc", name: principlesTitle, widget: string, hint: *accent }
-                - label: "Nguyên tắc"
-                  name: principles
-                  widget: list
-                  summary: "{{fields.title}}"
-                  fields:
-                    - { label: "Tên", name: title, widget: string }
-                    - { label: "Mô tả", name: text, widget: text }
-                - { label: "Dải câu nhấn", name: quoteBand, widget: string, hint: *accent }
-                - { label: "Tiêu đề số liệu", name: metricsTitle, widget: string, hint: *accent }
-                - { label: "Nhãn nút mở rộng", name: expand, widget: string }
-                - label: "Số liệu"
-                  name: metricItems
-                  widget: list
-                  summary: "{{fields.value}} — {{fields.label}}"
-                  fields:
-                    - { label: "Số (giữ dạng chữ, vd. 04, 97%, 23M)", name: value, widget: string }
-                    - { label: "Mô tả", name: label, widget: string }
-            - label: "Trang Giới thiệu (/about)"
-              name: about
-              widget: object
-              collapsed: true
-              fields:
-                - { label: "Tên trang trên Google", name: seoTitle, widget: string }
-                - { label: "Tiêu đề dòng 1", name: h1a, widget: string }
-                - { label: "Tiêu đề dòng 2", name: h1b, widget: string, hint: *accent }
-                - { label: "Đoạn mở đầu", name: lead, widget: text }
-                - { label: "Ảnh chân dung (bản thường)", name: portrait, widget: image }
-                - { label: "Mô tả ảnh chân dung", name: portraitAlt, widget: string }
-                - { label: "Ảnh chân dung chấm điểm (hiệu ứng)", name: dither, widget: image, hint: "Ảnh hiệu ứng tạo bằng script riêng. Khi thay, đặt tên file mới (vd. -3)." }
-                - { label: "Ảnh chân dung sạch (vùng soi)", name: clean, widget: image, hint: "Đặt tên file mới khi thay ảnh." }
-                - label: "Nhanh, tập trung, dùng AI"
-                  name: fast
-                  widget: object
-                  fields:
-                    - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                    - { label: "Các đoạn văn", name: text, widget: list, field: { label: "Đoạn", name: paragraph, widget: text } }
-                - label: "Bộ công cụ"
-                  name: tools
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                    - { label: "Mô tả", name: text, widget: text }
-                    - { label: "Nhãn lọc \"Tất cả\"", name: all, widget: string }
-                    - label: "Công cụ"
-                      name: items
-                      widget: list
-                      summary: "{{fields.name}} · {{fields.cat}}"
-                      fields:
-                        - { label: "Tên công cụ", name: name, widget: string }
-                        - { label: "Nhóm (dùng để lọc)", name: cat, widget: string, hint: "Viết giống hệt tên nhóm đã có để gom chung, vd. Thiết kế, AI, Năng suất" }
-                - label: "Nguyên tắc làm việc"
-                  name: principles
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                    - label: "Danh sách"
-                      name: items
-                      widget: list
-                      summary: "{{fields.title}}"
-                      fields:
-                        - { label: "Tên", name: title, widget: string }
-                        - { label: "Mô tả", name: text, widget: text }
-                - label: "Ảnh minh hoạ"
-                  name: photos
-                  widget: list
-                  summary: "{{fields.alt}}"
-                  fields:
-                    - { label: "Ảnh", name: src, widget: image }
-                    - { label: "Mô tả ảnh", name: alt, widget: string }
-                - label: "Kinh nghiệm làm việc"
-                  name: experience
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                    - { label: "Đoạn mở đầu", name: lead, widget: text }
-                    - label: "Công việc"
-                      name: items
-                      widget: list
-                      summary: "{{fields.role}} · {{fields.org}} ({{fields.from}})"
-                      hint: "Freelance tự xếp dưới công việc hợp đồng trùng thời gian nhiều nhất."
-                      fields:
-                        - { label: "Loại", name: type, widget: select, options: [ { label: "Hợp đồng lao động", value: employment }, { label: "Freelance", value: freelance } ] }
-                        - { label: "Đơn vị / dự án", name: org, widget: string }
-                        - { label: "Vai trò", name: role, widget: string }
-                        - { label: "Từ (năm-tháng)", name: from, widget: string, pattern: ['^\d{4}-\d{2}$', "Định dạng YYYY-MM, vd. 2022-03"] }
-                        - { label: "Đến (năm-tháng)", name: to, widget: string, required: false, pattern: ['^(\d{4}-\d{2})?$', "Định dạng YYYY-MM hoặc để trống"], hint: "Để trống nếu vẫn đang làm (hiện chữ Nay)" }
-                        - { label: "Mô tả", name: summary, widget: text }
-                        - { label: "Kết quả", name: results, widget: list, field: { label: "Kết quả", name: result, widget: string } }
-                    - label: "Chữ giao diện của mục Kinh nghiệm"
-                      name: lanes
-                      widget: object
-                      collapsed: true
-                      fields:
-                        - { label: "Nhãn hợp đồng", name: employment, widget: string }
-                        - { label: "Nhãn freelance", name: freelance, widget: string }
-                    - { label: "Nhãn \"Tất cả\"", name: all, widget: string }
-                    - { label: "Chữ \"Nay\"", name: now, widget: string }
-                    - { label: "Mô tả biểu đồ (cho trình đọc màn hình)", name: chartLabel, widget: string }
-                    - { label: "Đơn vị thời gian", name: units, widget: object, collapsed: true, fields: [ { label: "năm", name: y, widget: string }, { label: "tháng", name: m, widget: string } ] }
-                    - { label: "Nhãn \"Kết quả\"", name: resultsLabel, widget: string }
-                    - { label: "Nhãn freelance cùng thời gian", name: during, widget: string }
-                    - { label: "Nhãn freelance ngoài hợp đồng", name: solo, widget: string }
-                    - { label: "Chữ \"dự án\"", name: projects, widget: string }
-                - label: "Chứng chỉ, giải thưởng & báo chí"
-                  name: awards
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - { label: "Tiêu đề", name: title, widget: string, hint: *accent }
-                    - { label: "Tên cột chứng chỉ", name: colCert, widget: string }
-                    - { label: "Tên cột giải thưởng & báo chí", name: colMore, widget: string }
-                    - { label: "Tên các loại", name: types, widget: object, collapsed: true, fields: [ { label: "Chứng chỉ", name: cert, widget: string }, { label: "Giải thưởng", name: award, widget: string }, { label: "Báo chí", name: pub, widget: string } ] }
-                    - label: "Danh sách"
-                      name: items
-                      widget: list
-                      summary: "{{fields.name}} · {{fields.topic}}"
-                      fields:
-                        - { label: "Tên", name: name, widget: string }
-                        - { label: "Loại", name: type, widget: select, options: [ { label: "Chứng chỉ", value: cert }, { label: "Giải thưởng", value: award }, { label: "Báo chí", value: pub } ] }
-                        - { label: "Lĩnh vực", name: topic, widget: string }
-                - label: "Dải kêu gọi cuối trang"
-                  name: closing
-                  widget: object
-                  collapsed: true
-                  fields:
-                    - { label: "Dòng 1", name: a, widget: string, hint: *accent }
-                    - { label: "Dòng 2", name: b, widget: string }
-                    - { label: "Dòng 3", name: c, widget: string }
-                    - { label: "Chữ trên nút", name: btn, widget: string }
-
-        - label: "Chữ giao diện nhỏ (nhãn nút, trợ năng)"
-          name: ui
-          widget: object
-          collapsed: true
-          fields:
-            - { label: "Nút đổi sáng/tối", name: toggleTheme, widget: string }
-            - { label: "Mở menu", name: openMenu, widget: string }
-            - { label: "Đóng menu", name: closeMenu, widget: string }
-            - { label: "Link bỏ qua tới nội dung", name: skip, widget: string }
-            - { label: "Tên trang đầu", name: home, widget: string }
-            - { label: "Nhãn khối số liệu", name: statsLabel, widget: string }
-            - { label: "Mã ngôn ngữ trên nút đổi", name: langCode, widget: string }
-            - { label: "Mô tả nút đổi ngôn ngữ", name: langName, widget: string }
-            - { label: "Chữ Liên hệ", name: reach, widget: string }
-            - { label: "Chữ Đang tải", name: loading, widget: string }
-      - label: "Tiếng Anh (English)"
-        name: en
-        file: content/en.json
-        fields: *fields
+  # ================================================================ CÀI ĐẶT
+  - name: settings
+    label: "Cài đặt chung"
+    description: "Tên, menu, liên hệ, mạng xã hội, chân trang, SEO."
+    editor: { preview: false }
+    i18n: true
+    files:
+      - label: "Thông tin & liên hệ"
+        name: settings
+        file: content/settings.json
+        i18n: true
+        fields:
+          - label: "Tên & logo"
+            name: brand
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tên hiển thị", name: logo, widget: string }
+              - { label: "Dấu sau tên", name: logoMark, widget: string }
+              - { label: "Tên ở màn chờ (mỗi dòng một mục)", name: nameLines, widget: list, collapsed: false, field: { label: "Dòng", name: line, widget: string } }
+          - label: "Liên hệ"
+            name: contact
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Tiêu đề", name: title, widget: string }
+              - { label: "Đoạn giới thiệu", name: text, widget: text }
+              - { label: "Email nhận liên hệ", name: email, widget: string }
+              - { label: "Chữ link gửi lời nhắn", name: writeLabel, widget: string }
+              - { label: "Nút liên hệ", name: button, widget: object, fields: [ { label: "Chữ trên nút", name: label, widget: string } ] }
+              - label: "Mạng xã hội"
+                name: socials
+                widget: list
+                summary: "{{fields.label}} — {{fields.href}}"
+                fields:
+                  - { label: "Tên hiển thị", name: label, widget: string }
+                  - { label: "Biểu tượng", name: icon, widget: select, options: [ { label: "Zalo", value: zalo }, { label: "LinkedIn", value: linkedin }, { label: "Behance", value: behance }, { label: "Dribbble", value: dribbble }, { label: "Email", value: mail } ] }
+                  - { label: "Đường dẫn", name: href, widget: string, hint: "Email ghi dạng mailto:ten@domain.com" }
+              - label: "Chữ trong form liên hệ"
+                name: form
+                widget: object
+                collapsed: true
+                fields:
+                  - { label: "Tiêu đề form", name: title, widget: string }
+                  - { label: "Đoạn mở đầu", name: intro, widget: text }
+                  - { label: "Nhãn nút đóng", name: close, widget: string }
+                  - { label: "Nhãn ô Họ tên", name: name, widget: string }
+                  - { label: "Nhãn ô Email", name: email, widget: string }
+                  - { label: "Nhãn ô Zalo/LinkedIn", name: contact, widget: string }
+                  - { label: "Nhãn ô Công ty", name: company, widget: string }
+                  - { label: "Câu hỏi nhu cầu", name: lookingFor, widget: string }
+                  - { label: "Các lựa chọn nhu cầu", name: options, widget: list, collapsed: false, field: { label: "Lựa chọn", name: option, widget: string } }
+                  - { label: "Nhãn ô mô tả dự án", name: message, widget: string }
+                  - { label: "Chữ nút Gửi", name: submit, widget: string }
+                  - { label: "Thông báo đang gửi", name: sending, widget: string }
+                  - { label: "Thông báo gửi xong", name: success, widget: string }
+                  - { label: "Thông báo lỗi", name: error, widget: string }
+                  - { label: "Thông báo thiếu thông tin", name: invalid, widget: string }
+          - label: "Nút Đặt lịch"
+            name: cta
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Chữ trên nút", name: label, widget: string }
+              - { label: "Link đặt lịch (Calendly, Google Calendar…)", name: href, widget: string }
+          - label: "Menu"
+            name: nav
+            widget: list
+            i18n: true
+            allow_add: false
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Trang", name: key, widget: select, options: [ { label: "Dự án", value: work }, { label: "Dịch vụ", value: services }, { label: "Giới thiệu", value: about } ] }
+              - { label: "Chữ trên menu", name: label, widget: string }
+          - label: "Chân trang"
+            name: footer
+            widget: object
+            i18n: true
+            fields:
+              - { label: "Dòng bản quyền", name: copyright, widget: string }
+              - label: "Liên kết pháp lý"
+                name: legal
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "Chữ", name: label, widget: string }
+                  - { label: "Đường dẫn", name: href, widget: string }
+          - label: "SEO & kỹ thuật"
+            name: site
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Tiêu đề trang (tab trình duyệt, Google)", name: title, widget: string }
+              - { label: "Mô tả ngắn cho Google", name: description, widget: text }
+              - { label: "Ảnh khi chia sẻ link (1200×630)", name: ogImage, widget: image }
+              - { label: "Địa chỉ website", name: url, widget: string, hint: "Chỉ đổi khi gắn tên miền riêng." }
+              - { label: "Mã ngôn ngữ (không đổi)", name: lang, widget: string }
+              - { label: "Màu thanh trình duyệt", name: themeColor, widget: color }
+          - label: "Chữ giao diện nhỏ (nhãn nút, trợ năng)"
+            name: ui
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Nút đổi sáng/tối", name: toggleTheme, widget: string }
+              - { label: "Mở menu", name: openMenu, widget: string }
+              - { label: "Đóng menu", name: closeMenu, widget: string }
+              - { label: "Link bỏ qua tới nội dung", name: skip, widget: string }
+              - { label: "Tên trang đầu", name: home, widget: string }
+              - { label: "Nhãn khối số liệu", name: statsLabel, widget: string }
+              - { label: "Mã ngôn ngữ trên nút đổi", name: langCode, widget: string }
+              - { label: "Mô tả nút đổi ngôn ngữ", name: langName, widget: string }
+              - { label: "Chữ Liên hệ", name: reach, widget: string }
+              - { label: "Chữ Đang tải", name: loading, widget: string }

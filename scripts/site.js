@@ -1,15 +1,13 @@
 // Mô hình của cả site: ngôn ngữ, danh sách trang, dựng HTML cho từng trang. Chỉ chạy trong Node.
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { renderMeta, renderShell, renderHome, setContext } from './render.js';
 import { pageMain, renderProjectPage } from './pages.js';
 
 export const LANGS = ['vi', 'en']; // vi = mặc định ở gốc "/", en nằm ở "/en/"
 export const prefixOf = (lang) => (lang === LANGS[0] ? '' : `/${lang}`);
 
-const root = resolve(import.meta.dirname, '..');
-export const contentFile = (lang) => resolve(root, 'content', `${lang}.json`);
-export const loadContent = (lang) => JSON.parse(readFileSync(contentFile(lang), 'utf8'));
+// Nội dung nằm trong content/ (nhiều file, do trang quản trị /admin ghi) — xem scripts/content.js.
+import { loadContent, CONTENT_DIR } from './content.js';
+export { loadContent, CONTENT_DIR };
 
 // Danh sách trang của một ngôn ngữ: id, đường dẫn (không gồm tiền tố ngôn ngữ), tiêu đề SEO.
 export function pagesOf(c) {

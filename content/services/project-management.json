@@ -1,0 +1,36 @@
+{
+  "vi": {
+    "order": 4,
+    "icon": "calendar",
+    "title": "Quản lý dự án",
+    "text": "Lập kế hoạch, theo dõi tiến độ, giữ đúng deadline.",
+    "long": "Tôi giữ dự án đi đúng hướng: rõ việc, rõ người, rõ hạn, và báo sớm khi có rủi ro.",
+    "deliverables": [
+      "Lộ trình và mốc bàn giao",
+      "Phân việc và ưu tiên",
+      "Họp đồng bộ ngắn",
+      "Theo dõi rủi ro",
+      "Báo cáo tiến độ hằng tuần",
+      "Tổng kết sau dự án"
+    ],
+    "image": "/assets/images/project-4.svg",
+    "imageAlt": "Ảnh minh họa"
+  },
+  "en": {
+    "order": 4,
+    "icon": "calendar",
+    "title": "Project management",
+    "text": "Planning, progress tracking and on-time delivery.",
+    "long": "I keep projects on track: clear tasks, owners and deadlines, with early warnings when risk shows up.",
+    "deliverables": [
+      "Roadmap and milestones",
+      "Task breakdown and priorities",
+      "Short sync meetings",
+      "Risk tracking",
+      "Weekly progress reports",
+      "Post-project review"
+    ],
+    "image": "/assets/images/project-4.svg",
+    "imageAlt": "Illustration"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "vi": {
+    "seoTitle": "Dịch vụ",
+    "h1": "Chiến lược, thiết kế và triển khai. *Không cần bộ máy agency.*",
+    "lead": "Sáu mảng việc, một đối tác chịu trách nhiệm. Tôi làm việc với founder và đội ngũ đang lớn cần chất lượng ở tốc độ startup — dùng AI để rút ngắn thời gian mà không cắt xén tay nghề.",
+    "expect": "Bạn sẽ nhận được",
+    "bag": "Trong gói gồm",
+    "principlesTitle": "Sau hơn 5 năm làm sản phẩm, *vài điều đã trở thành bắt buộc*",
+    "principles": [
+      {
+        "title": "Tập trung vào sản phẩm",
+        "text": "Giao diện đẹp mà người dùng không hiểu là thất bại. Mọi quyết định bắt đầu từ sản phẩm và người dùng của nó."
+      },
+      {
+        "title": "Tư duy đồng sáng lập",
+        "text": "Tôi quan tâm kết quả như người trong cuộc: nói thẳng khi thấy hướng đi chưa ổn, trước khi bạn ra mắt."
+      },
+      {
+        "title": "Giao hàng đã được kiểm chứng",
+        "text": "Nhiều năm làm việc với startup lẫn doanh nghiệp. Quy trình đã được thử qua thực tế nên sản phẩm đến đúng hạn và chạy ổn khi ra thật."
+      },
+      {
+        "title": "Nhịp độ startup",
+        "text": "Thử sớm, sửa sớm, bàn giao gọn. Dùng AI để rút ngắn thời gian mà không cắt xén tay nghề."
+      }
+    ],
+    "quoteBand": "Thiết kế tốt *nhìn như hiển nhiên*",
+    "metricsTitle": "Những con số *có ý nghĩa.* Đây là điều công việc thật sự mang lại.",
+    "expand": "Mở rộng",
+    "metricItems": [
+      {
+        "value": "04",
+        "label": "Dự án thiện nguyện đã hoàn thành"
+      },
+      {
+        "value": "+5",
+        "label": "Lĩnh vực chuyên môn chính"
+      },
+      {
+        "value": "23M",
+        "label": "Vốn các đối tác đã huy động"
+      },
+      {
+        "value": "97%",
+        "label": "Tỉ lệ khách hàng hài lòng theo khảo sát sau dự án"
+      },
+      {
+        "value": "111M",
+        "label": "Lượt người dùng sản phẩm trên toàn thế giới"
+      },
+      {
+        "value": "38%",
+        "label": "Thời gian ra thị trường rút ngắn nhờ quy trình thiết kế dùng AI"
+      }
+    ]
+  },
+  "en": {
+    "seoTitle": "Services",
+    "h1": "Strategy, design, and execution. *Without the agency overhead.*",
+    "lead": "Six disciplines, one accountable partner. I work with founders and scaling teams who need quality output at start-up speed — using AI to cut timelines without cutting corners on craft.",
+    "expect": "What to expect",
+    "bag": "What’s in the bag",
+    "principlesTitle": "After 5+ years and many shipped products, *a few things have become non-negotiable*",
+    "principles": [
+      {
+        "title": "Product focus",
+        "text": "A beautiful interface nobody understands is a failure. Every decision starts with the product and its users."
+      },
+      {
+        "title": "Co-founder mentality",
+        "text": "I care about the outcome like an insider: I’ll say so when a direction looks off, before you ship."
+      },
+      {
+        "title": "Proven delivery",
+        "text": "Years of shipping for start-ups and enterprises alike. The process is battle-tested, so the work lands on time and holds up in production."
+      },
+      {
+        "title": "Start-up pace",
+        "text": "Test early, fix early, hand off clean. AI shortens the timeline without cutting corners on craft."
+      }
+    ],
+    "quoteBand": "Good design *looks obvious*",
+    "metricsTitle": "Numbers that mean something. *Here’s what the work has actually produced.*",
+    "expand": "Expand",
+    "metricItems": [
+      {
+        "value": "04",
+        "label": "Pro-bonos completed"
+      },
+      {
+        "value": "+5",
+        "label": "Key domain areas of knowledge"
+      },
+      {
+        "value": "23M",
+        "label": "Money raised by my partners"
+      },
+      {
+        "value": "97%",
+        "label": "Client satisfaction rate based on post-project surveys."
+      },
+      {
+        "value": "111M",
+        "label": "Products used worldwide by satisfied users"
+      },
+      {
+        "value": "38%",
+        "label": "Average time to market reduced due to AI streamlined design process."
+      }
+    ]
+  }
+}

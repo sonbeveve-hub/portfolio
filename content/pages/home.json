@@ -1,0 +1,204 @@
+{
+  "vi": {
+    "hero": {
+      "lines": [
+        {
+          "text": "Thiết kế giúp",
+          "style": "sans"
+        },
+        {
+          "text": "sản phẩm của bạn",
+          "style": "serif",
+          "align": "right"
+        },
+        {
+          "text": "ra thật nhanh",
+          "style": "sans",
+          "cta": true
+        }
+      ],
+      "headlineSr": "Thiết kế giúp sản phẩm của bạn ra thật nhanh",
+      "tagLeft": "Designer, UI/UX và quản lý dự án — từ wireframe đến bàn giao.",
+      "tagRight": "Dành cho doanh nghiệp cần sản phẩm ra thị trường nhanh mà vẫn chất lượng."
+    },
+    "about": {
+      "statement": "Tôi làm việc ở giao điểm của thiết kế, dữ liệu và vận hành. [[gem]] Mỗi __sản phẩm__ bắt đầu bằng việc hiểu người dùng, đi qua những vòng thử ngắn và kết thúc bằng bản bàn giao gọn gàng. [[clover]] Kết quả là giao diện rõ ràng, đội ngũ làm nhanh hơn và khách hàng thấy __giá trị__ ngay từ bản đầu tiên. [[burst]]",
+      "portrait": "/assets/images/portrait.jpg",
+      "portraitAlt": "Ảnh chân dung của Tên Bạn"
+    },
+    "reel": {
+      "label": "Xem showreel",
+      "marquee": "Xem showreel",
+      "video": "/assets/video/reel.webm",
+      "poster": "/assets/images/reel-poster.svg",
+      "playLabel": "Phát video",
+      "pauseLabel": "Tạm dừng video"
+    },
+    "stats": [
+      {
+        "value": 5,
+        "suffix": "+",
+        "unit": "Năm",
+        "label": "Kinh nghiệm thiết kế sản phẩm số"
+      },
+      {
+        "value": 60,
+        "suffix": "+",
+        "unit": "Dự án",
+        "label": "Đã hoàn thành cho nhiều ngành"
+      },
+      {
+        "value": 40,
+        "suffix": "+",
+        "unit": "Khách hàng",
+        "label": "Quay lại làm việc lần thứ hai"
+      }
+    ],
+    "services": {
+      "title": "*Dịch vụ* để sản phẩm tốt hơn",
+      "tagline": "Sáu mảng việc, một người chịu trách nhiệm đến cùng — từ ý tưởng thô đến sản phẩm người dùng thật sự dùng.",
+      "button": {
+        "label": "Xem dịch vụ"
+      },
+      "audience": {
+        "label": "Tôi làm cho ai",
+        "textA": "Từ doanh nghiệp đã có tên tuổi đến người sáng lập mới bắt đầu, tôi đều làm việc theo cùng một tiêu chuẩn.",
+        "textB": "Những sản phẩm ra mắt nhanh, đúng nhu cầu và dễ mở rộng."
+      },
+      "soon": {
+        "title": "Phát triển Webflow",
+        "label": "Sắp ra mắt"
+      }
+    },
+    "work": {
+      "title": "Dự án nổi bật",
+      "linkLabel": "Xem dự án",
+      "soonLabel": "Sắp ra mắt",
+      "next": "Dự án tiếp theo"
+    },
+    "worksCta": {
+      "line1": "Muốn xem",
+      "line2a": "tôi",
+      "line2b": "giúp",
+      "line3": "doanh nghiệp thế nào?",
+      "text": "Vài dự án tôi tự hào, làm cùng cả doanh nghiệp lớn lẫn đối tác độc lập.",
+      "label": "Xem tất cả dự án"
+    },
+    "testimonials": {
+      "title": "Khách hàng *nói gì*",
+      "text": "Muốn biết làm việc cùng tôi thế nào? Đừng chỉ nghe tôi nói — đây là điều khách hàng chia sẻ.",
+      "prev": "Lời chứng thực trước",
+      "next": "Lời chứng thực tiếp theo"
+    },
+    "quote": {
+      "line1": "Thiết kế để mở rộng",
+      "line2": "& tạo trải nghiệm",
+      "line3": "dựa trên dữ liệu"
+    },
+    "partners": {
+      "title": "Đối tác *đáng tin*",
+      "text": "Được tin dùng bởi các nhóm từ startup mới thành lập đến doanh nghiệp lớn."
+    }
+  },
+  "en": {
+    "hero": {
+      "lines": [
+        {
+          "text": "Design that helps",
+          "style": "sans"
+        },
+        {
+          "text": "your product",
+          "style": "serif",
+          "align": "right"
+        },
+        {
+          "text": "ship fast",
+          "style": "sans",
+          "cta": true
+        }
+      ],
+      "headlineSr": "Design that helps your product ship fast",
+      "tagLeft": "Designer, UI/UX and project management — from wireframe to handoff.",
+      "tagRight": "For teams that need to reach the market fast without cutting quality."
+    },
+    "about": {
+      "statement": "I work where design, data and operations meet. [[gem]] Every __product__ starts with understanding users, goes through short test loops and ends with a clean handoff. [[clover]] The result is a clear interface, a faster team and clients who see the __value__ from the very first version. [[burst]]",
+      "portrait": "/assets/images/portrait.jpg",
+      "portraitAlt": "Ảnh chân dung của Tên Bạn"
+    },
+    "reel": {
+      "label": "Watch showreel",
+      "marquee": "Watch showreel",
+      "video": "/assets/video/reel.webm",
+      "poster": "/assets/images/reel-poster.svg",
+      "playLabel": "Play video",
+      "pauseLabel": "Pause video"
+    },
+    "stats": [
+      {
+        "value": 5,
+        "suffix": "+",
+        "unit": "Years",
+        "label": "Designing digital products"
+      },
+      {
+        "value": 60,
+        "suffix": "+",
+        "unit": "Projects",
+        "label": "Delivered across many industries"
+      },
+      {
+        "value": 40,
+        "suffix": "+",
+        "unit": "Clients",
+        "label": "Came back for a second project"
+      }
+    ],
+    "services": {
+      "title": "*Services* for better products",
+      "tagline": "Six disciplines, one accountable partner — from rough idea to a product people actually use.",
+      "button": {
+        "label": "View services"
+      },
+      "audience": {
+        "label": "Who I build for",
+        "textA": "From established companies to first-time founders, I hold the same standard for both.",
+        "textB": "Products that launch fast, fit the need and scale easily."
+      },
+      "soon": {
+        "title": "Webflow development",
+        "label": "Coming soon"
+      }
+    },
+    "work": {
+      "title": "Selected work",
+      "linkLabel": "View project",
+      "soonLabel": "Coming soon",
+      "next": "Next project"
+    },
+    "worksCta": {
+      "line1": "Want to see",
+      "line2a": "how I",
+      "line2b": "enable",
+      "line3": "companies?",
+      "text": "A few projects I’m proud of, built with large companies and independent partners alike.",
+      "label": "View all works"
+    },
+    "testimonials": {
+      "title": "What people *have to say*",
+      "text": "Curious what it’s really like to work with me? Don’t take my word for it. Here’s what my clients say.",
+      "prev": "Previous testimonial",
+      "next": "Next testimonial"
+    },
+    "quote": {
+      "line1": "Design to scale",
+      "line2": "& drive experiences",
+      "line3": "with data"
+    },
+    "partners": {
+      "title": "Valuable *Partners*",
+      "text": "Trusted by teams from pre-seed start-ups to the Fortune 500."
+    }
+  }
+}

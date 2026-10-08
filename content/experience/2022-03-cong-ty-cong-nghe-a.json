@@ -1,0 +1,28 @@
+{
+  "vi": {
+    "type": "employment",
+    "org": "Công ty Công nghệ A",
+    "role": "Senior UI/UX Designer",
+    "from": "2022-03",
+    "to": null,
+    "summary": "Dẫn dắt thiết kế cho nhóm sản phẩm, xây dựng design system và phối hợp chặt với kỹ sư, kinh doanh.",
+    "results": [
+      "Design system dùng chung cho 4 sản phẩm",
+      "Giảm 30% thời gian bàn giao thiết kế",
+      "Hướng dẫn 3 designer mới"
+    ]
+  },
+  "en": {
+    "type": "employment",
+    "org": "Tech Company A",
+    "role": "Senior UI/UX Designer",
+    "from": "2022-03",
+    "to": null,
+    "summary": "Lead design for the product team, build the design system and work closely with engineering and sales.",
+    "results": [
+      "Shared design system across 4 products",
+      "30% faster design handoff",
+      "Mentored 3 new designers"
+    ]
+  }
+}

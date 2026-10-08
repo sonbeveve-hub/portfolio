@@ -1,0 +1,26 @@
+{
+  "vi": {
+    "type": "freelance",
+    "org": "Cửa hàng trực tuyến thời trang",
+    "role": "Thiết kế UI & chốt đơn",
+    "from": "2020-03",
+    "to": "2021-01",
+    "summary": "Thiết kế cửa hàng trực tuyến và kịch bản chăm sóc khách hàng.",
+    "results": [
+      "Tỷ lệ chốt đơn tăng 22%",
+      "Doanh thu tháng cao nhất gấp 3 lần"
+    ]
+  },
+  "en": {
+    "type": "freelance",
+    "org": "Fashion online store",
+    "role": "UI design & closing scripts",
+    "from": "2020-03",
+    "to": "2021-01",
+    "summary": "Designed the online store and the customer-care scripts.",
+    "results": [
+      "22% higher close rate",
+      "Best month revenue 3x"
+    ]
+  }
+}

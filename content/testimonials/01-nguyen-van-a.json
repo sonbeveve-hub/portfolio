@@ -1,0 +1,14 @@
+{
+  "vi": {
+    "order": 1,
+    "quote": "Lời chứng thực mẫu — thay bằng nhận xét thật của khách hàng.",
+    "name": "Nguyễn Văn A",
+    "role": "Giám đốc, Công ty A"
+  },
+  "en": {
+    "order": 1,
+    "quote": "Sample testimonial — replace with a real client quote.",
+    "name": "Alex Nguyen",
+    "role": "Director, Company A"
+  }
+}

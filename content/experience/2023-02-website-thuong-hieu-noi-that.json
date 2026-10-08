@@ -1,0 +1,26 @@
+{
+  "vi": {
+    "type": "freelance",
+    "org": "Website thương hiệu nội thất",
+    "role": "Thiết kế web & thương hiệu",
+    "from": "2023-02",
+    "to": "2023-11",
+    "summary": "Thiết kế website giới thiệu và bộ nhận diện cho thương hiệu nội thất.",
+    "results": [
+      "Tăng 2,5 lần lượng yêu cầu báo giá",
+      "Ra mắt đúng hạn sau 9 tháng"
+    ]
+  },
+  "en": {
+    "type": "freelance",
+    "org": "Furniture brand website",
+    "role": "Web & brand design",
+    "from": "2023-02",
+    "to": "2023-11",
+    "summary": "Designed the marketing site and identity for a furniture brand.",
+    "results": [
+      "2.5x more quote requests",
+      "Shipped on time after 9 months"
+    ]
+  }
+}

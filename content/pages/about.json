@@ -1,0 +1,360 @@
+{
+  "vi": {
+    "seoTitle": "Giới thiệu",
+    "h1a": "Đa số designer chỉ nộp file thuyết trình.",
+    "h1b": "Tôi giao *sản phẩm*",
+    "lead": "Tôi làm sản phẩm số từ vài năm nay, từ lúc \"AI\" chỉ là tính năng sửa lỗi gõ. Giờ tôi dùng nó để giao cho founder và doanh nghiệp trong vài ngày những gì agency báo giá vài tháng.",
+    "portrait": "/assets/images/portrait.jpg",
+    "portraitAlt": "Ảnh chân dung",
+    "fast": {
+      "title": "Nhanh, tập trung, *dùng AI*",
+      "text": [
+        "Thiết kế sản phẩm là giải đúng vấn đề, rồi thực hiện không rườm rà.",
+        "Tôi làm việc với công ty giai đoạn đầu và đội ngũ đang lớn, cần quyết định chứ không cần workshop. Quy trình xây quanh việc giao nhanh: từ chiến lược đến bàn giao, không cần buổi khởi động dài hai tuần.",
+        "Tôi đã làm sản phẩm cho SaaS, tài chính và ứng dụng người dùng. Công cụ thay đổi, kỷ luật thì không."
+      ]
+    },
+    "tools": {
+      "title": "Bộ công cụ *đứng sau công việc*",
+      "text": "Công việc của tôi chạy trên nhiều công cụ: từ design system, cộng tác đến tự động hóa và AI. Chúng giúp tôi làm thông minh hơn, nhanh hơn và vượt kỳ vọng. Bộ công cụ này luôn thay đổi.",
+      "all": "Tất cả",
+      "items": [
+        {
+          "name": "Figma",
+          "cat": "Thiết kế"
+        },
+        {
+          "name": "Notion",
+          "cat": "Năng suất"
+        },
+        {
+          "name": "Slack",
+          "cat": "Giao tiếp"
+        },
+        {
+          "name": "Calendly",
+          "cat": "Đặt lịch"
+        },
+        {
+          "name": "Webflow",
+          "cat": "Làm web"
+        },
+        {
+          "name": "Keynote",
+          "cat": "Thuyết trình"
+        },
+        {
+          "name": "Mailchimp",
+          "cat": "Marketing"
+        },
+        {
+          "name": "Drive",
+          "cat": "Năng suất"
+        },
+        {
+          "name": "Jitter",
+          "cat": "Thiết kế"
+        },
+        {
+          "name": "Stripe",
+          "cat": "Marketing"
+        },
+        {
+          "name": "Claude",
+          "cat": "AI"
+        },
+        {
+          "name": "Cloudflare",
+          "cat": "Bảo mật"
+        }
+      ]
+    },
+    "principles": {
+      "title": "Khác biệt không phải lời hứa. *Đây là ý nghĩa thật*",
+      "items": [
+        {
+          "title": "Không phô diễn.",
+          "text": "Không có bản thuyết trình nào không được giao. Mỗi sản phẩm bàn giao đều có việc để làm."
+        },
+        {
+          "title": "Không hố đen.",
+          "text": "Bạn luôn biết dự án đang ở đâu, vướng gì, và tôi nghĩ gì — kể cả khi tôi nghĩ ta đang giải sai bài."
+        },
+        {
+          "title": "Có AI trong phòng.",
+          "text": "Tôi dùng AI trong cả quy trình: nghiên cứu, kiểm chứng, dựng nguyên mẫu nhanh hơn. Tay nghề vẫn là của con người."
+        },
+        {
+          "title": "Tôi sẽ nói khi có gì sai.",
+          "text": "Nếu có gì lệch — cấu trúc, chiến lược, hình ảnh — tôi nói trước khi bạn ra mắt."
+        },
+        {
+          "title": "Cùng chịu rủi ro.",
+          "text": "Thời gian của bạn là thật. Tôi làm với sự gấp gáp của người quan tâm kết quả."
+        },
+        {
+          "title": "Bạn nói chuyện với tôi.",
+          "text": "Không account manager, không chuyển tiếp. Bạn làm việc trực tiếp với người làm."
+        }
+      ]
+    },
+    "photos": [
+      {
+        "src": "/assets/images/project-1.svg",
+        "alt": "Ảnh làm việc"
+      },
+      {
+        "src": "/assets/images/project-3b.svg",
+        "alt": "Ảnh làm việc"
+      }
+    ],
+    "awards": {
+      "title": "Chứng chỉ, giải thưởng *& báo chí*",
+      "types": {
+        "cert": "Chứng chỉ",
+        "award": "Giải thưởng",
+        "pub": "Báo chí"
+      },
+      "items": [
+        {
+          "name": "Nielsen Norman Group UXC",
+          "type": "cert",
+          "topic": "Quản lý UX"
+        },
+        {
+          "name": "Uxcel",
+          "type": "cert",
+          "topic": "Thiết kế dịch vụ"
+        },
+        {
+          "name": "Behance UI/UX",
+          "type": "award",
+          "topic": "Thiết kế sản phẩm"
+        },
+        {
+          "name": "Behance Digital Arts",
+          "type": "award",
+          "topic": "Nghệ thuật số"
+        },
+        {
+          "name": "Abduzeedo",
+          "type": "pub",
+          "topic": "Nghệ thuật số"
+        },
+        {
+          "name": "GoGuide",
+          "type": "pub",
+          "topic": "Nghệ thuật số"
+        }
+      ],
+      "colCert": "Chứng chỉ",
+      "colMore": "Giải thưởng & báo chí"
+    },
+    "closing": {
+      "a": "Sản phẩm *tiếp theo* của bạn",
+      "b": "đang trễ tiến độ.",
+      "c": "Bắt đầu thôi",
+      "btn": "Dự án"
+    },
+    "dither": "/assets/images/portrait-dither-2.png",
+    "clean": "/assets/images/portrait-clean-2.webp",
+    "experience": {
+      "title": "Kinh nghiệm *làm việc*",
+      "lead": "Hai dòng công việc chạy song song: làm theo hợp đồng lao động và nhận dự án freelance trong cùng khoảng thời gian.",
+      "lanes": {
+        "employment": "Hợp đồng lao động",
+        "freelance": "Freelance"
+      },
+      "all": "Tất cả",
+      "now": "Nay",
+      "chartLabel": "Biểu đồ thời gian làm việc theo hai dòng: hợp đồng lao động và freelance",
+      "units": {
+        "y": "năm",
+        "m": "tháng"
+      },
+      "resultsLabel": "Kết quả",
+      "during": "Freelance cùng thời gian",
+      "solo": "Freelance ngoài thời gian hợp đồng",
+      "projects": "dự án"
+    }
+  },
+  "en": {
+    "seoTitle": "About",
+    "h1a": "Most designers ship decks.",
+    "h1b": "I ship *products*",
+    "lead": "I’ve been building digital products for years, back when “AI” meant autocorrect. Now I use it to deliver for founders and businesses in days what agencies quote in months.",
+    "portrait": "/assets/images/portrait.jpg",
+    "portraitAlt": "Portrait",
+    "fast": {
+      "title": "Fast, focused, *AI-native*",
+      "text": [
+        "Product design is about solving the right problem, then executing it without ceremony.",
+        "I work with early-stage companies and scaling teams that need decisions made, not workshopped. My process is built around fast delivery, from strategy to handoff, without the two-week kick-off theater.",
+        "I’ve shipped products across SaaS, fintech and consumer apps. The tools have changed. The discipline hasn’t."
+      ]
+    },
+    "tools": {
+      "title": "Tools stack *powering my work*",
+      "text": "My work runs on a diverse stack of tools ranging from design systems and collaboration to automation and AI. They help me work smarter, scale faster and go beyond expectations. The stack is always evolving.",
+      "all": "All",
+      "items": [
+        {
+          "name": "Figma",
+          "cat": "Design"
+        },
+        {
+          "name": "Notion",
+          "cat": "Productivity"
+        },
+        {
+          "name": "Slack",
+          "cat": "Communication"
+        },
+        {
+          "name": "Calendly",
+          "cat": "Scheduling"
+        },
+        {
+          "name": "Webflow",
+          "cat": "Website Building"
+        },
+        {
+          "name": "Keynote",
+          "cat": "Presentations"
+        },
+        {
+          "name": "Mailchimp",
+          "cat": "Marketing"
+        },
+        {
+          "name": "Drive",
+          "cat": "Productivity"
+        },
+        {
+          "name": "Jitter",
+          "cat": "Design"
+        },
+        {
+          "name": "Stripe",
+          "cat": "Marketing"
+        },
+        {
+          "name": "Claude",
+          "cat": "AI"
+        },
+        {
+          "name": "Cloudflare",
+          "cat": "Security"
+        }
+      ]
+    },
+    "principles": {
+      "title": "Different isn’t a promise. *Here’s what it actually means*",
+      "items": [
+        {
+          "title": "No theater.",
+          "text": "No decks that never ship. Every deliverable has a job — if it doesn’t, it doesn’t get made."
+        },
+        {
+          "title": "No black holes.",
+          "text": "You’ll always know where we are, what’s blocked, and what I actually think — including when I think we’re solving the wrong problem."
+        },
+        {
+          "title": "AI in the room.",
+          "text": "I use AI across the entire process — faster research, validation and prototypes. The craft stays human."
+        },
+        {
+          "title": "I’ll tell you when it’s wrong.",
+          "text": "If something’s off — structurally, strategically, visually — I’ll say so before you ship it, not after."
+        },
+        {
+          "title": "Skin in the game.",
+          "text": "Your runway is real. I work with the urgency of someone who cares whether this succeeds."
+        },
+        {
+          "title": "You talk to me.",
+          "text": "No account managers. No relays. You work directly with the person doing the work."
+        }
+      ]
+    },
+    "photos": [
+      {
+        "src": "/assets/images/project-1.svg",
+        "alt": "Working photo"
+      },
+      {
+        "src": "/assets/images/project-3b.svg",
+        "alt": "Working photo"
+      }
+    ],
+    "awards": {
+      "title": "Certifications, awards *& press*",
+      "types": {
+        "cert": "Certification",
+        "award": "Award",
+        "pub": "Publication"
+      },
+      "items": [
+        {
+          "name": "Nielsen Norman Group UXC",
+          "type": "cert",
+          "topic": "UX Management"
+        },
+        {
+          "name": "Uxcel",
+          "type": "cert",
+          "topic": "Service Design"
+        },
+        {
+          "name": "Behance UI/UX",
+          "type": "award",
+          "topic": "Product design"
+        },
+        {
+          "name": "Behance Digital Arts",
+          "type": "award",
+          "topic": "Digital Arts"
+        },
+        {
+          "name": "Abduzeedo",
+          "type": "pub",
+          "topic": "Digital Arts"
+        },
+        {
+          "name": "GoGuide",
+          "type": "pub",
+          "topic": "Digital Arts"
+        }
+      ],
+      "colCert": "Certifications",
+      "colMore": "Awards & press"
+    },
+    "closing": {
+      "a": "Your *next product* is",
+      "b": "already behind schedule.",
+      "c": "Let’s get to",
+      "btn": "Work"
+    },
+    "dither": "/assets/images/portrait-dither-2.png",
+    "clean": "/assets/images/portrait-clean-2.webp",
+    "experience": {
+      "title": "Work *experience*",
+      "lead": "Two tracks that run in parallel: employment contracts, and freelance projects taken on during the same periods.",
+      "lanes": {
+        "employment": "Employment",
+        "freelance": "Freelance"
+      },
+      "all": "All",
+      "now": "Present",
+      "chartLabel": "Timeline of work across two tracks: employment and freelance",
+      "units": {
+        "y": "yr",
+        "m": "mo"
+      },
+      "resultsLabel": "Results",
+      "during": "Freelance during this time",
+      "solo": "Freelance outside employment",
+      "projects": "projects"
+    }
+  }
+}

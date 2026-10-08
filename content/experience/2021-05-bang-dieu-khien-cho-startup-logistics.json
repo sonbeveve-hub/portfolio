@@ -1,0 +1,26 @@
+{
+  "vi": {
+    "type": "freelance",
+    "org": "Bảng điều khiển cho startup logistics",
+    "role": "Thiết kế sản phẩm",
+    "from": "2021-05",
+    "to": "2022-08",
+    "summary": "Thiết kế bảng điều khiển theo dõi đơn hàng cho startup logistics.",
+    "results": [
+      "Gọi vốn thành công vòng hạt giống",
+      "Rút ngắn 50% thời gian theo dõi đơn"
+    ]
+  },
+  "en": {
+    "type": "freelance",
+    "org": "Logistics startup dashboard",
+    "role": "Product design",
+    "from": "2021-05",
+    "to": "2022-08",
+    "summary": "Designed an order-tracking dashboard for a logistics startup.",
+    "results": [
+      "Closed their seed round",
+      "50% faster order tracking"
+    ]
+  }
+}

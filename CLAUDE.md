@@ -22,13 +22,14 @@
 ## 3. Công nghệ và cách chạy
 - Vite + HTML/CSS/JS thuần (không framework). Phụ thuộc: `lenis` (cuộn mượt), font `@fontsource-variable/inter` và `playfair-display`.
 - `npm install` → `npm run dev` (chạy thử) · `npm run build` (ra `dist/`) · `npm run preview` (xem bản build, cổng 4173) · `npm run docs` (tạo `docs/ui-kit.html`).
-- **HTML không viết tay.** Lúc cấu hình Vite chạy, các file điểm vào (`/index.html`, `/en/`, `/work/`, `/services/`, `/about/`) được sinh từ `templates/page.html` + `content/*.json`. Các file này nằm trong `.gitignore`, đừng sửa trực tiếp.
+- **HTML không viết tay.** Lúc cấu hình Vite chạy, các file điểm vào (`/index.html`, `/en/`, `/work/`, `/services/`, `/about/`) được sinh từ `templates/page.html` + thư mục `content/` (ghép bởi `scripts/content.js`). Các file này nằm trong `.gitignore`, đừng sửa trực tiếp.
 - Plugin trong `vite.config.js`: `portfolio-content` (dựng HTML lúc build/dev bằng Node), `inlineCriticalPlugin` (nhúng CSS, preload font), sinh sitemap (có hreflang) và robots. `cssTarget` đặt `['chrome111','safari16.4','firefox113']`.
 
 ## 4. Cấu trúc mã
 | Đường dẫn | Vai trò |
 |---|---|
-| `content/vi.json`, `content/en.json` | **Toàn bộ chữ, liên kết, đường dẫn ảnh.** Sửa nội dung ở đây (sửa cả 2 file). |
+| `content/` | **Toàn bộ chữ, liên kết, đường dẫn ảnh**, chia nhiều file: `settings.json`, `pages/{home,about,services,work}.json`, `projects/<slug>.json`, `services/<slug>.json`, `experience/`, `testimonials/`, `partners/`. Mỗi file `{ "vi": …, "en": … }`; bản en thiếu ô nào thì lấy theo vi (`withFallback`). Danh sách sắp theo trường `order` (kinh nghiệm tự sắp theo ngày). Tên file của dự án/dịch vụ = `slug`. |
+| `scripts/content.js` | `loadContent(lang)` ghép thư mục `content/` thành đúng cấu trúc cũ (site, brand, …, work.items, pages.about.experience.items) mà render.js/pages.js dùng |
 | `styles/tokens.css` | Design token: màu, cỡ chữ, khoảng cách, bo góc. Đổi toàn site ở đây. |
 | `styles/*.css` | base, nav, hero, sections (trang chủ), footer (kèm hộp thoại liên hệ, con trỏ), pages (các trang con), overlay (màn chờ + chuyển trang) |
 | `scripts/site.js` | Danh sách ngôn ngữ, trang, hàm `renderDocument` |
@@ -41,7 +42,7 @@
 | `docs/ui-kit.html` | Design system + UI kit của trang này |
 | `public/assets/` | Ảnh (`images/`), video (`video/reel.webm`), logo |
 | `vercel.json` | Build, thư mục `dist`, cleanUrls, header cache |
-| `public/admin/` | Trang quản trị Decap CMS (`/admin/`): `index.html` nạp Decap từ unpkg, `config.yml` khai báo form cho toàn bộ `content/*.json` |
+| `public/admin/` | Trang quản trị Decap CMS (`/admin/`): `index.html` nạp Decap từ unpkg, `config.yml` khai báo collection (Dự án, Kinh nghiệm, Nhận xét, Dịch vụ, Đối tác = folder; Các trang, Cài đặt chung = file; i18n single_file vi/en, trường không cần dịch dùng `i18n: duplicate`), `preview.js` xem trước + bổ sung chữ tiếng Việt, `admin.css` giao diện |
 | `api/auth.js`, `api/callback.js` | Hàm Vercel đăng nhập GitHub OAuth cho `/admin` (biến môi trường `OAUTH_GITHUB_CLIENT_ID`, `OAUTH_GITHUB_CLIENT_SECRET`) |
 
 ## 5. Quy ước nội dung và giao diện
@@ -51,7 +52,7 @@
 - Phải hỗ trợ `prefers-reduced-motion`, theme tối/sáng, VI/EN, cảm ứng (tắt con trỏ tuỳ chỉnh).
 - Hiệu ứng rê chuột trắng toàn chiều ngang cho các hàng danh sách dùng `::before` rộng `100vw`.
 - Không viết `-webkit-backdrop-filter` bằng tay (lightningcss sẽ bỏ `backdrop-filter` không tiền tố nếu thiếu `cssTarget`).
-- Mọi chữ hiển thị mới phải thêm vào **cả hai** file `content/vi.json` và `content/en.json`, **và khai báo trường đó trong `public/admin/config.yml`** để sửa được qua trang quản trị.
+- Mọi chữ hiển thị mới phải thêm vào **cả nhánh `vi` và `en`** của file tương ứng trong `content/`, **khai báo trường đó trong `public/admin/config.yml`**, và nếu là khối mới thì ghép trong `scripts/content.js`.
 - Nội dung có thể được người dùng sửa qua `/admin` (Decap commit thẳng lên `main`, thứ tự khoá trong JSON có thể đổi): luôn `git pull` trước khi làm; code đọc nội dung phải chịu được trường tuỳ chọn bị bỏ trống (`detail.meta`, `detail.sections`, `images`, `bullets`, `image2`, `badge`, `to`).
 
 ## 6. Hiệu ứng chính (đã làm, giống trang mẫu)
@@ -88,11 +89,11 @@ Phiên 2026-10-08 (design system v1.2, file Figma "Portfolio — Design System" 
 - Lighthouse cục bộ (python http.server, không nén): Accessibility 100 trên 10 phép đo (trước: 98–100), Best practices/SEO 100; Performance desktop 99–100, mobile 82–97 (thấp hơn thực tế vì không nén).
 
 ## 10. Việc còn lại
-0. **Trang quản trị /admin (Decap CMS) đã có code, cần người dùng cài OAuth một lần** (xem README mục "Trang quản trị nội dung"): tạo GitHub OAuth App với callback `https://portfolio-pi-eight-jsed3pl308.vercel.app/api/callback`, thêm 2 biến môi trường trên Vercel rồi Redeploy.
+0. Trang quản trị `/admin` đã chạy (OAuth GitHub đã cài trên Vercel ngày 2026-10-08). Nội dung đã tách thành nhiều file trong `content/` để CMS có danh sách, tìm kiếm, song ngữ cạnh nhau.
 1. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (`project-N.svg`), video `reel.webm`, lời nhận xét, logo đối tác, số liệu, dịch vụ, kinh nghiệm, chứng chỉ, email `hello@example.com`, link đặt lịch `calendly.com/your-link`, liên kết mạng xã hội, nội dung case study.
 2. **Trang Chính sách bảo mật / Điều khoản**: footer đang trỏ `#`, cần nội dung.
 3. **Biểu mẫu liên hệ:** `scripts/contact-api.js` vẫn là hàm giả. Cần nối dịch vụ gửi thật khi người dùng chọn.
-4. Nếu gắn tên miền riêng: đổi lại `site.url` trong cả hai file `content/*.json`.
+4. Nếu gắn tên miền riêng: đổi `site.url` trong `content/settings.json` (cả vi, en) và `base_url`/`site_url`/`display_url` trong `public/admin/config.yml`, callback của GitHub OAuth App.
 
 ## 11. Gợi ý khi bắt đầu phiên mới
 - Chạy `git pull origin main`, `npm install`, `npm run build` để chắc chắn mọi thứ chạy được.

@@ -1,0 +1,38 @@
+{
+  "vi": {
+    "order": 5,
+    "icon": "message",
+    "title": "Tư vấn & bán hàng",
+    "text": "Từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao.",
+    "long": "Thiết kế tốt còn cần bán được. Tôi đồng hành từ báo giá, kịch bản chốt đơn đến chăm sóc sau bàn giao.",
+    "deliverables": [
+      "Tư vấn định hướng sản phẩm",
+      "Báo giá và phạm vi",
+      "Kịch bản trao đổi với khách",
+      "Tài liệu giới thiệu",
+      "Chăm sóc sau bàn giao",
+      "Đề xuất cải tiến"
+    ],
+    "image": "/assets/images/project-1.svg",
+    "imageAlt": "Ảnh minh họa",
+    "badge": "Zalo & Email"
+  },
+  "en": {
+    "order": 5,
+    "icon": "message",
+    "title": "Consulting & sales",
+    "text": "From quoting and closing scripts to after-sales care.",
+    "long": "Good design also has to sell. I support you from quoting and closing scripts to after-sales care.",
+    "deliverables": [
+      "Product direction advice",
+      "Quotes and scope",
+      "Client conversation scripts",
+      "Pitch materials",
+      "After-sales care",
+      "Improvement proposals"
+    ],
+    "image": "/assets/images/project-1.svg",
+    "imageAlt": "Illustration",
+    "badge": "Chat & email"
+  }
+}

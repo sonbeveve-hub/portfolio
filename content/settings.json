@@ -1,0 +1,246 @@
+{
+  "vi": {
+    "site": {
+      "url": "https://portfolio-pi-eight-jsed3pl308.vercel.app",
+      "lang": "vi",
+      "title": "Tên Bạn — Designer & UI/UX",
+      "description": "Portfolio của Tên Bạn: thiết kế giao diện, trải nghiệm người dùng và quản lý dự án cho doanh nghiệp cần sản phẩm ra thật nhanh.",
+      "ogImage": "/assets/images/og.png",
+      "themeColor": "#121212"
+    },
+    "brand": {
+      "logo": "Tên Bạn",
+      "logoMark": ".",
+      "nameLines": [
+        "Tên",
+        "Bạn"
+      ]
+    },
+    "nav": [
+      {
+        "key": "work",
+        "label": "Dự án"
+      },
+      {
+        "key": "services",
+        "label": "Dịch vụ"
+      },
+      {
+        "key": "about",
+        "label": "Giới thiệu"
+      }
+    ],
+    "cta": {
+      "label": "Đặt lịch",
+      "href": "https://calendly.com/your-link"
+    },
+    "contact": {
+      "title": "Liên hệ",
+      "text": "Tôi xây những sản phẩm chạm đến con người và đem lại kết quả cho doanh nghiệp.",
+      "email": "hello@example.com",
+      "writeLabel": "Thích viết hơn? Gửi lời nhắn.",
+      "button": {
+        "label": "Liên hệ"
+      },
+      "socials": [
+        {
+          "label": "Zalo",
+          "icon": "zalo",
+          "href": "https://zalo.me/your-number"
+        },
+        {
+          "label": "LinkedIn",
+          "icon": "linkedin",
+          "href": "https://www.linkedin.com/in/your-profile"
+        },
+        {
+          "label": "Behance",
+          "icon": "behance",
+          "href": "https://www.behance.net/your-profile"
+        },
+        {
+          "label": "Dribbble",
+          "icon": "dribbble",
+          "href": "https://dribbble.com/your-profile"
+        },
+        {
+          "label": "Email",
+          "icon": "mail",
+          "href": "mailto:hello@example.com"
+        }
+      ],
+      "form": {
+        "title": "Bạn cần một *người đồng hành*?",
+        "intro": "Kể cho tôi nghe bạn đang xây gì và đang vướng ở đâu. Tôi tự đọc từng tin nhắn và phản hồi trong một hai ngày, không có bot ở giữa.",
+        "close": "Đóng",
+        "name": "Họ tên",
+        "email": "Email",
+        "contact": "Zalo hoặc LinkedIn",
+        "company": "Tên công ty",
+        "lookingFor": "Bạn đang cần gì?",
+        "options": [
+          "Thiết kế UI",
+          "Nghiên cứu & UX",
+          "Design system",
+          "Quản lý dự án",
+          "Tư vấn & bán hàng",
+          "Branding",
+          "Khác"
+        ],
+        "message": "Kể thêm về dự án",
+        "submit": "Gửi",
+        "sending": "Đang gửi…",
+        "success": "Đã gửi! Mình sẽ phản hồi sớm.",
+        "error": "Chưa gửi được, vui lòng thử lại.",
+        "invalid": "Vui lòng điền đủ thông tin bắt buộc (*) và chọn ít nhất một mục."
+      }
+    },
+    "footer": {
+      "copyright": "Tên Bạn. Đã đăng ký bản quyền.",
+      "legal": [
+        {
+          "label": "Chính sách bảo mật",
+          "href": "#"
+        },
+        {
+          "label": "Điều khoản",
+          "href": "#"
+        }
+      ]
+    },
+    "ui": {
+      "toggleTheme": "Chuyển giao diện sáng/tối",
+      "openMenu": "Mở menu",
+      "closeMenu": "Đóng menu",
+      "skip": "Bỏ qua tới nội dung chính",
+      "home": "Trang đầu",
+      "statsLabel": "Số liệu nổi bật",
+      "langCode": "EN",
+      "langName": "Switch to English",
+      "reach": "Liên hệ",
+      "loading": "Đang tải"
+    }
+  },
+  "en": {
+    "site": {
+      "url": "https://portfolio-pi-eight-jsed3pl308.vercel.app",
+      "lang": "en",
+      "title": "Your Name — Designer & UI/UX",
+      "description": "Portfolio of Your Name: interface design, user experience and project management for teams that need products shipped fast.",
+      "ogImage": "/assets/images/og.png",
+      "themeColor": "#121212"
+    },
+    "brand": {
+      "logo": "Your Name",
+      "logoMark": ".",
+      "nameLines": [
+        "Your",
+        "Name"
+      ]
+    },
+    "nav": [
+      {
+        "key": "work",
+        "label": "Work"
+      },
+      {
+        "key": "services",
+        "label": "Services"
+      },
+      {
+        "key": "about",
+        "label": "About"
+      }
+    ],
+    "cta": {
+      "label": "Let’s talk",
+      "href": "https://calendly.com/your-link"
+    },
+    "contact": {
+      "title": "Get in touch",
+      "text": "I build products that move people, and move the business.",
+      "email": "hello@example.com",
+      "writeLabel": "Prefer to write? Send a note.",
+      "button": {
+        "label": "Contact"
+      },
+      "socials": [
+        {
+          "label": "Zalo",
+          "icon": "zalo",
+          "href": "https://zalo.me/your-number"
+        },
+        {
+          "label": "LinkedIn",
+          "icon": "linkedin",
+          "href": "https://www.linkedin.com/in/your-profile"
+        },
+        {
+          "label": "Behance",
+          "icon": "behance",
+          "href": "https://www.behance.net/your-profile"
+        },
+        {
+          "label": "Dribbble",
+          "icon": "dribbble",
+          "href": "https://dribbble.com/your-profile"
+        },
+        {
+          "label": "Email",
+          "icon": "mail",
+          "href": "mailto:hello@example.com"
+        }
+      ],
+      "form": {
+        "title": "You need a *partner*?",
+        "intro": "Tell me what you’re building, and where it’s stuck. I read every note myself and reply within a day or two, no bots in between.",
+        "close": "Close",
+        "name": "Your name",
+        "email": "Email",
+        "contact": "Zalo or LinkedIn",
+        "company": "Company name",
+        "lookingFor": "You are looking for?",
+        "options": [
+          "UI design",
+          "Research & UX",
+          "Design system",
+          "Project management",
+          "Consulting & sales",
+          "Branding",
+          "Other"
+        ],
+        "message": "Tell me more about the project",
+        "submit": "Send",
+        "sending": "Sending…",
+        "success": "Sent! I’ll reply soon.",
+        "error": "Couldn’t send, please try again.",
+        "invalid": "Please fill in the required fields (*) and pick at least one option."
+      }
+    },
+    "footer": {
+      "copyright": "Your Name. All rights reserved.",
+      "legal": [
+        {
+          "label": "Privacy policy",
+          "href": "#"
+        },
+        {
+          "label": "Terms & Conditions",
+          "href": "#"
+        }
+      ]
+    },
+    "ui": {
+      "toggleTheme": "Toggle light/dark theme",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "skip": "Skip to main content",
+      "home": "Home",
+      "statsLabel": "Key numbers",
+      "langCode": "VI",
+      "langName": "Chuyển sang tiếng Việt",
+      "reach": "Reach out",
+      "loading": "Loading"
+    }
+  }
+}

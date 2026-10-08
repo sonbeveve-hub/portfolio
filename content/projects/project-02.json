@@ -1,0 +1,154 @@
+{
+  "vi": {
+    "order": 2,
+    "title": "Dự án 02",
+    "industry": "Giáo dục",
+    "tags": [
+      "Thiết kế sản phẩm",
+      "Nghiên cứu UX"
+    ],
+    "status": "live",
+    "image": "/assets/images/project-2.svg",
+    "image2": "/assets/images/project-2b.svg",
+    "alt": "Ảnh minh họa Dự án 02",
+    "detail": {
+      "meta": [
+        {
+          "label": "Khách hàng",
+          "value": "Khách hàng mẫu"
+        },
+        {
+          "label": "Năm",
+          "value": "2025"
+        },
+        {
+          "label": "Vai trò",
+          "value": "Thiết kế sản phẩm, Nghiên cứu UX"
+        },
+        {
+          "label": "Ngành",
+          "value": "Giáo dục"
+        }
+      ],
+      "intro": {
+        "title": "Một sản phẩm *quá phức tạp* để dùng",
+        "text": "Mô tả mẫu cho Dự án 02: bối cảnh, vấn đề khách hàng gặp phải và vì sao dự án này quan trọng. Thay bằng câu chuyện thật của bạn."
+      },
+      "sections": [
+        {
+          "title": "Làm cho sự phức tạp *biến mất*",
+          "text": "Mô tả hướng tiếp cận: bạn đã nghiên cứu gì, đặt ra nguyên tắc nào và thử nghiệm ra sao.",
+          "bullets": [
+            "Một mục tiêu rõ ràng cho cả sản phẩm",
+            "Nhìn thấy trạng thái quan trọng ngay lập tức",
+            "Mở rộng mà không phải học lại"
+          ],
+          "images": [
+            "/assets/images/project-2.svg"
+          ]
+        },
+        {
+          "title": "Một ngôn ngữ cho *toàn bộ sản phẩm*",
+          "text": "Mô tả hệ thống thiết kế, thành phần và quy tắc đã giúp đội ngũ làm nhanh và nhất quán.",
+          "bullets": [
+            "Bộ thành phần dùng chung",
+            "Quy tắc khoảng cách và chữ",
+            "Tài liệu cho lập trình"
+          ],
+          "images": [
+            "/assets/images/project-2.svg",
+            "/assets/images/project-2b.svg"
+          ]
+        },
+        {
+          "title": "Những quyết định *quan trọng*",
+          "text": "Kể về 2–3 quyết định khó và lý do bạn chọn như vậy.",
+          "bullets": [],
+          "images": [
+            "/assets/images/project-2b.svg"
+          ]
+        }
+      ],
+      "result": {
+        "title": "Sâu nhưng *dễ chịu*",
+        "text": "Kết quả đo được: số liệu, phản hồi của khách hàng và điều bạn học được."
+      }
+    }
+  },
+  "en": {
+    "order": 2,
+    "title": "Project 02",
+    "industry": "Education",
+    "tags": [
+      "Product design",
+      "UX research"
+    ],
+    "status": "live",
+    "image": "/assets/images/project-2.svg",
+    "image2": "/assets/images/project-2b.svg",
+    "alt": "Illustration for Project 02",
+    "detail": {
+      "meta": [
+        {
+          "label": "Client",
+          "value": "Sample client"
+        },
+        {
+          "label": "Year",
+          "value": "2025"
+        },
+        {
+          "label": "Role",
+          "value": "Product design, UX research"
+        },
+        {
+          "label": "Industry",
+          "value": "Education"
+        }
+      ],
+      "intro": {
+        "title": "A product *too complex* to use",
+        "text": "Sample description for Project 02: the context, the problem the client faced and why the project mattered. Replace with your real story."
+      },
+      "sections": [
+        {
+          "title": "Make the complexity *disappear*",
+          "text": "Describe the approach: what you researched, which principles you set and how you tested them.",
+          "bullets": [
+            "One clear goal for the whole product",
+            "See the key state at a glance",
+            "Scale without relearning"
+          ],
+          "images": [
+            "/assets/images/project-2.svg"
+          ]
+        },
+        {
+          "title": "One grammar for the *whole product*",
+          "text": "Describe the design system, components and rules that made the team fast and consistent.",
+          "bullets": [
+            "Shared component kit",
+            "Spacing and type rules",
+            "Developer documentation"
+          ],
+          "images": [
+            "/assets/images/project-2.svg",
+            "/assets/images/project-2b.svg"
+          ]
+        },
+        {
+          "title": "The decisions that *mattered*",
+          "text": "Tell the story of two or three hard decisions and why you made them.",
+          "bullets": [],
+          "images": [
+            "/assets/images/project-2b.svg"
+          ]
+        }
+      ],
+      "result": {
+        "title": "Deep, but *calm*",
+        "text": "Measured outcome: numbers, client feedback and what you learned."
+      }
+    }
+  }
+}

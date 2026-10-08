@@ -1,0 +1,26 @@
+{
+  "vi": {
+    "type": "employment",
+    "org": "Công ty Truyền thông C",
+    "role": "UI Designer",
+    "from": "2018-03",
+    "to": "2019-05",
+    "summary": "Thiết kế giao diện web và ấn phẩm số cho khách hàng thương hiệu.",
+    "results": [
+      "Hoàn thành hơn 25 dự án giao diện",
+      "Xây bộ thư viện thành phần đầu tiên của công ty"
+    ]
+  },
+  "en": {
+    "type": "employment",
+    "org": "Media Company C",
+    "role": "UI Designer",
+    "from": "2018-03",
+    "to": "2019-05",
+    "summary": "Designed web interfaces and digital collateral for brand clients.",
+    "results": [
+      "Delivered 25+ interface projects",
+      "Built the company's first component library"
+    ]
+  }
+}

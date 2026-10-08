@@ -1,0 +1,36 @@
+{
+  "vi": {
+    "order": 6,
+    "icon": "spark",
+    "title": "Branding cơ bản",
+    "text": "Logo, màu sắc và bộ nhận diện gọn cho thương hiệu mới.",
+    "long": "Một bộ nhận diện gọn gàng đủ để thương hiệu mới trông đáng tin từ ngày đầu.",
+    "deliverables": [
+      "Logo và biến thể",
+      "Bảng màu",
+      "Chữ và quy tắc dùng",
+      "Mẫu mạng xã hội",
+      "Mẫu tài liệu",
+      "Sổ tay thương hiệu ngắn"
+    ],
+    "image": "/assets/images/project-2.svg",
+    "imageAlt": "Ảnh minh họa"
+  },
+  "en": {
+    "order": 6,
+    "icon": "spark",
+    "title": "Essential branding",
+    "text": "Logo, color and a lean identity for a new brand.",
+    "long": "A lean identity is enough to make a new brand look trustworthy from day one.",
+    "deliverables": [
+      "Logo and variants",
+      "Color palette",
+      "Type and usage rules",
+      "Social templates",
+      "Document templates",
+      "Short brand guide"
+    ],
+    "image": "/assets/images/project-2.svg",
+    "imageAlt": "Illustration"
+  }
+}

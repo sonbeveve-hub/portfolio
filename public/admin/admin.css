@@ -1,0 +1,29 @@
+/* Tinh chỉnh giao diện Decap CMS cho gần với nhận diện của site: chữ Inter, màu nhấn xanh neon. */
+:root { --pf-ink: #121212; --pf-accent: #6fff54; --pf-accent-ink: #062b0c; --pf-bg: #f5f5f1; }
+body, button, input, textarea, select, [class*='css-'] { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important; }
+body { background: var(--pf-bg) !important; }
+
+/* Thanh trên cùng tối như site */
+[class*='AppHeader'] { background: var(--pf-ink) !important; }
+[class*='AppHeader'] a, [class*='AppHeader'] button, [class*='AppHeader'] span { color: #fff !important; }
+[class*='AppHeaderNavLink'].header-link-active, [class*='AppHeaderNavLink']:hover { color: var(--pf-accent) !important; }
+[class*='AppHeader'] [class*='AppHeaderQuickNewButton'], [class*='AppHeader'] button[class*='Dropdown'] { background: var(--pf-accent) !important; color: var(--pf-accent-ink) !important; }
+[class*='AppHeader'] [class*='AppHeaderQuickNewButton'] span { color: var(--pf-accent-ink) !important; }
+
+/* Menu bên trái */
+[class*='SidebarContainer'] { border-radius: 12px !important; }
+[class*='SidebarNavLink'] { font-size: 15px !important; }
+[class*='SidebarNavLink'].sidebar-active, [class*='SidebarNavLink']:hover { color: var(--pf-ink) !important; background: rgba(111, 255, 84, 0.18) !important; border-left-color: var(--pf-accent) !important; }
+
+/* Nút chính */
+[class*='CollectionTopNewButton'], [class*='PublishedToolbarButton'] { background: var(--pf-ink) !important; color: #fff !important; }
+[class*='ToolbarButton'][class*='publish'], [class*='PublishButton'] { background: var(--pf-ink) !important; }
+
+/* Thẻ trong danh sách: bo góc, ảnh đẹp hơn */
+[class*='ListCard'], [class*='GridCard'] { border-radius: 12px !important; }
+[class*='GridCard'] { overflow: hidden; }
+[class*='CardImage'] { background-size: cover !important; }
+
+/* Nhãn ô nhập: dễ đọc hơn chữ in hoa nhỏ mặc định */
+[class*='FieldLabel'] { text-transform: none !important; font-size: 13px !important; letter-spacing: 0 !important; }
+[class*='PublishedToolbarButton'] *, [class*='CollectionTopNewButton'] * { color: #fff !important; }

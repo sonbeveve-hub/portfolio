@@ -1,0 +1,36 @@
+{
+  "vi": {
+    "order": 3,
+    "icon": "layers",
+    "title": "Design system",
+    "text": "Bộ thành phần giúp đội ngũ làm nhanh và đồng bộ.",
+    "long": "Một bộ thành phần dùng chung giúp đội ngũ làm nhanh hơn và sản phẩm nhất quán khi lớn lên.",
+    "deliverables": [
+      "Kiểm kê giao diện hiện có",
+      "Màu, chữ, khoảng cách",
+      "Thư viện thành phần",
+      "Quy tắc sử dụng",
+      "Tài liệu cho lập trình",
+      "Quy trình cập nhật"
+    ],
+    "image": "/assets/images/project-3.svg",
+    "imageAlt": "Ảnh minh họa"
+  },
+  "en": {
+    "order": 3,
+    "icon": "layers",
+    "title": "Design system",
+    "text": "A component kit that keeps the team fast and aligned.",
+    "long": "One shared component kit keeps the team fast and the product consistent as it grows.",
+    "deliverables": [
+      "Interface audit",
+      "Color, type, spacing",
+      "Component library",
+      "Usage guidelines",
+      "Developer documentation",
+      "Update workflow"
+    ],
+    "image": "/assets/images/project-3.svg",
+    "imageAlt": "Illustration"
+  }
+}

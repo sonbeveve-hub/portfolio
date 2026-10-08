@@ -1,0 +1,38 @@
+{
+  "vi": {
+    "order": 2,
+    "icon": "compass",
+    "title": "Nghiên cứu & UX",
+    "text": "Phỏng vấn, luồng người dùng và wireframe có dữ liệu.",
+    "long": "Trước khi vẽ, tôi hỏi. Phỏng vấn, xem hành vi thật và dựng luồng người dùng để mọi quyết định đều có lý do.",
+    "deliverables": [
+      "Phỏng vấn người dùng",
+      "Bản đồ hành trình",
+      "Luồng người dùng",
+      "Wireframe",
+      "Kiểm thử khả dụng",
+      "Báo cáo phát hiện"
+    ],
+    "image": "/assets/images/project-2.svg",
+    "imageAlt": "Ảnh minh họa",
+    "badge": "Tăng tốc bằng AI"
+  },
+  "en": {
+    "order": 2,
+    "icon": "compass",
+    "title": "Research & UX",
+    "text": "Interviews, user flows and data-backed wireframes.",
+    "long": "Before drawing, I ask. Interviews, real behavior and user flows make sure every decision has a reason.",
+    "deliverables": [
+      "User interviews",
+      "Journey mapping",
+      "User flows",
+      "Wireframes",
+      "Usability testing",
+      "Findings report"
+    ],
+    "image": "/assets/images/project-2.svg",
+    "imageAlt": "Illustration",
+    "badge": "AI-accelerated"
+  }
+}

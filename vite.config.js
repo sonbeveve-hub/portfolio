@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
-import { LANGS, loadContent, pagesOf, prefixOf, entryFile, renderDocument, contentFile } from './scripts/site.js';
+import { LANGS, loadContent, pagesOf, prefixOf, entryFile, renderDocument, CONTENT_DIR } from './scripts/site.js';
 
 const root = import.meta.dirname;
 const SHELL = readFileSync(resolve(root, 'templates/page.html'), 'utf8');
@@ -19,7 +19,7 @@ for (const lang of LANGS) {
   }
 }
 
-// Dựng HTML từ content/*.json lúc build/dev: trang có nội dung ngay (tốt cho SEO, không cần JS để hiển thị).
+// Dựng HTML từ content/ (scripts/content.js) lúc build/dev: trang có nội dung ngay (tốt cho SEO, không cần JS để hiển thị).
 function contentPlugin() {
   return {
     name: 'portfolio-content',
@@ -36,11 +36,11 @@ function contentPlugin() {
       },
     },
     configureServer(server) {
-      const files = LANGS.map(contentFile);
-      server.watcher.add(files);
-      server.watcher.on('change', (file) => {
-        if (files.includes(file)) server.ws.send({ type: 'full-reload' });
-      });
+      server.watcher.add(CONTENT_DIR);
+      const reload = (file) => { if (file.startsWith(CONTENT_DIR)) server.ws.send({ type: 'full-reload' }); };
+      server.watcher.on('change', reload);
+      server.watcher.on('add', reload);
+      server.watcher.on('unlink', reload);
     },
     generateBundle() {
       const base = loadContent(LANGS[0]).site.url.replace(/\/$/, '');

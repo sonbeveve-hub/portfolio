@@ -1,0 +1,26 @@
+{
+  "vi": {
+    "type": "freelance",
+    "org": "Ứng dụng đặt lịch cho phòng khám",
+    "role": "Thiết kế UI/UX",
+    "from": "2024-01",
+    "to": null,
+    "summary": "Thiết kế lại luồng đặt lịch và trang quản trị cho chuỗi phòng khám.",
+    "results": [
+      "Giảm 40% cuộc gọi đặt lịch",
+      "Bàn giao bộ thiết kế cho đội phát triển"
+    ]
+  },
+  "en": {
+    "type": "freelance",
+    "org": "Clinic booking app",
+    "role": "UI/UX design",
+    "from": "2024-01",
+    "to": null,
+    "summary": "Redesigned the booking flow and admin dashboard for a clinic chain.",
+    "results": [
+      "40% fewer booking calls",
+      "Design handoff to the dev team"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "vi": {
+    "order": 1,
+    "icon": "layout",
+    "title": "Thiết kế UI",
+    "text": "Giao diện web và app nhất quán, sẵn sàng để lập trình.",
+    "long": "Giao diện là nơi sản phẩm của bạn gặp người dùng. Tôi thiết kế màn hình rõ ràng, nhất quán và sẵn sàng để lập trình, để đội kỹ thuật không phải đoán.",
+    "deliverables": [
+      "Thiết kế giao diện web và app",
+      "Hệ thống lưới và typography",
+      "Trạng thái và vi tương tác",
+      "Bản thiết kế bàn giao cho lập trình",
+      "Kiểm tra trước khi ra mắt",
+      "Hỗ trợ trong lúc triển khai"
+    ],
+    "image": "/assets/images/project-1.svg",
+    "imageAlt": "Ảnh minh họa",
+    "badge": "Quy trình có AI"
+  },
+  "en": {
+    "order": 1,
+    "icon": "layout",
+    "title": "UI design",
+    "text": "Consistent web and app interfaces, ready for development.",
+    "long": "The interface is where your product meets people. I design clear, consistent screens that are ready for development, so engineers never have to guess.",
+    "deliverables": [
+      "Web and app interface design",
+      "Grid and typography system",
+      "States and micro-interactions",
+      "Developer-ready handoff files",
+      "Pre-launch review",
+      "Support during build"
+    ],
+    "image": "/assets/images/project-1.svg",
+    "imageAlt": "Illustration",
+    "badge": "AI-powered workflow"
+  }
+}
