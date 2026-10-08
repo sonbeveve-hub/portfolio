@@ -21,7 +21,7 @@
 
 ## 3. Công nghệ và cách chạy
 - Vite + HTML/CSS/JS thuần (không framework). Phụ thuộc: `lenis` (cuộn mượt), font `@fontsource-variable/inter` và `playfair-display`.
-- `npm install` → `npm run dev` (chạy thử) · `npm run build` (ra `dist/`) · `npm run preview` (xem bản build, cổng 4173) · `npm run docs` (tạo `docs/ui-kit.html`).
+- `npm install` → `npm run dev` (chạy thử) · `npm run build` (ra `dist/`) · `npm run preview` (xem bản build, cổng 4173) · `npm run docs` (tạo `docs/ui-kit.html`) · `npm run brief` (tạo `docs/BRIEF-DU-AN.md`: mô tả dự án + toàn bộ nội dung VI/EN + token, dùng để brief cho dự án Claude mới; phần viết tay ở `docs/brief-header.md`). **Chạy lại `npm run brief` mỗi khi nội dung/token đổi.**
 - **HTML không viết tay.** Lúc cấu hình Vite chạy, các file điểm vào (`/index.html`, `/en/`, `/work/`, `/services/`, `/about/`) được sinh từ `templates/page.html` + thư mục `content/` (ghép bởi `scripts/content.js`). Các file này nằm trong `.gitignore`, đừng sửa trực tiếp.
 - Plugin trong `vite.config.js`: `portfolio-content` (dựng HTML lúc build/dev bằng Node), `inlineCriticalPlugin` (nhúng CSS, preload font), sinh sitemap (có hreflang) và robots. `cssTarget` đặt `['chrome111','safari16.4','firefox113']`.
 

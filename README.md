@@ -143,6 +143,10 @@ Với **Netlify**: Build command `npm run build`, Publish directory `dist`. Vớ
 - [ ] Ảnh chân dung, video `reel.webm` và poster, ảnh chia sẻ `og.png` (1200×630)
 - [ ] Gắn form thật (`scripts/contact-api.js`)
 
+## Brief cho dự án Claude mới
+
+`npm run brief` sinh `docs/BRIEF-DU-AN.md`: mô tả đầy đủ dự án, design token và **toàn bộ nội dung site (VI + EN)** đọc từ `content/`. Đính kèm file này (hoặc link GitHub của nó) vào dự án Claude mới để Claude nắm toàn bộ dự án. Phần mô tả viết tay sửa ở `docs/brief-header.md`.
+
 ## Design system & UI kit
 
 `npm run docs` tạo `docs/ui-kit.html`: một file HTML độc lập (mở offline) gồm màu (kèm tỉ lệ tương phản), chữ, khoảng cách, chuyển động, biểu tượng và toàn bộ thành phần giao diện, lấy trực tiếp từ token, CSS và hàm render của site nên luôn khớp với trang thật.
