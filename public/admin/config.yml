@@ -525,7 +525,15 @@ collections:
             i18n: true
             fields:
               - { label: "Chữ trên nút", name: label, widget: string }
-              - { label: "Link đặt lịch (Calendly, Google Calendar…)", name: href, widget: string }
+              - { label: "Link đặt lịch", name: href, widget: string, hint: "Google Calendar → Lịch hẹn (Appointment schedule) → Chia sẻ → Nhúng vào trang web → chép đường dẫn trong src (dạng https://calendar.google.com/calendar/appointments/schedules/…). Link dạng này mở thành hộp thoại ngay trên site; link khác (Calendly, calendar.app.google…) mở tab mới." }
+              - label: "Hộp thoại đặt lịch"
+                name: booking
+                widget: object
+                collapsed: true
+                fields:
+                  - { label: "Tiêu đề", name: title, widget: string, hint: "Bọc chữ trong *dấu sao* để in nghiêng kiểu serif" }
+                  - { label: "Câu giới thiệu", name: intro, widget: text }
+                  - { label: "Chữ link mở tab mới", name: newTab, widget: string }
           - label: "Menu"
             name: nav
             widget: list

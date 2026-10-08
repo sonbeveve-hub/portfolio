@@ -26,6 +26,34 @@
     CMS.registerLocale('vi', merge(base, add));
   })();
 
+  // Cột ngôn ngữ phụ (EN): ẩn các ô dùng chung với bản tiếng Việt (i18n: duplicate) để chỉ còn phần cần dịch.
+  var DUP = ['order', 'status', 'image', 'image2', 'icon', 'type', 'from', 'to', 'logo', 'name', 'portrait', 'dither', 'clean'];
+  var markDuplicates = function () {
+    document.querySelectorAll('[class*="ControlPaneContainer"]').forEach(function (pane) {
+      var dd = Array.prototype.find.call(pane.querySelectorAll('button, [role="button"]'), function (el) { return /\b(EN)\b/.test(el.textContent || '') && /bản|Writing/i.test(el.textContent || ''); });
+      if (!dd) return;
+      var isEntryCollection = /\/collections\/(projects|experience|testimonials|services|partners)\/|\/collections\/pages\/entries\/about/.test(location.hash);
+      if (!isEntryCollection) return;
+      var hidden = 0;
+      pane.querySelectorAll('[aria-label$="field"]').forEach(function (box) {
+        if (box.parentElement && box.parentElement.closest('[aria-label$="field"]')) return; // chỉ ô cấp trên cùng
+        var lab = box.querySelector(':scope > div > label[for]');
+        var name = lab ? lab.htmlFor.replace(/-field-\d+$/, '') : '';
+        if (DUP.indexOf(name) >= 0) { box.classList.add('pf-dup'); hidden++; }
+      });
+      if (hidden && !pane.querySelector('.pf-dup-note')) {
+        var note = document.createElement('p');
+        note.className = 'pf-dup-note';
+        note.textContent = 'Các ô dùng chung (ảnh, thứ tự, trạng thái, thời gian…) đã ẩn ở đây vì dùng chung với bản tiếng Việt — sửa ở cột bên trái. Ô nào để trống ở đây, site tự dùng chữ tiếng Việt.';
+        var anchor = pane.querySelector('[aria-label$="field"]');
+        if (anchor && anchor.parentElement) anchor.parentElement.insertBefore(note, anchor);
+      }
+    });
+  };
+  var pending = 0;
+  new MutationObserver(function () { if (!pending) pending = requestAnimationFrame(function () { pending = 0; markDuplicates(); }); })
+    .observe(document.documentElement, { childList: true, subtree: true });
+
   CMS.registerPreviewStyle(
     [
       "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital@1&display=swap');",

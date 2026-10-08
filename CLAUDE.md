@@ -36,18 +36,18 @@
 | `scripts/render.js` | Hàm dựng HTML dùng chung (nav, thống kê, footer, form, trang chủ...). Có `setContext({lang,prefix,page,alt})` và `href()` thêm tiền tố ngôn ngữ. |
 | `scripts/pages.js` | Dựng HTML cho Dự án, Dịch vụ, Giới thiệu (gồm `renderExperience`), chi tiết dự án |
 | `scripts/main.js` | Đăng ký mọi hiệu ứng ở trình duyệt |
-| `scripts/*.js` còn lại | Hiệu ứng/tương tác: reveal, counters, smooth (Lenis), cursor, magnetic, transition, nav, theme, hero-stripes (WebGL), aportrait (chân dung chấm điểm), accordion, tools, experience, wlist, testimonials, form... |
+| `scripts/*.js` còn lại | Hiệu ứng/tương tác: reveal, counters, smooth (Lenis), cursor, magnetic, transition, nav, theme, hero-stripes (WebGL), aportrait (chân dung chấm điểm), booking (hộp thoại đặt lịch Google Calendar), accordion, tools, experience, wlist, testimonials, form... |
 | `scripts/build-docs.mjs`, `docs-helpers.mjs` | Sinh `docs/ui-kit.html` (design system + UI kit từ token và hàm render thật) |
 | `docs/design-system.html` | Tài liệu so sánh design system giữa trang này và trang mẫu |
 | `docs/ui-kit.html` | Design system + UI kit của trang này |
 | `public/assets/` | Ảnh (`images/`), video (`video/reel.webm`), logo |
 | `vercel.json` | Build, thư mục `dist`, cleanUrls, header cache |
-| `public/admin/` | Trang quản trị Decap CMS (`/admin/`): `index.html` nạp Decap từ unpkg, `config.yml` khai báo collection (Dự án, Kinh nghiệm, Nhận xét, Dịch vụ, Đối tác = folder; Các trang, Cài đặt chung = file; i18n single_file vi/en, trường không cần dịch dùng `i18n: duplicate`), `preview.js` xem trước + bổ sung chữ tiếng Việt, `admin.css` giao diện |
+| `public/admin/` | Trang quản trị Decap CMS (`/admin/`): `index.html` nạp Decap từ unpkg, `config.yml` khai báo collection (Dự án, Kinh nghiệm, Nhận xét, Dịch vụ, Đối tác = folder; Các trang, Cài đặt chung = file; i18n single_file vi/en, trường không cần dịch dùng `i18n: duplicate`), `preview.js` xem trước + bổ sung chữ tiếng Việt + ẩn ô dùng chung ở cột EN (class `pf-dup`, danh sách `DUP`), `admin.css` giao diện (nhãn trên ô, ô gọn, ẩn nhãn lặp trong danh sách một ô) |
 | `api/auth.js`, `api/callback.js` | Hàm Vercel đăng nhập GitHub OAuth cho `/admin` (biến môi trường `OAUTH_GITHUB_CLIENT_ID`, `OAUTH_GITHUB_CLIENT_SECRET`) |
 
 ## 5. Quy ước nội dung và giao diện
 - Trong chuỗi JSON: `*chữ*` → chữ serif nghiêng (nhấn); `__chữ__` → gạch chân; `[[gem|clover|burst|...]]` → hình trang trí chèn vào câu (About).
-- Một **màu nhấn duy nhất**: xanh neon `#6fff54`, gradient `--grad`. Nền tối `#121212` là mặc định; có theme sáng `#f5f5f1`. Chữ chính Inter (trọng lượng 300), nhấn bằng Playfair nghiêng.
+- Một **màu nhấn duy nhất**: xanh neon `#6fff54`, gradient `--grad`. Nền tối `#121212` là mặc định; có theme sáng `#f5f5f1`. Màu dải sáng nền hero lấy từ `--hero-tint` (tối: neon; sáng: xanh rêu `#0a7d1e`, người dùng chọn 2026-10-08), dùng cho cả WebGL và CSS dự phòng. Chữ chính Inter (trọng lượng 300), nhấn bằng Playfair nghiêng.
 - Easing chung `--ease: cubic-bezier(.22,1,.36,1)`, thời lượng `--dur: .4s`.
 - Phải hỗ trợ `prefers-reduced-motion`, theme tối/sáng, VI/EN, cảm ứng (tắt con trỏ tuỳ chỉnh).
 - Hiệu ứng rê chuột trắng toàn chiều ngang cho các hàng danh sách dùng `::before` rộng `100vw`.
@@ -86,11 +86,13 @@ Phiên 2026-10-08 (design system v1.2, file Figma "Portfolio — Design System" 
 - Áp token v1.1 vào `styles/tokens.css`: `--fs-2xs/--fs-lead/--fs-h3/--fs-h1`, `--radius-sm/md/lg`, `--sp-8` theo lưới 4px, màu bề mặt sáng (`--surface-light`, `--on-surface-light(-muted)`, `--input-border`, `--danger-on-light`, `--success-on-light`), theo theme: `--border-control`, `--focus-ring`, `--btn-primary-border`, `--danger`, `--success`, `--word-dim` .45/.6. Đã gom cỡ chữ `clamp()` riêng vào thang; ngoại lệ có chủ đích: `.closing__t` (giữ cỡ trang mẫu). Thời lượng chuyển động KHÔNG đổi (giữ nhịp trang mẫu); `--dur-fast/--dur-slow` chỉ dành cho hiệu ứng mới.
 - A11y: H1 hero có khoảng trắng thật giữa các dòng (bỏ aria-label), Big Text là đoạn trang trí (không còn heading rỗng), nhãn "Kết quả" trong Kinh nghiệm là `p.xrow__rl` (hết lỗi heading-order), tên truy cập nút EN chứa chữ "EN", vùng chạm nút nav 40×40 bằng `::after` (không đổi kích thước nhìn thấy), viền ô nhập 3.8:1.
 - Nút Gửi có trạng thái đang gửi (vòng xoay, `aria-busy`), lưới mạng xã hội mobile: ô lẻ cuối chiếm 2 cột.
+- Sửa theo ảnh người dùng: nút hero "Đặt lịch" theme tối khi rê chuột thành nền trắng chữ tối (trước bị chữ trắng trên nền trắng); công tắc ở khối "Muốn xem" chỉ xanh khi núm ở bên phải (`.wcta__toggle::before` + `@keyframes track`); thanh nav dưới ở dạng mở rộng có dải mờ/blur phía dưới (`.nav::before`, ẩn khi `.is-compact` và trên mobile).
+- Đặt lịch Google Calendar: nếu `cta.href` là link `calendar.google.com/calendar/appointments/schedules/...` thì nút có `data-booking`, mở `dialog.dlg--booking` nhúng iframe (`?gv=true`); chữ ở `cta.booking` (title, intro, newTab). Link khác giữ hành vi mở link.
 - Lighthouse cục bộ (python http.server, không nén): Accessibility 100 trên 10 phép đo (trước: 98–100), Best practices/SEO 100; Performance desktop 99–100, mobile 82–97 (thấp hơn thực tế vì không nén).
 
 ## 10. Việc còn lại
 0. Trang quản trị `/admin` đã chạy (OAuth GitHub đã cài trên Vercel ngày 2026-10-08). Nội dung đã tách thành nhiều file trong `content/` để CMS có danh sách, tìm kiếm, song ngữ cạnh nhau.
-1. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (`project-N.svg`), video `reel.webm`, lời nhận xét, logo đối tác, số liệu, dịch vụ, kinh nghiệm, chứng chỉ, email `hello@example.com`, link đặt lịch `calendly.com/your-link`, liên kết mạng xã hội, nội dung case study.
+1. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (`project-N.svg`), video `reel.webm`, lời nhận xét, logo đối tác, số liệu, dịch vụ, kinh nghiệm, chứng chỉ, email `hello@example.com`, link đặt lịch `calendly.com/your-link` (người dùng muốn dùng Google Calendar – Lịch hẹn, hướng dẫn ở README), liên kết mạng xã hội, nội dung case study.
 2. **Trang Chính sách bảo mật / Điều khoản**: footer đang trỏ `#`, cần nội dung.
 3. **Biểu mẫu liên hệ:** `scripts/contact-api.js` vẫn là hàm giả. Cần nối dịch vụ gửi thật khi người dùng chọn.
 4. Nếu gắn tên miền riêng: đổi `site.url` trong `content/settings.json` (cả vi, en) và `base_url`/`site_url`/`display_url` trong `public/admin/config.yml`, callback của GitHub OAuth App.

@@ -32,7 +32,12 @@
     ],
     "cta": {
       "label": "Đặt lịch",
-      "href": "https://calendly.com/your-link"
+      "href": "https://calendly.com/your-link",
+      "booking": {
+        "title": "Đặt *lịch hẹn*",
+        "intro": "Chọn khung giờ phù hợp. Bạn sẽ nhận email xác nhận và lời mời trên Google Calendar.",
+        "newTab": "Mở trang đặt lịch trong tab mới"
+      }
     },
     "contact": {
       "title": "Liên hệ",
@@ -154,7 +159,12 @@
     ],
     "cta": {
       "label": "Let’s talk",
-      "href": "https://calendly.com/your-link"
+      "href": "https://calendly.com/your-link",
+      "booking": {
+        "title": "Book a *call*",
+        "intro": "Pick a time that suits you. You'll get a confirmation email and a Google Calendar invite.",
+        "newTab": "Open the booking page in a new tab"
+      }
     },
     "contact": {
       "title": "Get in touch",

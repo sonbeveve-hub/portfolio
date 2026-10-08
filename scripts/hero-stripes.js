@@ -104,7 +104,7 @@ function setup(host) {
   const applyTheme = () => {
     const css = getComputedStyle(root);
     const bg = hexToRgb(css.getPropertyValue('--bg'));
-    const accent = hexToRgb(css.getPropertyValue('--accent'));
+    const accent = hexToRgb(css.getPropertyValue('--hero-tint') || css.getPropertyValue('--accent'));
     const dark = root.dataset.theme !== 'light';
     if (dark) {
       gl.uniform3fv(U.uBase, mix(bg, accent, 0.05));

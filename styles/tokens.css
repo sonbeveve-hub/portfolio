@@ -73,6 +73,7 @@
   --tag-stroke: #626262;
   --accent-text: #6fff54;
   --nav-bg: rgba(18, 18, 18, 0.62);
+  --hero-tint: #6fff54; /* màu dải sáng nền hero */
   --word-dim: 0.45; /* độ đậm của chữ chưa sáng ở About (v1.1: .38 → .45 để đạt 4.5:1) */
   --border-control: #6e6e6e; /* viền control 3.7:1 (WCAG 1.4.11) */
   --focus-ring: var(--accent);
@@ -94,6 +95,7 @@
   --tag-stroke: #a9a9a3;
   --accent-text: #0a7d1e;
   --nav-bg: rgba(245, 245, 241, 0.7);
+  --hero-tint: #0a7d1e; /* xanh rêu: dịu hơn neon trên nền sáng */
   --word-dim: 0.6;
   --border-control: #828282;
   --focus-ring: var(--accent-text);

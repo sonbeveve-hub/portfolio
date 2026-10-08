@@ -1,29 +1,64 @@
-/* Tinh chỉnh giao diện Decap CMS cho gần với nhận diện của site: chữ Inter, màu nhấn xanh neon. */
-:root { --pf-ink: #121212; --pf-accent: #6fff54; --pf-accent-ink: #062b0c; --pf-bg: #f5f5f1; }
+/* Tinh chỉnh giao diện Decap CMS cho gần nhận diện của site và dễ đọc hơn: chữ Inter, nền sáng ấm, ô nhập gọn.
+   Decap dùng emotion nên chọn theo tên thành phần có trong class (vd. *ControlContainer*). */
+:root { --pf-ink: #121212; --pf-muted: #55575c; --pf-line: #dcdcd6; --pf-soft: #f5f5f1; --pf-accent: #6fff54; --pf-accent-ink: #062b0c; --pf-focus: #0a7d1e; }
 body, button, input, textarea, select, [class*='css-'] { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important; }
-body { background: var(--pf-bg) !important; }
+body { background: var(--pf-soft) !important; }
 
-/* Thanh trên cùng tối như site */
+/* ---------- Thanh trên, menu, danh sách ---------- */
 [class*='AppHeader'] { background: var(--pf-ink) !important; }
 [class*='AppHeader'] a, [class*='AppHeader'] button, [class*='AppHeader'] span { color: #fff !important; }
 [class*='AppHeaderNavLink'].header-link-active, [class*='AppHeaderNavLink']:hover { color: var(--pf-accent) !important; }
 [class*='AppHeader'] [class*='AppHeaderQuickNewButton'], [class*='AppHeader'] button[class*='Dropdown'] { background: var(--pf-accent) !important; color: var(--pf-accent-ink) !important; }
 [class*='AppHeader'] [class*='AppHeaderQuickNewButton'] span { color: var(--pf-accent-ink) !important; }
-
-/* Menu bên trái */
 [class*='SidebarContainer'] { border-radius: 12px !important; }
 [class*='SidebarNavLink'] { font-size: 15px !important; }
 [class*='SidebarNavLink'].sidebar-active, [class*='SidebarNavLink']:hover { color: var(--pf-ink) !important; background: rgba(111, 255, 84, 0.18) !important; border-left-color: var(--pf-accent) !important; }
-
-/* Nút chính */
 [class*='CollectionTopNewButton'], [class*='PublishedToolbarButton'] { background: var(--pf-ink) !important; color: #fff !important; }
-[class*='ToolbarButton'][class*='publish'], [class*='PublishButton'] { background: var(--pf-ink) !important; }
-
-/* Thẻ trong danh sách: bo góc, ảnh đẹp hơn */
+[class*='PublishedToolbarButton'] *, [class*='CollectionTopNewButton'] * { color: #fff !important; }
 [class*='ListCard'], [class*='GridCard'] { border-radius: 12px !important; }
 [class*='GridCard'] { overflow: hidden; }
 [class*='CardImage'] { background-size: cover !important; }
 
-/* Nhãn ô nhập: dễ đọc hơn chữ in hoa nhỏ mặc định */
-[class*='FieldLabel'] { text-transform: none !important; font-size: 13px !important; letter-spacing: 0 !important; }
-[class*='PublishedToolbarButton'] *, [class*='CollectionTopNewButton'] * { color: #fff !important; }
+/* ---------- Trang chỉnh sửa ---------- */
+/* Hai cột (VI | EN) nền trắng như tờ giấy, có lề */
+[class*='ControlPaneContainer'] { background: #fff !important; }
+[class*='ControlPaneContainer'] > div { padding-top: 8px !important; }
+
+/* Nút chọn ngôn ngữ phía trên mỗi cột → dạng nhãn rõ ràng */
+[class*='LocaleButton'], [class*='LocaleRow'] button { background: var(--pf-soft) !important; border: 1px solid var(--pf-line) !important; border-radius: 999px !important; color: var(--pf-ink) !important; font-weight: 500 !important; }
+
+/* Mỗi ô: nhãn chữ thường nằm trên, ô nhập viền mảnh bo góc */
+[class*='ControlContainer'] { margin-top: 18px !important; }
+[class*='ControlTopbar'] { margin: 0 0 6px !important; padding: 0 !important; background: none !important; }
+[class*='FieldLabel'] { background: none !important; border: 0 !important; padding: 0 !important; margin: 0 !important; color: var(--pf-ink) !important; font-size: 13px !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; }
+[class*='ControlContainer'] input, [class*='ControlContainer'] textarea,
+[class*='ControlContainer'] [class*='-control'], [class*='ControlContainer'] [class*='ControlBox'] {
+  border: 1px solid var(--pf-line) !important; border-radius: 8px !important; background: #fff !important; font-size: 15px !important; }
+[class*='ControlContainer'] input, [class*='ControlContainer'] textarea { padding: 10px 12px !important; box-shadow: none !important; }
+[class*='ControlContainer'] input:focus, [class*='ControlContainer'] textarea:focus { border-color: var(--pf-focus) !important; outline: 2px solid rgba(10, 125, 30, 0.15) !important; }
+/* Ô chọn (react-select): ô gõ tìm bên trong không được có viền/đệm, nếu không sẽ che chữ đã chọn */
+[class*='ControlContainer'] [class*='-container']:has(> [class*='-control']) { border: 0 !important; }
+[class*='ControlContainer'] [class*='-control'] { min-height: 44px !important; box-shadow: none !important; padding: 0 4px !important; }
+[class*='ControlContainer'] [class*='-control'] input { border: 0 !important; padding: 0 !important; outline: 0 !important; background: transparent !important; }
+[class*='ControlContainer'] [class*='-control'] [class*='ControlBox'], [class*='ControlContainer'] [class*='-control'] [class*='-control'] { border: 0 !important; }
+[class*='ControlHint'],[class*='ControlContainer'] p[class*='Hint'] { color: var(--pf-muted) !important; font-size: 12px !important; margin-top: 4px !important; }
+
+/* Khối nhóm (object) và danh sách: viền mảnh thay cho dải xám dày */
+[class*='ObjectControl'], [class*='ListControl'], [class*='ControlContainer'] [class*='css-'][class*='Object'] { border-radius: 10px !important; }
+[class*='TopBarContainer'] { background: var(--pf-soft) !important; border: 1px solid var(--pf-line) !important; border-radius: 10px !important; padding: 8px 12px !important; min-height: 0 !important; font-size: 14px !important; font-weight: 600 !important; color: var(--pf-ink) !important; }
+[class*='AddButton'] { background: var(--pf-ink) !important; color: #fff !important; border-radius: 999px !important; padding: 4px 12px !important; font-weight: 500 !important; }
+[class*='AddButton'] * { color: #fff !important; }
+
+/* Mỗi mục trong danh sách: thẻ gọn, thanh trên thấp */
+[class*='listControlItem'] { margin-top: 10px !important; border: 1px solid var(--pf-line) !important; border-radius: 10px !important; background: #fff !important; box-shadow: none !important; }
+[class*='StyledListItemTopBar'] { height: 30px !important; min-height: 30px !important; background: var(--pf-soft) !important; border-radius: 10px 10px 0 0 !important; }
+[class*='NestedObjectLabel'] { padding: 8px 14px !important; font-size: 14px !important; color: var(--pf-ink) !important; background: #fff !important; border: 0 !important; }
+[class*='listControlItem'] [class*='ControlContainer'] { margin-top: 10px !important; }
+[class*='listControlItem'] > div:last-child { padding: 0 12px 12px !important; }
+/* Danh sách chỉ có một ô (vd. "Trong gói gồm"): bỏ nhãn lặp lại trong từng mục */
+[class*='listControlItem'] > div:last-child > div > [class*='ControlContainer']:only-child > [class*='ControlTopbar'] { display: none !important; }
+[class*='listControlItem'] > div:last-child > div > [class*='ControlContainer']:only-child { margin-top: 10px !important; }
+
+/* Cột ngôn ngữ phụ: ẩn các ô dùng chung (ảnh, thứ tự, trạng thái…) — preview.js gắn class pf-dup */
+.pf-dup { display: none !important; }
+.pf-dup-note { margin: 12px 48px 0 0; padding: 10px 12px; border-radius: 8px; background: rgba(10, 125, 30, 0.08); color: #0a5c17; font-size: 13px; line-height: 1.45; }

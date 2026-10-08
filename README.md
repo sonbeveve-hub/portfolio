@@ -107,6 +107,14 @@ Thay `public/assets/video/reel.webm` (nên ≤ 5MB, muted, lặp). Video chỉ t
 ### Form liên hệ
 Giao diện và trạng thái (đang gửi / thành công / lỗi) đã có. Để gắn thật, mở `scripts/contact-api.js` và thay hàm `sendMessage` bằng lời gọi tới Formspree, Netlify Forms, Resend hoặc API riêng.
 
+### Đặt lịch hẹn (Google Calendar)
+Nút **Đặt lịch** dùng link trong `cta.href` (`/admin` → Cài đặt chung → Nút Đặt lịch → Link đặt lịch).
+- Nếu là link **Google Calendar – Lịch hẹn** (`https://calendar.google.com/calendar/appointments/schedules/...`), bấm nút sẽ mở hộp thoại có lịch đặt ngay trên site (`scripts/booking.js`, chữ trong `cta.booking`). Kèm một link mở trong tab mới.
+- Link khác (Calendly, Zalo…) thì nút mở link như bình thường.
+
+Cách lấy link: Google Calendar trên máy tính → **Tạo → Lịch hẹn** (Appointment schedule) → đặt thời lượng, giờ rảnh → Lưu → mở lịch vừa tạo → **Chia sẻ** → **Nhúng trang web** (Website embed) → **Nhúng nội tuyến** → chép phần `src="..."`.
+Người đặt nhận email xác nhận và lời mời lịch; chủ lịch nhận sự kiện trên Google Calendar (thông báo theo cài đặt Calendar). Email nhắc tự động trước giờ hẹn cần tài khoản Workspace/Google One Premium.
+
 ## Hiệu ứng và truy cập
 
 - **Preloader** (lần đầu trong một phiên): logo, ảnh dự án đổi liên tục, bộ đếm phần trăm, tên chạy lên từng chữ, rồi màn mở ra. Các lần chuyển trang sau dùng lớp phủ có hiện tên.
@@ -131,7 +139,7 @@ Với **Netlify**: Build command `npm run build`, Publish directory `dist`. Vớ
 - [ ] Dự án: tên, ngành, ảnh, và nội dung `detail` của từng dự án (`work.items`)
 - [ ] Nội dung các trang con (`pages.*`): nguyên tắc, công cụ, giải thưởng…
 - [ ] Lời chứng thực thật (`testimonials`), logo đối tác (`partners`)
-- [ ] Link Calendly/Zalo (`cta`), email, mạng xã hội, link pháp lý (`contact`, `footer`)
+- [ ] Link đặt lịch Google Calendar/Zalo (`cta`), email, mạng xã hội, link pháp lý (`contact`, `footer`)
 - [ ] Ảnh chân dung, video `reel.webm` và poster, ảnh chia sẻ `og.png` (1200×630)
 - [ ] Gắn form thật (`scripts/contact-api.js`)
 

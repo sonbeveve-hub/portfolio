@@ -1,6 +1,11 @@
 /* Nav: dải trải rộng ở đầu trang, gọn lại thành viên thuốc khi cuộn. Cố định ở đáy màn hình. */
 .nav { position: fixed; inset: auto 0 clamp(14px, 3.2vw, 37px) 0; z-index: 100; display: flex; justify-content: center; padding-inline: var(--gutter); pointer-events: none; }
 .nav__bar { position: relative; pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; max-width: var(--w-work); padding: 9px 12px; border: 1px solid transparent; border-radius: var(--radius-lg); background: transparent; transition: max-width 0.8s var(--ease), background-color 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+/* Dải mờ ở đáy màn hình phía sau thanh nav khi đang trải rộng (đầu trang): chữ nav không đè trực tiếp lên nội dung trang. */
+.nav::before { content: ''; position: fixed; left: 0; right: 0; bottom: 0; z-index: -1; height: clamp(96px, 14vh, 150px); pointer-events: none;
+  background: linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 55%, transparent 100%);
+  backdrop-filter: blur(10px); mask-image: linear-gradient(to top, #000 45%, transparent); transition: opacity 0.5s var(--ease); }
+.nav.is-compact::before { opacity: 0; }
 .nav.is-compact .nav__bar { max-width: 500px; background: var(--nav-bg); border-color: var(--stroke); box-shadow: var(--shadow); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); }
 
 .nav__theme, .nav__burger { position: relative; display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--radius-sm); transition: background-color var(--dur) var(--ease); }
@@ -23,8 +28,14 @@
 .nav__burger[aria-expanded='true'] .ico-close { display: block; }
 
 @media (max-width: 760px) {
+  .nav::before { display: none; }
   .nav__bar { max-width: 300px; background: var(--nav-bg); border-color: var(--stroke); box-shadow: var(--shadow); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); }
-  .nav.is-compact .nav__bar { max-width: 300px; }
+  /* Dải mờ ở đáy màn hình phía sau thanh nav khi đang trải rộng (đầu trang): chữ nav không đè trực tiếp lên nội dung trang. */
+.nav::before { content: ''; position: fixed; left: 0; right: 0; bottom: 0; z-index: -1; height: clamp(96px, 14vh, 150px); pointer-events: none;
+  background: linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 55%, transparent 100%);
+  backdrop-filter: blur(10px); mask-image: linear-gradient(to top, #000 45%, transparent); transition: opacity 0.5s var(--ease); }
+.nav.is-compact::before { opacity: 0; }
+.nav.is-compact .nav__bar { max-width: 300px; }
   .nav__burger, .nav__current { display: grid; }
   .nav__current { flex: 1; place-items: center; font-size: var(--fs-btn); font-weight: 400; }
   .nav__cta { display: none; }

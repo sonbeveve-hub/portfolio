@@ -8,6 +8,9 @@ export const accent = (s = '') => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
 
 export const isExternal = (href = '') => /^https?:\/\//.test(href);
 export const linkAttrs = (href) => (isExternal(href) ? ' target="_blank" rel="noopener noreferrer"' : '');
+// Lịch hẹn Google Calendar dạng nhúng được (…/calendar/appointments/schedules/…) → mở trong hộp thoại ngay trên trang.
+export const bookingEmbed = (href = '') =>
+  /^https:\/\/calendar\.google\.com\/calendar\/(u\/\d+\/)?appointments\/schedules\//.test(href) ? `${href}${href.includes('?') ? '&' : '?'}gv=true` : '';
 export const pad2 = (n) => String(n).padStart(2, '0');
 export const navLabel = (c, key, fb = '') => c.nav.find((n) => n.key === key)?.label || fb;
 
@@ -61,7 +64,7 @@ export const shapeNames = Object.keys(shapes);
 export const shape = (name, cls = '') => `<span class="shape ${cls}" aria-hidden="true">${shapes[name] || ''}</span>`;
 
 export const pill = ({ label, href, cls = '', attrs = '' }) =>
-  `<a class="btn ${cls}" href="${esc(href)}"${linkAttrs(href)} data-magnetic ${attrs}><span>${esc(label)}</span>${icon('arrowUR')}</a>`;
+  `<a class="btn ${cls}" href="${esc(href)}"${linkAttrs(href)}${bookingEmbed(href) ? ' data-booking' : ''} data-magnetic ${attrs}><span>${esc(label)}</span>${icon('arrowUR')}</a>`;
 
 export function renderMeta(c, doc) {
   const { site } = c;
@@ -370,7 +373,25 @@ export function renderFooter(c) {
     <ul class="footer__legal">${legal}</ul>
   </div>
 </footer>
-${renderForm(c)}`;
+${renderForm(c)}
+${renderBooking(c)}`;
+}
+
+/* ---------- Hộp thoại đặt lịch (Google Calendar – lịch hẹn) ---------- */
+export function renderBooking(c) {
+  const src = bookingEmbed(c.cta.href);
+  if (!src) return '';
+  const b = c.cta.booking || {};
+  return `
+<dialog class="dlg dlg--booking" data-booking-dialog aria-labelledby="booking-title">
+  <div class="booking">
+    <button type="button" class="dlg__close" data-close-booking aria-label="${esc(c.contact.form.close)}">${icon('close')}</button>
+    <h2 class="dlg__title" id="booking-title">${accent(b.title || c.cta.label)}</h2>
+    ${b.intro ? `<p class="dlg__intro">${esc(b.intro)}</p>` : ''}
+    <iframe class="booking__frame" data-src="${esc(src)}" title="${esc(c.cta.label)}"></iframe>
+    <p class="booking__alt"><a href="${esc(c.cta.href)}" target="_blank" rel="noopener noreferrer">${esc(b.newTab || c.cta.label)}</a></p>
+  </div>
+</dialog>`;
 }
 
 export function renderForm(c) {
