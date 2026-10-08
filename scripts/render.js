@@ -101,7 +101,7 @@ export function renderNav(c) {
   const cta = `<li class="nav__li-cta">${pill({ label: c.cta.label, href: c.cta.href })}</li>`;
   const alt = CTX.alt;
   const lang = alt
-    ? `<a class="nav__lang" href="${esc(alt.path)}" hreflang="${alt.lang}" lang="${alt.lang}" data-lang-switch aria-label="${esc(c.ui.langName)}">${esc(c.ui.langCode)}</a>`
+    ? `<a class="nav__lang" href="${esc(alt.path)}" hreflang="${alt.lang}" lang="${alt.lang}" data-lang-switch aria-label="${esc(c.ui.langCode)} · ${esc(c.ui.langName)}">${esc(c.ui.langCode)}</a>`
     : '';
   return `
 <nav class="nav" data-nav aria-label="${esc(c.ui.nav || 'Main')}">
@@ -125,7 +125,7 @@ function renderHero(c) {
   const h = c.hero;
   const lines = h.lines
     .map((l, i) => `<span class="hline hline--${l.style}${l.align === 'right' ? ' is-right' : ''}" style="--i:${i}"><span class="hline__in">${esc(l.text)}</span></span>`)
-    .join('');
+    .join(' ');
   const cta = h.lines.some((l) => l.cta) ? pill({ label: c.cta.label, href: c.cta.href, cls: 'hero__cta' }) : '';
   return `
 <section class="hero" id="top" data-section="${esc(c.ui.home)}">
@@ -133,7 +133,7 @@ function renderHero(c) {
   <a class="hero__logo" href="${href('/')}" aria-label="${esc(c.brand.logo)}">${esc(c.brand.logo)}<span>${esc(c.brand.logoMark)}</span></a>
   <div class="hero__inner">
     <div class="hero__head">
-      <h1 class="hero__title" aria-label="${esc(h.headlineSr)}">${lines}</h1>
+      <h1 class="hero__title">${lines}</h1>
       ${cta}
     </div>
     <div class="hero__tags">
@@ -319,12 +319,12 @@ function renderTestimonials(c) {
 export function renderBigText(c) {
   const q = c.quote;
   return `
-<section class="bigtext" aria-labelledby="bigtext-title">
-  <h2 class="bigtext__h" id="bigtext-title">
+<section class="bigtext">
+  <p class="bigtext__h">
     <span class="bt bt--1" data-parallax="-1"><span>${esc(q.line1)}</span>${shape('burst')}${shape('star4')}${shape('asterisk')}</span>
     <span class="bt bt--2" data-parallax="1">${shape('half')}<span class="bt__serif">${esc(q.line2)}</span></span>
     <span class="bt bt--3" data-parallax="-1">${shape('checker')}<span>${esc(q.line3)}</span>${shape('ring')}${shape('clover')}${shape('checker')}${shape('asterisk')}</span>
-  </h2>
+  </p>
 </section>`;
 }
 

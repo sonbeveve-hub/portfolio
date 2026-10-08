@@ -9,11 +9,15 @@
   --font-serif: 'Playfair Display Variable', Georgia, 'Times New Roman', serif;
 
   /* Thang cỡ chữ (bám tỉ lệ của trang mẫu: 13.5 / 18 / 37.5 / 75 / 120 / 165) */
+  --fs-2xs: 0.75rem; /* 12px — cỡ nhỏ nhất: nhãn viết hoa, chip, badge (gộp 10.5/11/12px) */
   --fs-xs: 0.8125rem;
   --fs-s: 0.9375rem;
   --fs-btn: 1.125rem;
+  --fs-lead: clamp(1.05rem, 0.9rem + 0.5vw, 1.35rem); /* mục lục dịch vụ */
   --fs-statement: clamp(1.5rem, 0.6rem + 1.85vw, 2.34rem);
+  --fs-h3: clamp(1.25rem, 1rem + 0.9vw, 1.75rem); /* tiêu đề khối nhỏ: kinh nghiệm, chứng chỉ, số liệu */
   --fs-h2: clamp(1.75rem, 0.9rem + 1.5vw, 2.34rem);
+  --fs-h1: clamp(1.9rem, 1rem + 2.2vw, 3rem); /* tên dự án, nút CTA lớn, tên ở màn chờ */
   --fs-serv: clamp(1.75rem, 0.8rem + 3.9vw, 4.1rem);
   --fs-big: clamp(2.4rem, 1rem + 3.9vw, 4.7rem);
   --fs-xl: clamp(2.6rem, 0.9rem + 7.4vw, 7.5rem);
@@ -27,12 +31,15 @@
   --sp-5: 1.5rem;
   --sp-6: 2rem;
   --sp-7: 3rem;
-  --sp-8: 4.7rem;
+  --sp-8: clamp(4rem, 3.6rem + 1.6vw, 5rem); /* v1.1: về lưới 4px (cũ 4.7rem = 75.2px) */
   --sp-9: clamp(5rem, 10.4vw, 9.4rem);
 
   --radius-s: 6px;
   --radius: 20px;
   --radius-pill: 999px;
+  --radius-sm: 8px;  /* nav link, nút nav */
+  --radius-md: 12px; /* tag, thẻ, ô công cụ, hộp thoại (gộp 10/12px) */
+  --radius-lg: 16px; /* thanh nav, menu mobile (gộp 14/16px) */
 
   --gutter: clamp(1.25rem, 4.6vw, 4.4rem);
   --w-work: 1030px;
@@ -40,6 +47,17 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --dur: 0.4s;
+  --dur-fast: 0.2s; /* dành cho hiệu ứng mới; giá trị cũ giữ nguyên để không đổi nhịp so với trang mẫu */
+  --dur-slow: 0.8s;
+  --ease-emphasized: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Bề mặt trắng cố định (hộp thoại liên hệ, cả hai theme) */
+  --surface-light: #ffffff;
+  --on-surface-light: #121212;
+  --on-surface-light-muted: #55575c; /* 7.2:1 trên trắng */
+  --input-border: #828282;           /* 3.8:1 — viền ô nhập (cũ #d4d4d4 = 1.5:1) */
+  --danger-on-light: #d93636;
+  --success-on-light: #0a7d1e;
 }
 
 /* Theme tối (mặc định, giống trang mẫu) */
@@ -55,7 +73,12 @@
   --tag-stroke: #626262;
   --accent-text: #6fff54;
   --nav-bg: rgba(18, 18, 18, 0.62);
-  --word-dim: 0.38; /* độ đậm của chữ chưa sáng ở About (đủ tương phản AA cho chữ lớn) */
+  --word-dim: 0.45; /* độ đậm của chữ chưa sáng ở About (v1.1: .38 → .45 để đạt 4.5:1) */
+  --border-control: #6e6e6e; /* viền control 3.7:1 (WCAG 1.4.11) */
+  --focus-ring: var(--accent);
+  --btn-primary-border: var(--accent);
+  --danger: #ff6b6b;
+  --success: #6fff54;
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
@@ -71,6 +94,11 @@
   --tag-stroke: #a9a9a3;
   --accent-text: #0a7d1e;
   --nav-bg: rgba(245, 245, 241, 0.7);
-  --word-dim: 0.56;
+  --word-dim: 0.6;
+  --border-control: #828282;
+  --focus-ring: var(--accent-text);
+  --btn-primary-border: #0a7d1e;
+  --danger: #c62828;
+  --success: #0a7d1e;
   --shadow: 0 12px 40px rgba(18, 18, 18, 0.12);
 }

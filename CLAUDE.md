@@ -15,7 +15,7 @@
 ## 2. Dự án là gì
 - Website portfolio cá nhân, lấy cảm hứng từ kstoimenov.com (bố cục, nhịp, hiệu ứng) nhưng **không sao chép chữ, logo, ảnh, video, lời nhận xét** của trang mẫu. Toàn bộ nội dung hiện là **nội dung mẫu/giữ chỗ**, người dùng sẽ thay bằng nội dung thật.
 - Repo: https://github.com/sonbeveve-hub/portfolio (nhánh làm việc: `main`, đẩy thẳng lên `main`).
-- Triển khai: **Vercel** (đã có `vercel.json`). Người dùng tự import repo và deploy. Sau khi có URL thật, thay `site.url` trong `content/vi.json` và `content/en.json` (hiện là `https://example.com`) rồi build lại.
+- Triển khai: **Vercel** (đã có `vercel.json`). URL production công khai: https://portfolio-pi-eight-jsed3pl308.vercel.app (đã đặt vào `site.url`).
 - Hai ngôn ngữ: tiếng Việt ở `/`, tiếng Anh ở `/en/`.
 - Các trang: Trang chủ, Dự án (`/work/`), Dịch vụ (`/services/`), Giới thiệu (`/about/`), chi tiết từng dự án (`/work/<slug>/`).
 
@@ -75,15 +75,20 @@
 3. Với hiệu năng: Lighthouse (kết quả trước đây: desktop 100 điểm cả bốn mục; mobile hiệu năng 93–97, mục khác 100).
 4. Commit tiếng Việt, rõ ràng, rồi `git push origin main`.
 
-## 9. Trạng thái hiện tại (cập nhật lần cuối: 2026-10-05)
-Đã xong: trang chủ đầy đủ, 3 trang con + trang chi tiết dự án, đổi ngôn ngữ VI/EN, màn chờ + chuyển trang giống mẫu (6 cột), theme sáng/tối, hiệu ứng chân dung About, mục Kinh nghiệm làm việc, tài liệu design system (`docs/design-system.html`) và UI kit (`docs/ui-kit.html`), README, `vercel.json`, SEO (meta, sitemap, hreflang, robots).
-Commit mới nhất tại thời điểm viết: `eb5bd7c` (chuyển trang 6 cột).
+## 9. Trạng thái hiện tại (cập nhật lần cuối: 2026-10-08)
+Đã xong: trang chủ đầy đủ, 3 trang con + trang chi tiết dự án, đổi ngôn ngữ VI/EN, màn chờ + chuyển trang giống mẫu (6 cột), theme sáng/tối, hiệu ứng chân dung About, mục Kinh nghiệm làm việc, tài liệu design system và UI kit, README, `vercel.json`, SEO (meta, sitemap, hreflang, robots).
+Phiên 2026-10-08 (design system v1.2, file Figma "Portfolio — Design System" `6qo4PciHMVrTAtH7LVPgkj`):
+- `site.url` = `https://portfolio-pi-eight-jsed3pl308.vercel.app` (domain công khai). Địa chỉ `portfolio-c-abc3.vercel.app` bị Vercel Authentication khoá → không dùng làm canonical.
+- Áp token v1.1 vào `styles/tokens.css`: `--fs-2xs/--fs-lead/--fs-h3/--fs-h1`, `--radius-sm/md/lg`, `--sp-8` theo lưới 4px, màu bề mặt sáng (`--surface-light`, `--on-surface-light(-muted)`, `--input-border`, `--danger-on-light`, `--success-on-light`), theo theme: `--border-control`, `--focus-ring`, `--btn-primary-border`, `--danger`, `--success`, `--word-dim` .45/.6. Đã gom cỡ chữ `clamp()` riêng vào thang; ngoại lệ có chủ đích: `.closing__t` (giữ cỡ trang mẫu). Thời lượng chuyển động KHÔNG đổi (giữ nhịp trang mẫu); `--dur-fast/--dur-slow` chỉ dành cho hiệu ứng mới.
+- A11y: H1 hero có khoảng trắng thật giữa các dòng (bỏ aria-label), Big Text là đoạn trang trí (không còn heading rỗng), nhãn "Kết quả" trong Kinh nghiệm là `p.xrow__rl` (hết lỗi heading-order), tên truy cập nút EN chứa chữ "EN", vùng chạm nút nav 40×40 bằng `::after` (không đổi kích thước nhìn thấy), viền ô nhập 3.8:1.
+- Nút Gửi có trạng thái đang gửi (vòng xoay, `aria-busy`), lưới mạng xã hội mobile: ô lẻ cuối chiếm 2 cột.
+- Lighthouse cục bộ (python http.server, không nén): Accessibility 100 trên 10 phép đo (trước: 98–100), Best practices/SEO 100; Performance desktop 99–100, mobile 82–97 (thấp hơn thực tế vì không nén).
 
 ## 10. Việc còn lại
-1. **Người dùng deploy trên Vercel** (import repo `portfolio`), rồi gửi URL để Claude thay `site.url` (`https://example.com` → URL thật) trong `content/*.json` và build lại.
-2. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (đang là SVG giữ chỗ `project-N.svg`), video giới thiệu (`reel.webm` là bản mẫu), lời nhận xét, số liệu, dịch vụ, kinh nghiệm làm việc, chứng chỉ, liên kết mạng xã hội.
-3. **Biểu mẫu liên hệ:** `scripts/contact-api.js` đang là hàm giả (`sendMessage`). Cần nối dịch vụ gửi thật (ví dụ Formspree/Resend/API riêng) khi người dùng chọn.
-4. Nếu người dùng thấy chuyển trang hoặc màn chờ vẫn khác mẫu, nhờ họ gửi thêm ảnh/quay video chuyển động để đối chiếu (hiện thời lượng và việc hiện tên ở giữa là suy đoán).
+1. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (`project-N.svg`), video `reel.webm`, lời nhận xét, logo đối tác, số liệu, dịch vụ, kinh nghiệm, chứng chỉ, email `hello@example.com`, link đặt lịch `calendly.com/your-link`, liên kết mạng xã hội, nội dung case study.
+2. **Trang Chính sách bảo mật / Điều khoản**: footer đang trỏ `#`, cần nội dung.
+3. **Biểu mẫu liên hệ:** `scripts/contact-api.js` vẫn là hàm giả. Cần nối dịch vụ gửi thật khi người dùng chọn.
+4. Nếu gắn tên miền riêng: đổi lại `site.url` trong cả hai file `content/*.json`.
 
 ## 11. Gợi ý khi bắt đầu phiên mới
 - Chạy `git pull origin main`, `npm install`, `npm run build` để chắc chắn mọi thứ chạy được.

@@ -20,7 +20,7 @@ export function initForm() {
 
   form.addEventListener('input', (e) => e.target.removeAttribute?.('aria-invalid'));
 
-  const setState = (state, msg = '') => { form.dataset.state = state; status.textContent = msg; };
+  const setState = (state, msg = '') => { form.dataset.state = state; form.setAttribute('aria-busy', String(state === 'sending')); status.textContent = msg; };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

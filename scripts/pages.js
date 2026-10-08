@@ -181,7 +181,7 @@ function renderExperience(x) {
 
   const body = (t) => `<div class="xrow__body"><div class="xrow__inner">
         <p>${esc(t.summary)}</p>
-        <div><h4>${esc(x.resultsLabel)}</h4><ul>${t.results.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
+        <div><p class="xrow__rl">${esc(x.resultsLabel)}</p><ul>${t.results.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
       </div></div>`;
   const row = (t, job) => `<li class="xrow${job ? ' xrow--job' : ''}" data-x="${t.i}">
       <button type="button" class="xrow__head" aria-expanded="false">
