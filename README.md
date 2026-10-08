@@ -60,7 +60,17 @@ vercel.json           ← cấu hình deploy Vercel
 
 Trang chi tiết dự án được tạo tự động cho mỗi phần tử trong `work.items` (theo `slug`). Dự án có `"status": "soon"` hiện "Sắp ra mắt" và không có trang riêng.
 
-## Cách thay nội dung
+## Trang quản trị nội dung (/admin)
+
+Sửa nội dung bằng form, không cần đụng JSON: mở **https://portfolio-pi-eight-jsed3pl308.vercel.app/admin/**, đăng nhập GitHub, chọn **Tiếng Việt** hoặc **Tiếng Anh**, sửa rồi bấm **Công bố → Công bố ngay**. Mỗi lần công bố là một commit lên `main`; Vercel đăng bản mới sau 1–2 phút. Ảnh tải lên nằm trong `public/assets/images/`.
+
+- Dùng [Decap CMS](https://decapcms.org) (`public/admin/index.html`, cấu hình form ở `public/admin/config.yml`). Đăng nhập qua 2 hàm Vercel `api/auth.js` và `api/callback.js` (GitHub OAuth).
+- **Cài một lần:** tạo GitHub OAuth App (Settings → Developer settings → OAuth Apps → New): Homepage URL = địa chỉ site, Authorization callback URL = `<địa chỉ site>/api/callback`. Trên Vercel (Settings → Environment Variables) thêm `OAUTH_GITHUB_CLIENT_ID` và `OAUTH_GITHUB_CLIENT_SECRET`, rồi Redeploy. Chỉ tài khoản có quyền ghi vào repo mới lưu được.
+- **Chạy thử trên máy:** `npx decap-server` (trong thư mục repo) + `npm run dev`, mở `http://localhost:5173/admin/` → bấm Đăng nhập (sửa thẳng file, không cần GitHub).
+- Thêm trường mới vào `content/*.json` thì phải khai báo thêm trong `config.yml` (form chỉ hiện trường đã khai báo; các trường khác vẫn được giữ nguyên khi lưu).
+- Đổi tên miền: sửa `base_url`, `site_url`, `display_url` trong `config.yml` và callback URL của OAuth App.
+
+## Cách thay nội dung (sửa trực tiếp file)
 
 Sửa `content/vi.json` và `content/en.json` (cùng cấu trúc; nhớ sửa cả hai). Các khối chính:
 

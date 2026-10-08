@@ -41,6 +41,8 @@
 | `docs/ui-kit.html` | Design system + UI kit của trang này |
 | `public/assets/` | Ảnh (`images/`), video (`video/reel.webm`), logo |
 | `vercel.json` | Build, thư mục `dist`, cleanUrls, header cache |
+| `public/admin/` | Trang quản trị Decap CMS (`/admin/`): `index.html` nạp Decap từ unpkg, `config.yml` khai báo form cho toàn bộ `content/*.json` |
+| `api/auth.js`, `api/callback.js` | Hàm Vercel đăng nhập GitHub OAuth cho `/admin` (biến môi trường `OAUTH_GITHUB_CLIENT_ID`, `OAUTH_GITHUB_CLIENT_SECRET`) |
 
 ## 5. Quy ước nội dung và giao diện
 - Trong chuỗi JSON: `*chữ*` → chữ serif nghiêng (nhấn); `__chữ__` → gạch chân; `[[gem|clover|burst|...]]` → hình trang trí chèn vào câu (About).
@@ -49,7 +51,8 @@
 - Phải hỗ trợ `prefers-reduced-motion`, theme tối/sáng, VI/EN, cảm ứng (tắt con trỏ tuỳ chỉnh).
 - Hiệu ứng rê chuột trắng toàn chiều ngang cho các hàng danh sách dùng `::before` rộng `100vw`.
 - Không viết `-webkit-backdrop-filter` bằng tay (lightningcss sẽ bỏ `backdrop-filter` không tiền tố nếu thiếu `cssTarget`).
-- Mọi chữ hiển thị mới phải thêm vào **cả hai** file `content/vi.json` và `content/en.json`.
+- Mọi chữ hiển thị mới phải thêm vào **cả hai** file `content/vi.json` và `content/en.json`, **và khai báo trường đó trong `public/admin/config.yml`** để sửa được qua trang quản trị.
+- Nội dung có thể được người dùng sửa qua `/admin` (Decap commit thẳng lên `main`, thứ tự khoá trong JSON có thể đổi): luôn `git pull` trước khi làm; code đọc nội dung phải chịu được trường tuỳ chọn bị bỏ trống (`detail.meta`, `detail.sections`, `images`, `bullets`, `image2`, `badge`, `to`).
 
 ## 6. Hiệu ứng chính (đã làm, giống trang mẫu)
 - **Màn chờ** đầu tiên mỗi phiên (đếm %, ảnh luân phiên, hiện tên), lưu `sessionStorage 'seen'`.
@@ -85,6 +88,7 @@ Phiên 2026-10-08 (design system v1.2, file Figma "Portfolio — Design System" 
 - Lighthouse cục bộ (python http.server, không nén): Accessibility 100 trên 10 phép đo (trước: 98–100), Best practices/SEO 100; Performance desktop 99–100, mobile 82–97 (thấp hơn thực tế vì không nén).
 
 ## 10. Việc còn lại
+0. **Trang quản trị /admin (Decap CMS) đã có code, cần người dùng cài OAuth một lần** (xem README mục "Trang quản trị nội dung"): tạo GitHub OAuth App với callback `https://portfolio-pi-eight-jsed3pl308.vercel.app/api/callback`, thêm 2 biến môi trường trên Vercel rồi Redeploy.
 1. **Thay nội dung thật** (hiện toàn bộ là mẫu): tên/logo, ảnh dự án (`project-N.svg`), video `reel.webm`, lời nhận xét, logo đối tác, số liệu, dịch vụ, kinh nghiệm, chứng chỉ, email `hello@example.com`, link đặt lịch `calendly.com/your-link`, liên kết mạng xã hội, nội dung case study.
 2. **Trang Chính sách bảo mật / Điều khoản**: footer đang trỏ `#`, cần nội dung.
 3. **Biểu mẫu liên hệ:** `scripts/contact-api.js` vẫn là hàm giả. Cần nối dịch vụ gửi thật khi người dùng chọn.

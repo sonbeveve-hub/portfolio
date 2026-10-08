@@ -181,7 +181,7 @@ function renderExperience(x) {
 
   const body = (t) => `<div class="xrow__body"><div class="xrow__inner">
         <p>${esc(t.summary)}</p>
-        <div><p class="xrow__rl">${esc(x.resultsLabel)}</p><ul>${t.results.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
+        <div><p class="xrow__rl">${esc(x.resultsLabel)}</p><ul>${(t.results || []).map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
       </div></div>`;
   const row = (t, job) => `<li class="xrow${job ? ' xrow--job' : ''}" data-x="${t.i}">
       <button type="button" class="xrow__head" aria-expanded="false">
@@ -273,18 +273,20 @@ export function renderProjectPage(c, slug) {
   const idx = items.findIndex((p) => p.slug === slug);
   const p = items[idx];
   const d = p.detail;
-  const meta = d.meta.map((m) => `<div><dt>${esc(m.label)}</dt><dd>${esc(m.value)}</dd></div>`).join('');
-  const sections = d.sections
+  const meta = (d.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${esc(m.value)}</dd></div>`).join('');
+  // Trường tuỳ chọn có thể bị bỏ trống khi sửa qua trang quản trị (/admin) → luôn có giá trị mặc định
+  const sections = (d.sections || [])
     .map((s) => {
+      const images = (s.images || []).filter(Boolean);
       const bullets = s.bullets?.length ? `<ul class="case__bullets">${s.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>` : '';
-      const imgs = s.images.map((src) => `<figure><img src="${esc(src)}" alt="" loading="lazy" decoding="async" /></figure>`).join('');
+      const imgs = images.map((src) => `<figure><img src="${esc(src)}" alt="" loading="lazy" decoding="async" /></figure>`).join('');
       return `
 <section class="case__sec wrap wrap--work">
   <div class="case__cols" data-reveal>
     <h2 class="case__h">${accent(s.title)}</h2>
     <div><p>${esc(s.text)}</p>${bullets}</div>
   </div>
-  <div class="case__imgs case__imgs--${s.images.length}" data-reveal>${imgs}</div>
+  ${images.length ? `<div class="case__imgs case__imgs--${images.length}" data-reveal>${imgs}</div>` : ''}
 </section>`;
     })
     .join('');
